@@ -1,0 +1,22 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+img {
+  border-style: none;
+  vertical-align: top;
+}
+
+ol,
+ul {
+  list-style: none;
+}
