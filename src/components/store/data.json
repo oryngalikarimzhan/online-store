@@ -1,0 +1,527 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "Lavazza Super Crema Whole Bean Coffee Blend",
+      "description": "Мягкий и сливочный эспрессо средней обжарки с нотками лесного ореха и коричневого сахара. 60% арабика и 40% робуста",
+      "price": 24.99,
+      "roastLevel": "Medium",
+      "stock": 40,
+      "brand": "Lavazza",
+      "types": [
+        "Arabica",
+        "Robusta"
+      ],
+      "weight": "1000g",
+      "images": [
+        "https://i.postimg.cc/kGmC3tc1/lavazza-1.jpg",
+        "https://i.postimg.cc/L53pH6QH/lavazza-2.jpg"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Stumptown Coffee Roasters Hair Bender",
+      "description": "Hair Bender использует кофе из Латинской Америки, Индонезии и Африки для достижения сложного вкусового профиля с нотками сладких цитрусовых, темного шоколада и изюма. 100% кофе арабика",
+      "price": 19.99,
+      "roastLevel": "Medium",
+      "stock": 34,
+      "brand": "Stumptown Coffee Roasters",
+      "types": [
+        "Arabica"
+      ],
+      "weight": "340g",
+      "images": [
+        "https://i.postimg.cc/52ZkRWpp/Stumptown-1.webp",
+        "https://i.postimg.cc/q7yZfD5r/Stumptown-2.webp"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "San Francisco Bay Coffee French Roast Whole Bean",
+      "description": "В San Francisco Bay Coffee используется только 100% арабика и сертифицированные кошерные кофейные зерна. Собран вручную и выращен на большой высоте",
+      "price": 22.99,
+      "roastLevel": "Dark",
+      "stock": 36,
+      "brand": "San Francisco Bay Coffee",
+      "types": [
+        "Arabica"
+      ],
+      "weight": "908g",
+      "images": [
+        "https://i.postimg.cc/4NWDw0rF/san-francisco-1.webp",
+        "https://i.postimg.cc/cHG2rGn6/san-francisco-2.jpg"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Peace Coffee Organic Morning Glory Blend",
+      "description": "Сладкий и сбалансированный, органический кофе с нюансами вкуса цитрусовых и шоколада из Гондуры, Эфиопии и Колумбии.",
+      "price": 17.99,
+      "roastLevel": "Light",
+      "stock": 123,
+      "brand": "Peace Coffee",
+      "types": [
+        "Excelsa",
+        "Liberica"
+      ],
+      "weight": "340g",
+      "images": [
+        "https://i.postimg.cc/jjnYDh33/PEACE-COFFEE-1.webp",
+        "https://i.postimg.cc/gjdCBbz1/PEACE-COFFEE-2.webp"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Stumptown Coffee Roasters Holler Mountain",
+      "description": "Holler Mountain дарит взрыв цитрусовых и ягодных джемов с нотками сливочной карамели. 100% кофе арабика",
+      "price": 20.99,
+      "roastLevel": "Medium",
+      "stock": 32,
+      "brand": "Stumptown Coffee Roasters",
+      "types": [
+        "Arabica"
+      ],
+      "weight": "340g",
+      "images": [
+        "https://i.postimg.cc/1XG9fKX1/Holler-Mountain-1.webp",
+        "https://i.postimg.cc/Yq7rTTDr/Holler-Mountain-2.jpg"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "illy Classico Whole Bean Coffee",
+      "description": "Классический обжаренный кофе средней обжарки Classico, состоящий из 9 лучших сортов арабики со всего мира, обладает стойкой сладостью и нежными нотами карамели, флердоранжа и жасмина.",
+      "price": 64.99,
+      "roastLevel": "Medium",
+      "stock": 83,
+      "brand": "Illy",
+      "types": [
+        "Arabica"
+      ],
+      "weight": "250g",
+      "images": [
+        "https://i.postimg.cc/5tr9G0TT/illy-Classico-1.jpg",
+        "https://i.postimg.cc/k4tMdCd4/illy-Classico-2.jpg"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Peet's Coffee, Dark Roast Whole Bean Coffee - Major Dickason's Blend",
+      "description": "Ароматный, крепкий, насыщенный. Разработанная для самых взыскательных клиентовю. Major Dickason's сочетает в себе лучшие сорта кофе из ведущих регионов мира, каждый из которых придает свои отличительные региональные характеристики, но при этом легко объединеняется до гладкой, сбалансированной чашки кофе.",
+      "price": 13.58,
+      "roastLevel": "Dark",
+      "stock": 50,
+      "brand": "Peet's Coffee",
+      "types": [
+        "Arabica"
+      ],
+      "weight": "510g",
+      "images": [
+        "https://i.postimg.cc/qRfVyC9J/Peets-Coffee-dark-1.webp",
+        "https://i.postimg.cc/0Qpgfysp/Peets-Coffee-dark-2.jpg"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Starbucks Whole Bean Coffee — Starbucks Blonde Roast Coffee — Veranda Blend",
+      "description": "Наш самый легкий обжаренный кофе с нотками поджаренного солода и шоколадной выпечки",
+      "price": 51.99,
+      "roastLevel": "Light",
+      "stock": 68,
+      "brand": "Starbucks",
+      "types": [
+        "Arabica",
+        "Liberica"
+      ],
+      "weight": "340g",
+      "images": [
+        "https://i.postimg.cc/3Jfq2vvs/Starbucks-Veranda_Blend-1.webp",
+        "https://i.postimg.cc/fyBr23g0/Starbucks-Veranda_Blend-2.webp"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Starbucks Pike Place Whole Bean Coffee",
+      "description": "Вкус Pike Place Roast хорошо округлен, с тонкими нотками какао и поджаренных орехов, уравновешивающими мягкое ощущение во рту.",
+      "price": 44.19,
+      "roastLevel": "Medium",
+      "stock": 96,
+      "brand": "Starbucks",
+      "types": [
+        "Arabica",
+        "Robusta"
+      ],
+      "weight": "453g",
+      "images": [
+        "https://i.postimg.cc/8kH9P3PP/Starbucks-Pike-Place-1.webp",
+        "https://i.postimg.cc/3Rj6GfX1/Starbucks-Pike-Place-2.webp"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Kicking Horse Coffee 454 Horse Power",
+      "description": "Бархатистый, земной, энергичный. Эта темная лошадь с плавным ходом вызывает в воображении силу из глубин теней. Это победитель, чемпион вкуса. Запрыгивайте, держитесь и направляйтесь к холмам.",
+      "price": 30.99,
+      "roastLevel": "Dark",
+      "stock": 9,
+      "brand": "Kicking Horse Coffee",
+      "types": [
+        "Robusta"
+      ],
+      "weight": "1000g",
+      "images": [
+        "https://i.postimg.cc/mg2bgCGK/Kicking-Horse-Coffee-1.webp",
+        "https://i.postimg.cc/wTkqzFnh/Kicking-Horse-Coffee-2.jpg"
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Kicking Horse Coffee Smart Ass",
+      "description": "Терпкая красная смородина, нотки сахарного тростника и молочного шоколада, медово-ягодное тело.",
+      "price": 13.99,
+      "roastLevel": "Medium",
+      "stock": 5,
+      "brand": "Kicking Horse Coffee",
+      "types": [
+        "Robusta",
+        "Excelsa"
+      ],
+      "weight": "284g",
+      "images": [
+        "https://i.postimg.cc/g25fbZcV/Smart-Ass-1.webp",
+        "https://i.postimg.cc/25ZgkS3P/Smart-Ass-2.webp"
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Eight O'Clock Coffee Whole Bean The Original",
+      "description": "Предпочитаете ли вы цельнозерновой, моносортный, ароматизированный или разовый кофе, у нас есть кофе для вас! Изучите нашу коллекцию и найдите свою идеальную чашку. Вся обжарка производится на собственном предприятии в Мэриленде, США.",
+      "price": 40.99,
+      "roastLevel": "Medium",
+      "stock": 20,
+      "brand": "Eight O'Clock Coffee",
+      "types": [
+        "Arabica"
+      ],
+      "weight": "1190g",
+      "images": [
+        "https://i.postimg.cc/2jZysQzw/Eight-OClock-Coffee-original-1.webp",
+        "https://i.postimg.cc/5tyNnv78/Eight-OClock-Coffee-original-2.jpg"
+      ]
+    },
+    {
+      "id": 13,
+      "title": "La Colombe Corsica",
+      "description": "Это кофе, который вы знаете и любите, с глубокими оттенками темного шоколада и ярким кофейным вкусом.",
+      "price": 12.60,
+      "roastLevel": "Dark",
+      "stock": 6,
+      "brand": "La Colombe",
+      "types": [
+        "Excelsa",
+        "Robusta"
+      ],
+      "weight": "340p",
+      "images": [
+        "https://i.postimg.cc/m27cHQJD/Corsica-1.webp",
+        "https://i.postimg.cc/4xZYbYR1/Corsica-2.webp"
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Intelligentsia House Blend",
+      "description": "Наша фирменная смесь предназначена для демонстрации присущей сладости и яркого фруктового вкуса, которые характеризуют наши любимые сорта кофе. Молочный шоколад, цитрусовые и яблоко — это вкусы, которые мы любим, и они представлены здесь с высокой четкостью.",
+      "price": 16.50,
+      "roastLevel": "Light",
+      "stock": 14,
+      "brand": "Intelligentsia",
+      "types": [
+        "Robusta"
+      ],
+      "weight": "340g",
+      "images": [
+        "https://i.postimg.cc/6pjB2qWq/Intelligentsia-House-Blend-1.jpg",
+        "https://i.postimg.cc/1RwRCyH7/Intelligentsia-House-Blend-2.webp"
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Superlost Supernatural Natural Process Coffee",
+      "description": "Натуральный процесс приготовления кофе включает в себя медленную сушку на солнце кофейных зерен внутри кофейной ягоды, используя силу ферментации, чтобы придать чашке естественную сладость и сочность.",
+      "price": 19,
+      "roastLevel": "Medium",
+      "stock": 15,
+      "brand": "Superlost Coffee",
+      "types": [
+        "Excelsa",
+        "Liberica"
+      ],
+      "weight": "227g",
+      "images": [
+        "https://i.postimg.cc/0QvX9GTw/Superlost-Supernatural-1.png",
+        "https://i.postimg.cc/JnQ60D8d/Superlost-Supernatural-2.webp"
+      ]
+    },
+    {
+      "id": 16,
+      "title": "Death Wish Whole Bean Coffee Dark Roast",
+      "description": "Погрузитесь в гладкий, тонкий профиль вишневого и шоколадного вкуса, который никогда не бывает горьким.",
+      "price": 29,
+      "roastLevel": "Dark",
+      "stock": 11,
+      "brand": "Death Wish Coffee Co.",
+      "types": [
+        "Robusta",
+        "Arabica"
+      ],
+      "weight": "454g",
+      "images": [
+        "https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg",
+        "https://i.postimg.cc/fTQyDVyh/Death-Wish-2.jpg"
+      ]
+    },
+    {
+      "id": 17,
+      "title": "Counter Culture Coffee Big Trouble",
+      "description": "Big Trouble — это темная обжарка, состоящая из свежесобранного кофе со всего мира. Компоненты меняются в зависимости от сезона, но кофе всегда будет иметь вкус темного шоколада, карамели и округлое тело.",
+      "price": 17.50,
+      "roastLevel": "Dark",
+      "stock": 8,
+      "brand": "Counter Culture Coffee",
+      "types": [
+        "Liberica"
+      ],
+      "weight": "340g",
+      "images": [
+        "https://i.postimg.cc/250rW6C3/Counter-Culture-Coffee-1.webp",
+        "https://i.postimg.cc/pLY22C7f/Counter-Culture-Coffee-2.jpg"
+      ]
+    },
+    {
+      "id": 18,
+      "title": "Seattle's Best Coffee Post Alley Blend",
+      "description": "Это дымная и интенсивная французская обжарка с удивительно гладкой стороной. Лучше всего сделать паузу, чтобы ароматы пробудили ваши чувства, прежде чем сделать первый глоток.",
+      "price": 17.88,
+      "roastLevel": "Dark",
+      "stock": 8,
+      "brand": "Seattle's Best Coffee",
+      "types": [
+        "Excelsa",
+        "Arabica"
+      ],
+      "weight": "566g",
+      "images": [
+        "https://i.postimg.cc/pr2SJQkH/Seattle_s-Best-Post-Alley-Blend-1.webp",
+        "https://i.postimg.cc/x1qWZRQj/Seattle_s-Best-Post-Alley-Blend-2.jpg"
+      ]
+    },
+    {
+      "id": 19,
+      "title": "Bizzy Organic Cold Brew Coffee",
+      "description": "Зерна арабики средней обжарки с нотками карамели и лесного ореха.",
+      "price": 14.98,
+      "roastLevel": "Medium",
+      "stock": 4,
+      "brand": "Bizzy",
+      "types": [
+        "Arabica"
+      ],
+      "weight": "454g",
+      "images": [
+        "https://i.postimg.cc/xC7Qs4J2/Bizzy-Organic-Cold-Brew-1.webp",
+        "https://i.postimg.cc/Dwg8C723/Bizzy-Organic-Cold-Brew-2.webp"
+      ]
+    },
+    {
+      "id": 20,
+      "title": "Dope Coffee Organic Guatemalan",
+      "description": "Наш органический гватемальский сорт средней обжарки обладает насыщенным вкусом землистого какао с тонкими цветочными нотками.",
+      "price": 17,
+      "roastLevel": "Medium",
+      "stock": 10,
+      "brand": "Dope Coffee",
+      "types": [
+        "Excelsa",
+        "Robusta",
+        "Liberica"
+      ],
+      "weight": "340g",
+      "images": [
+        "https://i.postimg.cc/qRnr5G86/organic-guatemalan-1webp.webp",
+        "https://i.postimg.cc/BZTs5MSd/organic-guatemalan-2.webp"
+      ]
+    },
+    {
+      "id": 21,
+      "title": "Equal Exchange Organic French Roast Coffee",
+      "description": "Это очень темный и насыщенный драгоценный камень с дегустационными нотками темного шоколада, сладости и фруктов. Наслаждайтесь шоколадным богатством и тонким ароматом дыма этой самой продаваемой смеси.",
+      "price": 45,
+      "roastLevel": "Dark",
+      "stock": 3,
+      "brand": "Equal Exchange",
+      "types": [
+        "Liberica"
+      ],
+      "weight": "283g",
+      "images": [
+        "https://i.postimg.cc/XYysFD35/Equal-Exchange-1.png",
+        "https://i.postimg.cc/905mmkWB/Equal-Exchange-2.jpg"
+      ]
+    },
+    {
+      "id": 22,
+      "title": "Red Bay Coffee East Fourteenth Tanzanian Coffee",
+      "description": "Насыщенный, насыщенный свежеобжаренный кофе демонстрирует таланты кофейных кооперативов Уганды и для нас представляет большую историю International Blvd. Ароматы напоминают ежевику, темный шоколад и финики для восхитительного напитка.",
+      "price": 14,
+      "roastLevel": "Dark",
+      "stock": 6,
+      "brand": "Red Bay Coffee",
+      "types": [
+        "Robusta"
+      ],
+      "weight": "340g",
+      "images": [
+        "https://i.postimg.cc/T19ZzNh1/Red-Bay-Coffee-1.webp",
+        "https://i.postimg.cc/WpwLqzSV/Red-Bay-Coffee-2.webp"
+      ]
+    },
+    {
+      "id": 23,
+      "title": "Peerless Organic Direct Trade Organic French Roast Whole Bean Coffee",
+      "description": "Наша органическая французская обжарка представляет собой смелую и мягкую смесь зерен арабики со сладким и теплым вкусом. Нотки какао и поджаренной карамели пробудят ваши чувства бодрящим ароматом и бодрящим вкусом.",
+      "price": 32.17,
+      "roastLevel": "Dark",
+      "stock": 26,
+      "brand": "Peerless Coffee & Tea",
+      "types": [
+        "Arabica"
+      ],
+      "weight": "908g",
+      "images": [
+        "https://i.postimg.cc/jdqVHTk7/Peerless-1.webp",
+        "https://i.postimg.cc/6p3XXKrX/Peerless-2.webp"
+      ]
+    },
+    {
+      "id": 24,
+      "title": "Stone Street Coffee Company Tanzania Peaberry Whole Bean Coffee",
+      "description": "Tanzania Peaberry кофе из Северной и Южной Танзании, Африка. Дегустационные ноты: карамель, косточковые фрукты и шоколад. Промытый и высушенный на солнце процесс. Отличный кофе для капельного, френч-пресса или пуровера.",
+      "price": 46,
+      "roastLevel": "Medium",
+      "stock": 13,
+      "brand": "Stone Street Coffee",
+      "types": [
+        "Arabica"
+      ],
+      "weight": "454g",
+      "images": [
+        "https://i.postimg.cc/t41Mk4dY/Stone-Street-Coffee-Tanzanian-Peaberry-1.png",
+        "https://i.postimg.cc/zXGMLjVw/Stone-Street-Coffee-Tanzanian-Peaberry-2.jpg"
+      ]
+    },
+    {
+      "id": 25,
+      "title": "Koffee Kult Coffee Beans Dark Roasted",
+      "description": "Крепкий черный кофе с ярко выраженным вкусом, но в зернах с гладкими отверстиями. Не горький. Лучший выбор кофе в зернах для гурманов. Баночные ноты: тяжелое тело, гладкое, коричное и яркое с долгим послевкусием.",
+      "price": 35.99,
+      "roastLevel": "Dark",
+      "stock": 7,
+      "brand": "Koffee Kult",
+      "types": [
+        "Liberica",
+        "Robusta"
+      ],
+      "weight": "907g",
+      "images": [
+        "https://i.postimg.cc/3wkYghNB/Koffee-Kult-1.webp",
+        "https://i.postimg.cc/FKwmp6JQ/Koffee-Kult-2.jpg"
+      ]
+    },
+    {
+      "id": 26,
+      "title": "Caribou Coffee Light Roast Ground Coffee - Daybreak Morning Blend",
+      "description": "Light Roast с фруктово-карамельной сладостью и ореховым послевкусием для солнечного вкуса с каждым глотком",
+      "price": 20.23,
+      "roastLevel": "Light",
+      "stock": 31,
+      "brand": "Caribou Coffee",
+      "types": [
+        "Arabica"
+      ],
+      "weight": "454g",
+      "images": [
+        "https://i.postimg.cc/vBpB1Bvf/Caribou-1.jpg",
+        "https://i.postimg.cc/vTVsCtf6/Blue-Bottle-2.webp"
+      ]
+    },
+    {
+      "id": 27,
+      "title": "Amora Delicata Coffee Blend",
+      "description": "Классическая смесь центрально- и южноамериканских зерен, эта изысканная чашка кофе легкой обжарки начинается со сладкого лимона и заканчивается гладкой консистенцией молочного шоколада.",
+      "price": 11.96,
+      "roastLevel": "Light",
+      "stock": 17,
+      "brand": "Amora",
+      "types": [
+        "Liberica",
+        "Arabica"
+      ],
+      "weight": "226g",
+      "images": [
+        "https://i.postimg.cc/s2j31Sdt/Amora-DELICATA-1.webp",
+        "https://i.postimg.cc/0r1svK0X/Amora-DELICATA-2.jpg"
+      ]
+    },
+    {
+      "id": 28,
+      "title": "New England Coffee Hazelnut Crème Medium Roast Ground Coffee",
+      "description": "Мы используем нашу фирменную смесь 100% арабики для нашего кофе Hazelnut Creme средней обжарки, который отличается богатым ореховым вкусом лесного ореха с оттенком сладости.",
+      "price": 16.79,
+      "roastLevel": "Medium",
+      "stock": 4,
+      "brand": "New England Coffee",
+      "types": [
+        "Arabica"
+      ],
+      "weight": "312g",
+      "images": [
+        "https://i.postimg.cc/9Fc2LZzz/New-England-Coffee-1.webp",
+        "https://i.postimg.cc/02ZsFjJn/New-England-Coffee-2webp.jpg"
+      ]
+    },
+    {
+      "id": 29,
+      "title": "Don Francisco's 100% Colombia Supremo",
+      "description": "Кофе средней обжарки со сладким цветочным ароматом и винными нотками, которые вы смакуете с каждой чашкой. Сделано из лучшего колумбийского кофе.",
+      "price": 20.99,
+      "roastLevel": "Medium",
+      "stock": 7,
+      "brand": "Don Francisco's",
+      "types": [
+        "Arabica"
+      ],
+      "weight": "340g",
+      "images": [
+        "https://i.postimg.cc/QxgttjKK/Don-Francisco-1.webp",
+        "https://i.postimg.cc/2S2SQTwz/Don-Francisco-2.jpg"
+      ]
+    },
+    {
+      "id": 30,
+      "title": "Blue Bottle Whole Bean Organic Coffee Bright Light Roast",
+      "description": "Яркий — это слово, которое мы используем для описания кофе, который естественным образом склонен к фруктовости с легкой освежающей кислинкой. Эта сияющая и бодрящая органическая смесь объединяет сорта кофе из Восточной Африки.",
+      "price": 47.97,
+      "roastLevel": "Light",
+      "stock": 4,
+      "brand": "Blue Bottle Coffee",
+      "types": [
+        "Liberica"
+      ],
+      "weight": "340g",
+      "images": [
+        "https://i.postimg.cc/TwhGJ6P0/Blue-Bottle-1.webp",
+        "https://i.postimg.cc/vTVsCtf6/Blue-Bottle-2.webp"
+      ]
+    }
+  ]
+}

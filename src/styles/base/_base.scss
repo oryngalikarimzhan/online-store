@@ -1,0 +1,15 @@
+*,
+*::after,
+*::before {
+  font-family: sans-serif;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
