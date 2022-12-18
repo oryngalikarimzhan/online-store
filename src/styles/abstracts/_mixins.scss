@@ -1,0 +1,24 @@
+@mixin media-tablet {
+  @media (max-width: $tablet-screen-max-width) or (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin media-tablet-land {
+  @media (max-width: $tablet-screen-max-width) and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin media-mobile {
+  @media (max-width: $mobile-screen-max-width) {
+    @content;
+  }
+}
+
+@mixin font($size, $weight, $height: 140%, $style: normal) {
+    font-size: $size;
+    font-weight: $weight;
+    line-height: $height;
+    font-style: $style;
+}
