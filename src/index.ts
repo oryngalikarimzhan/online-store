@@ -1,3 +1,5 @@
 import './style.scss';
+import App from './components/app/app';
 
-console.log('Hello world');
+const app = new App();
+app.start();
