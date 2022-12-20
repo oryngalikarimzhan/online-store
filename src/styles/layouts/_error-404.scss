@@ -1,0 +1,31 @@
+.error-404 {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .error-404__images {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 80%;
+
+    .error-404__img {
+      width: 33%;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  .error-404__text {
+    color: $color-additional;
+  }
+
+  .error-404__button {
+    margin-top: 10vh;
+  }
+}
