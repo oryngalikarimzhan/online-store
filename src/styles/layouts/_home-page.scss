@@ -1,0 +1,204 @@
+.home-page__promo {
+  height: 100vh;
+  background: url("https://i.postimg.cc/90Gnkq4s/main-bg.jpg") center top no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+
+  @include media-tablet {
+    background-size: auto 100vh;
+  }
+
+  .promo__wrapper {
+    margin-top: 25vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    h2 {
+      width: 22ch;
+      color: $color-light;
+      white-space: nowrap;
+      animation: typing 2s steps(22), blink .5s step-end infinite alternate;
+      overflow: hidden;
+      border-right: 3px solid;
+    }
+
+    .promo__button {
+      margin-top: 5vh;
+    }
+
+    @keyframes typing {
+      from {
+        width: 0
+      }
+    }
+        
+    @keyframes blink {
+      50% {
+        border-color: transparent
+      }
+    }
+  }
+}
+
+.home-page__info {
+  background: radial-gradient($color-main, $color-additional);
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .info__wrapper {
+    width: 70vw;
+    color: $color-light;
+    text-align: center;
+    font-size: calc(1.5rem + 20 * (100vw / 1200));
+  }
+}
+
+.home-page__content-1 {
+  background: url("https://i.postimg.cc/DfsH0RC5/top-bg-image.jpg") center top no-repeat;
+  background-size: 100vw auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  h4 {
+    margin: 100vh 0 10vh;
+    text-align: center;
+    color: $color-main;
+  }
+
+
+  @include media-tablet {
+    h4 {
+      margin: 50vh 0 10vh;
+    }
+  }
+}
+
+.home-page__content-2 {
+  height: 150vh;
+  background: url("https://i.postimg.cc/LXg7zWm9/middle-bg-image.jpg") center top no-repeat;
+  background-size: 100vw auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  @include media-tablet {
+    height: 80vh;
+  }
+
+  p {
+    width: 80vw;
+    text-align: center;
+    color: $color-main;
+    margin-bottom: 5vh;
+  }
+}
+
+.coffee-sorts__wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  .coffee-sort {
+    position: relative;
+    flex: 0 0 50%;
+
+    .coffee-sort__title {
+      text-align: center;
+      color: $color-main;
+    }
+
+    .coffee-sort__img {
+      width: 100%;
+    }
+    .coffee-sort__content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -30%);
+      text-align: center;
+      color: $color-light;
+      visibility: hidden;
+      backdrop-filter: blur(20px);
+      opacity: 0;
+      transition: opacity .5s linear, visibility .5s linear, backdrop-filter .5s linear;
+    }
+    &:hover {
+      .coffee-sort__content {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  }
+
+}
+
+.home-page__coffee-roast {
+  // height: 140vh;
+  background: url("https://i.postimg.cc/MGFNfw23/bottom-bg-image.jpg") center bottom no-repeat;
+  background-size: 100vw auto;
+  display: flex;
+  justify-content: center;
+
+  // @include media-tablet {
+  //   height: 100vh;
+  // }
+  // @include media-mobile {
+  //   height: 140vh;
+  // }
+
+  .coffee-roast__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    .coffee-roast__image {
+      width: 100%;
+      transform: scale(-1, -1);
+    }
+
+    .coffee-roast__title {
+      width: 80vw;
+      text-align: center;
+      color: $color-main;
+    }
+
+    .coffee-roast__roast-levels {
+      margin-top: 2vh;
+      width: 80vw;
+      display: flex;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+
+      .roast-level {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: calc(1.5rem + 10 * (100vw / 1200));
+        padding: 0 10px;
+
+        p {
+          margin-top: 10px;
+          font-weight: 700;
+          color: $color-main;
+        }
+
+        ul {
+          margin-top: 2vh;
+        }
+      }
+    }
+    
+    .coffee-roast__button {
+      margin: 5vh 0 30vh;
+    }
+  }
+}
+
+
