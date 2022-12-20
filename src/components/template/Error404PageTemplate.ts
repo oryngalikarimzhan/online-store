@@ -6,8 +6,31 @@ export default class Error404PageTemplate implements ITemplate {
     description = 'Page not found';
 
     constructor() {
-        this.template = document.createElement('div');
-        this.template.innerHTML = '<h1>404 Page</h1>';
+        this.template = document.createElement('article');
+        this.template.innerHTML = `
+            <section class="error-404">
+                <div class="error-404__images">
+                    <div class="error-404__img">
+                        <img src="https://i.postimg.cc/MZnrvdxs/number0.png" alt="404">
+                    </div>
+                    <div class="error-404__img">
+                        <img src="https://i.postimg.cc/PrZ3MJCY/number4.png" alt="404">
+                    </div>
+                    <div class="error-404__img">
+                        <img src="https://i.postimg.cc/MZnrvdxs/number0.png" alt="404">
+                    </div>
+                </div>
+                    <div class="error-404__text">
+                        <h4>
+                            Cтраница не найдена
+                        </h4>
+                    </div>
+                <div class="error-404__button">
+                    <button onclick="location.href='#shop'" class="button button_regular">
+                        К покупке
+                    </button>
+                </div>
+            </section>`;
     }
 
     getPageTemplate(): HTMLElement {
