@@ -29,8 +29,9 @@ class Router {
 
         const route: ITemplate = this.routes[location] || this.routes.error404;
         const html = route.getPageTemplate();
-        (document.querySelector('.content') as HTMLElement).innerHTML = '';
-        (document.querySelector('.content') as HTMLElement).append(html);
+        const contentContainer = document.querySelector('.main') as HTMLElement;
+        contentContainer.innerHTML = '';
+        contentContainer.append(html);
         document.title = route.title as string;
         (document.querySelector('meta[name="description"]') as HTMLMetaElement).setAttribute(
             'content',

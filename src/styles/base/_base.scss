@@ -1,7 +1,7 @@
 *,
 *::after,
 *::before {
-  font-family: sans-serif;
+  font-family: "Marmelad";
 }
 
 html {
@@ -12,4 +12,28 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+button {
+  font-family: "Marmelad";
+}
+
+h1 {
+  font-size: calc(1.5rem + 10 * (100vw / 1200));
+}
+
+h2 {
+  font-size: calc(1.5rem + 40 * (100vw / 1200));
+}
+
+p {
+  font-size: calc(1.5rem + 20 * (100vw / 1200));
+}
+
+h4 {
+  font-size: calc(1.6rem + 35 * (100vw / 1200));
+}
+
+a {
+  font-size: calc(1.6rem + 10 * (100vw / 1200));
 }

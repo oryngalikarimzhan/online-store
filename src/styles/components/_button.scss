@@ -1,0 +1,19 @@
+.button {
+  width: 200px;
+  height: 60px;
+  font-size: calc(1.5rem + 15 * (100vw / 1200));
+  cursor: pointer;
+  user-select: none;
+}
+
+.button_regular {
+  background: $color-main;
+  color: $color-light;
+  box-shadow: 0 0 2px 2px $color-main;
+  transition: background 0.5s linear, color 0.5s linear;
+  
+  &:hover {
+    background: $color-light;
+    color: $color-main;
+  }
+}
