@@ -1,19 +1,17 @@
 .footer {
-  height: 100px;
+  height: 70px;
   margin-top: auto;
-  background: radial-gradient($color-main, $color-additional);
+  background: black;
 
   .project-info {
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex(center, center);
     flex-wrap: wrap;
     column-gap: 10vw;
     .course-img {
       width: 150px;
       object-fit: cover;
-      height: 100px;
+      height: 70px;
     }
     .creators-info {
       display: inline-flex;

@@ -1,4 +1,5 @@
 import ITemplate from '../model/ITemplate';
+import { QueryMap, RequestPath } from '../model/Types';
 import routes from './Routes';
 
 class Router {
@@ -8,36 +9,49 @@ class Router {
     }
 
     route = () => {
-        let location = window.location.hash.replace('#', '');
-        let query = '';
-        const queries: { [key: string]: string } = {};
-        if (location.length == 0 || location === '/') {
-            location = 'home';
-        } else {
-            const urlArr = location.split('/');
-            location = urlArr[0];
-            query = urlArr[1]?.replace('?', '') || '';
-            query?.split('&').forEach((param) => {
-                const keyValue: string[] = param.split('=');
-                queries[keyValue[0]] = keyValue[1];
-            });
-        }
+        const { endpoint, queries }: RequestPath = this.parsePath();
 
-        console.log(location);
+        console.log(endpoint);
         console.log(queries);
-        console.log(this.routes[location]);
 
-        const route: ITemplate = this.routes[location] || this.routes.error404;
-        const html = route.getPageTemplate();
+        const template: ITemplate = this.routes[endpoint] || this.routes.error404;
+        const html = template.getPageTemplate();
         const contentContainer = document.querySelector('.main') as HTMLElement;
         contentContainer.innerHTML = '';
         contentContainer.append(html);
-        document.title = route.title as string;
+
+        this.addPageHeaders(template);
+    };
+
+    private addPageHeaders(template: ITemplate) {
+        document.title = template.title as string;
         (document.querySelector('meta[name="description"]') as HTMLMetaElement).setAttribute(
             'content',
-            route.description as string
+            template.description as string
         );
-    };
+    }
+
+    private parsePath() {
+        let endpoint = window.location.hash.replace('#', '');
+        let queries: QueryMap = {};
+        if (endpoint.length == 0 || endpoint === '/') {
+            endpoint = 'home';
+        } else {
+            const segments = endpoint.split('/');
+            endpoint = segments[0];
+            queries = this.getQueries(segments, queries);
+        }
+        return { endpoint, queries };
+    }
+
+    private getQueries(segments: string[], queries: QueryMap): QueryMap {
+        const queriesStr = segments[1]?.replace('?', '') || '';
+        queriesStr?.split('&').forEach((param) => {
+            const keyValue: string[] = param.split('=');
+            queries[keyValue[0]] = keyValue[1];
+        });
+        return queries;
+    }
 }
 
 export default Router;

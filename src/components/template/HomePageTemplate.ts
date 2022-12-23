@@ -1,9 +1,10 @@
 import ITemplate from '../model/ITemplate';
+import { STORENAME } from '../model/Utils';
 
 export default class HomePageTemplate implements ITemplate {
     template;
-    title = 'Home | Golden Beans';
-    description = 'This is a home page';
+    readonly title = 'Home | ' + STORENAME;
+    readonly description = 'This is a home page';
 
     constructor() {
         this.template = document.createElement('article');
@@ -21,41 +22,43 @@ export default class HomePageTemplate implements ITemplate {
             </div>
         </section>
         <section class="home-page__info">
-            <div class="info__wrapper">
+            <h3 class="info__wrapper">
                 Попробуйте кофейные зерна высочайшего качества со всего мира. У нас вы найдете вкусные сертифицированные органические кофе ручной обжарки. Побалуйте себя и пейте лучший органический кофе!
-            </div>
+            </h3>
         </section>
         <div class="home-page__content-1">
-            <h4>
-                Выбери свой кофе
-            </h4>
+            <h2>
+                Выбери свой кофе. 
+                <br> 
+                Мы поможем
+            </h2>
         </div>
         <div class="home-page__content-2">
-            <p>
-                В первую очередь кофе имеет множество сортов. И каждый сорт имеет свои уникальные вкусовые качества. Есть 4 основных подсемейства. Это Арабика, Робуста, Либерика и Екcелса.
-            </p>
+            <h4>
+                При выборе кофе следует учесть, что кофе имеет множество сортов. И каждый сорт имеет свои уникальные вкусовые качества. Есть 4 основных подсемейства сортов. Это Арабика, Робуста, Либерика и Екcелса.
+            </h4>
         </div>
         <section class="home-page__coffee-sorts">
             <div class="coffee-sorts__wrapper">
                 <div class="coffee-sort">
-                    <h4 class="coffee-sort__title">Arabica</h4>
+                    <h3 class="coffee-sort__title">Arabica</h3>
                     <img class="coffee-sort__img" src="https://i.postimg.cc/Bv6Rv6y1/arabica.jpg" alt="arabica">
-                    <p class="coffee-sort__content">Мягкий, сладкий вкус и более сильный аромат</p>
+                    <h4 class="coffee-sort__content">Мягкий, сладкий вкус и более сильный аромат</р>
                 </div>
                 <div class="coffee-sort">
-                    <h4 class="coffee-sort__title">Excelca</h4>
+                    <h3 class="coffee-sort__title">Excelca</h3>
                     <img class="coffee-sort__img" src="https://i.postimg.cc/hPLkyNTh/excelsa.jpg" alt="excelsa">
-                    <p class="coffee-sort__content">Терпкий и фруктовый профиль</p>
+                    <h4 class="coffee-sort__content">Терпкий и фруктовый профиль</h4>
                 </div>
                 <div class="coffee-sort">
-                    <h4 class="coffee-sort__title">Liberica</h4>
+                    <h3 class="coffee-sort__title">Liberica</h3>
                     <img class="coffee-sort__img" src="https://i.postimg.cc/Vkz334Wg/liberica.jpg" alt="liberica">
-                    <p class="coffee-sort__content">Цветочно-фруктовый аромат. Профиль дымной древесины</p>
+                    <h4 class="coffee-sort__content">Цветочно-фруктовый аромат. Профиль дымной древесины</h4>
                 </div>
                 <div class="coffee-sort">
-                    <h4 class="coffee-sort__title">Robusta</h4>
+                    <h3 class="coffee-sort__title">Robusta</h3>
                     <img class="coffee-sort__img" src="https://i.postimg.cc/dVnzvdWY/robusta.jpg" alt="robusta">
-                    <p class="coffee-sort__content">Землянистый, горьковатый вкусовой профиль</p>
+                    <h4 class="coffee-sort__content">Землянистый, горьковатый вкусовой профиль</h4>
                 </div>
             </div>
         </section>
@@ -63,13 +66,13 @@ export default class HomePageTemplate implements ITemplate {
             <div class="coffee-roast__wrapper">
                 <img class="coffee-roast__image" src="https://i.postimg.cc/tgCtQtdH/roast-level.jpg" alt="roast-level">
                 <div class="coffee-roast__title">
-                    <p>
-                        Так же кофейные зерна отличаются по cтепеням прожарки. Есть основные 3 степени: 
+                    <h4>
+                        Так же при выборе нужно знать, что кофейные зерна отличаются по cтепеням прожарки. Есть основные 3 степени: 
                     <p>
                 </div>
                 <div class="coffee-roast__roast-levels">
                     <div class="roast-level">
-                        <p>Светлая прожарка</в>
+                        <h4>Светлая прожарка</h4>
                         <ul>
                             <li>
                                 Высокая кислотность
@@ -83,7 +86,7 @@ export default class HomePageTemplate implements ITemplate {
                         </ul>
                     </div>
                     <div class="roast-level">
-                        <p>Cредняя прожарка</в>
+                        <h4>Cредняя прожарка</h4>
                         <ul>
                             <li>
                                 Умеренная кислотность
@@ -97,7 +100,7 @@ export default class HomePageTemplate implements ITemplate {
                         </ul>
                     </div>
                     <div class="roast-level">
-                        <p>Темная прожарка</в>
+                        <h4>Темная прожарка</h4>
                         <ul>
                             <li>
                                 Низкая кислотность
