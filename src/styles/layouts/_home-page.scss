@@ -11,13 +11,10 @@
 
   .promo__wrapper {
     margin-top: 25vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    justify-content: flex-start;
+    @include flex(center, flex-start, column);
+
     h2 {
-      width: 22ch;
+      width: 21ch;
       color: $color-light;
       white-space: nowrap;
       animation: typing 2s steps(22), blink .5s step-end infinite alternate;
@@ -44,35 +41,30 @@
 }
 
 .home-page__info {
-  background: radial-gradient($color-main, $color-additional);
+  background: $color-additional;
   height: 50vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex(center, center);
+
   .info__wrapper {
     width: 70vw;
     color: $color-light;
     text-align: center;
-    font-size: calc(1.5rem + 20 * (100vw / 1200));
   }
 }
 
 .home-page__content-1 {
   background: url("https://i.postimg.cc/DfsH0RC5/top-bg-image.jpg") center top no-repeat;
   background-size: 100vw auto;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  @include flex(flex-end, center);
 
-  h4 {
-    margin: 100vh 0 10vh;
+  h2 {
+    margin: 120vh 0 10vh;
     text-align: center;
-    color: $color-main;
+    text-transform: uppercase;
   }
 
-
   @include media-tablet {
-    h4 {
+    h2 {
       margin: 50vh 0 10vh;
     }
   }
@@ -82,18 +74,15 @@
   height: 150vh;
   background: url("https://i.postimg.cc/LXg7zWm9/middle-bg-image.jpg") center top no-repeat;
   background-size: 100vw auto;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-
+  @include flex(flex-end, center);
+  
   @include media-tablet {
-    height: 80vh;
+    height: 70vh;
   }
 
-  p {
+  h4 {
     width: 80vw;
     text-align: center;
-    color: $color-main;
     margin-bottom: 5vh;
   }
 }
@@ -109,7 +98,6 @@
 
     .coffee-sort__title {
       text-align: center;
-      color: $color-main;
     }
 
     .coffee-sort__img {
@@ -138,24 +126,13 @@
 }
 
 .home-page__coffee-roast {
-  // height: 140vh;
   background: url("https://i.postimg.cc/MGFNfw23/bottom-bg-image.jpg") center bottom no-repeat;
   background-size: 100vw auto;
   display: flex;
   justify-content: center;
 
-  // @include media-tablet {
-  //   height: 100vh;
-  // }
-  // @include media-mobile {
-  //   height: 140vh;
-  // }
-
   .coffee-roast__wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+    @include flex(center, flex-start, column);
 
     .coffee-roast__image {
       width: 100%;
@@ -165,7 +142,6 @@
     .coffee-roast__title {
       width: 80vw;
       text-align: center;
-      color: $color-main;
     }
 
     .coffee-roast__roast-levels {
@@ -176,21 +152,18 @@
       flex-wrap: wrap;
 
       .roast-level {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
+        @include flex(center, flex-start, column);
         font-size: calc(1.5rem + 10 * (100vw / 1200));
         padding: 0 10px;
 
-        p {
+        h4 {
           margin-top: 10px;
           font-weight: 700;
-          color: $color-main;
         }
 
         ul {
           margin-top: 2vh;
+          color: $color-dark;
         }
       }
     }

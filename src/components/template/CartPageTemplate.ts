@@ -1,9 +1,10 @@
 import ITemplate from '../model/ITemplate';
+import { STORENAME } from '../model/Utils';
 
 export default class CartPageTemplate implements ITemplate {
     template;
-    title = 'Cart | Golden Beans';
-    description = 'This is a cart page';
+    readonly title = 'Cart | ' + STORENAME;
+    readonly description = 'This is a cart page';
 
     constructor() {
         this.template = document.createElement('div');

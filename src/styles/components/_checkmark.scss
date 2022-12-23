@@ -1,0 +1,30 @@
+.checkmark {
+  position: relative;
+  cursor: pointer;
+
+  &::before {
+    content: "";
+    position: absolute;
+    background: transparent;
+    left: 5px;
+    height: 20px;
+    width: 20px;
+    border: 1px solid $color-additional;
+    border-radius: 5px;
+    transition: box-shadow .2s linear;
+  }
+
+  &:hover::before {
+    background: url(./assets/check.svg) center;
+    background-size: cover;
+    box-shadow: 0 0 5px 1px $color-main;
+  }
+}
+
+.checkmark_checked {
+  &::before {
+    content: "";
+    background: url(./assets/check.svg) center;
+    background-size: cover;
+  }
+}

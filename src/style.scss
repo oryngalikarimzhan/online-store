@@ -1,6 +1,7 @@
 @import 'styles/base/font';
 @import 'styles/abstracts/constants';
 @import 'styles/abstracts/mixins';
+@import 'styles/abstracts/placeholders';
 
 @import 'styles/base/reset';
 @import 'styles/base/base';
@@ -9,9 +10,14 @@
 @import 'styles/components/navigation';
 @import 'styles/components/button';
 @import 'styles/components/burger-menu';
+@import 'styles/components/product-card';
+@import 'styles/components/checkmark';
+@import 'styles/components/text-input';
+@import 'styles/components/dual-slider';
+@import 'styles/components/select-box';
 
 @import 'styles/layouts/header';
-@import 'styles/layouts/main';
 @import 'styles/layouts/home-page';
 @import 'styles/layouts/footer';
 @import 'styles/layouts/error-404';
+@import 'styles/layouts/shopping-page';

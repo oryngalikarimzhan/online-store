@@ -12,28 +12,43 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  color: $color-main;
 }
 
 button {
   font-family: "Marmelad";
-}
-
-h1 {
-  font-size: calc(1.5rem + 10 * (100vw / 1200));
+  @include adaptive-font(16, 25);
+  color: $color-main;
 }
 
 h2 {
-  font-size: calc(1.5rem + 40 * (100vw / 1200));
+  @include adaptive-font(16, 50);
 }
 
-p {
-  font-size: calc(1.5rem + 20 * (100vw / 1200));
+h3 {
+  @include adaptive-font(16, 40);
 }
 
 h4 {
-  font-size: calc(1.6rem + 35 * (100vw / 1200));
+  @include adaptive-font(16, 30);
 }
 
-a {
-  font-size: calc(1.6rem + 10 * (100vw / 1200));
+h1,
+a,
+p {
+  @include adaptive-font(16, 20);
+}
+
+input,
+div {
+  font-family: "Marmelad";
+  font-size: 1.6rem;
+  color: $color-main;
+}
+
+.main {
+  min-height: calc(100vh - 140px);
+  @include media-tablet {
+    min-height: calc(100vh - 100px);
+  }
 }

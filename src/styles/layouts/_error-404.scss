@@ -1,11 +1,7 @@
 .error-404 {
-  height: 90vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  @include flex(center, center, column);
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 100px auto 0;
 
   .error-404__images {
     display: flex;

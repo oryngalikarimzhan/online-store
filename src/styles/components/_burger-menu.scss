@@ -4,7 +4,7 @@
   position: absolute;
   height: 2px;
   width: 100%;
-  background-color: $color-secondary;
+  background-color: $color-main;
   border-radius: 2px;
 }
 
@@ -52,7 +52,7 @@
 
     &::before {
       @extend %burger-line;
-      background-color: $color-secondary;
+      background-color: $color-main;
       width: 19px;
       top: 6px;
       left: -2px;
@@ -61,7 +61,7 @@
 
     &::after {
       @extend %burger-line;
-      background-color: $color-secondary;
+      background-color: $color-main;
       width: 19px;
       bottom: 6px;
       left: -2px;

@@ -1,10 +1,7 @@
 .logo {
   height: 100%;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  @include flex(center, center, column);
   font-size: 2.2rem;
   font-weight: 500;
   cursor: pointer;
@@ -12,39 +9,11 @@
   color: $color-main;
 
   img {
-    width: 35%;
-  }
-
-  h1 {
-    text-shadow: 0 0 1px $color-main;
+    width: 30%;
   }
 
   @include media-tablet {
     flex-direction: row;
+    column-gap: 5px;
   }
 }
-
-  
-
-  // @include media-tablet {
-  //   font-size: 3rem;
-  //   cursor: auto;
-
-  //   .logo__circle {
-  //     border: calc(5vh * 0.06) solid $color-black;
-  //     padding: 1px;
-  //   }
-  //   &:hover {
-  //     div {
-  //       color: $color-black;
-  //     }
-  //   }
-  // }
-
-  // @include media-tablet-land {
-  //   font-size: calc(10vh * 0.45);
-  // }
-
-  // @include media-mobile {
-  //   font-size: calc(5vh * 0.4);
-  // }

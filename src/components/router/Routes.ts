@@ -1,13 +1,14 @@
 import CartPageTemplate from '../template/CartPageTemplate';
 import HomePageTemplate from '../template/HomePageTemplate';
 import Error404PageTemplate from '../template/Error404PageTemplate';
-import ShopPageTemplate from '../template/ShopPageTemplate';
-import ITemplate from '../model/ITemplate';
+import ShoppingPageTemplate from '../template/ShoppingPageTemplate';
 
-const routes: { [key: string]: ITemplate } = {
+import { RoutesMap } from '../model/Types';
+
+const routes: RoutesMap = {
     error404: new Error404PageTemplate(),
     home: new HomePageTemplate(),
-    shop: new ShopPageTemplate(),
+    shop: new ShoppingPageTemplate(),
     cart: new CartPageTemplate(),
 };
 

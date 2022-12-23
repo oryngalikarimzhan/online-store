@@ -16,9 +16,24 @@
   }
 }
 
-@mixin font($size, $weight: 500, $height: 120%, $style: normal) {
-    font-size: $size;
-    font-weight: $weight;
-    line-height: $height;
-    font-style: $style;
+@mixin adaptive-font ($minSize, $maxSize) {
+  $increment: $maxSize - $minSize;
+  $mobIncrement: $increment + $increment * 0.7;
+  @media (max-width: 767px) {
+    font-size: calc(#{$minSize + px} + #{$mobIncrement} * ((100vw - 320px) / #{1280}));
+  }
+  @media (min-width: 767px) {
+    font-size: calc(#{$minSize + px} + #{$increment} * (100vw / #{1280}));
+  }
+  @media (min-width: 1920px) {
+    font-size: calc(#{$minSize + px} + #{$increment} * (1920px / #{1280}));
+  }
+}
+
+
+@mixin flex ($align: center, $justify: center, $direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align;
+  justify-content: $justify;
 }

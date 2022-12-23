@@ -1,9 +1,10 @@
 import ITemplate from '../model/ITemplate';
+import { STORENAME } from '../model/Utils';
 
 export default class Error404PageTemplate implements ITemplate {
     template;
-    title = '404 | Golden Beans';
-    description = 'Page not found';
+    readonly title = '404 | ' + STORENAME;
+    readonly description = 'Page not found';
 
     constructor() {
         this.template = document.createElement('article');
