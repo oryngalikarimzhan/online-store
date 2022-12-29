@@ -1,5 +1,5 @@
 import ITemplate from '../model/ITemplate';
-import { STORENAME } from '../model/Utils';
+import { STORENAME } from '../utilities/Constants';
 
 export default class ShoppingPageTemplate implements ITemplate {
     template;
@@ -13,19 +13,19 @@ export default class ShoppingPageTemplate implements ITemplate {
                 <div class="filters__wrapper">
                 
                 <div class="filters__presets">
-                    <div class="filters__reset button_small"></div>
-                    <div class="filters__save button_small"></div>
-                    <div class="filters__restore button_small"></div>
+                    <div content="Сбросить фильтр" class="filters__reset button_small"></div>
+                    <div content="Сохранить фильтр" class="filters__save button_small"></div>
+                    <div content="Восстановить фильтр" class="filters__restore button_small"></div>
                 </div>
                 <div class="filters__coffee-sorts">
                     <p class="coffee-sorts__title">
                         Сорты кофе
                     </p>
                     <div class="coffee-sorts__content">
-                        <div class="coffee-sort checkmark checkmark_checked">Arabica</div>
-                        <div class="coffee-sort checkmark">Robusta</div>
-                        <div class="coffee-sort checkmark">Liberica</div>
-                        <div class="coffee-sort checkmark">Excelsa</div>
+                        <div id="arabica" class="coffee-sort checkmark">Арабика</div>
+                        <div id="robusta" class="coffee-sort checkmark">Робуста</div>
+                        <div id="liberica" class="coffee-sort checkmark">Либерика</div>
+                        <div id="excelsa" class="coffee-sort checkmark">Екcелса</div>
                     </div>
                 </div>
                 <div class="filters__coffee-brands">
@@ -33,29 +33,6 @@ export default class ShoppingPageTemplate implements ITemplate {
                         Бренды кофе
                     </p>
                     <div class="coffee-brands__content">
-                        <div class="coffee-brand checkmark checkmark_checked">Lavazza</div>
-                        <div class="coffee-brand checkmark checkmark_checked">Lavazza</div>
-                        <div class="coffee-brand checkmark">Lavazza</div>
-                        <div class="coffee-brand checkmark">Lavazza</div>
-                        <div class="coffee-brand checkmark">Lavazza</div>
-                        <div class="coffee-brand checkmark">Lavazza</div>
-                        <div class="coffee-brand checkmark">Lavazza</div>
-                        <div class="coffee-brand checkmark">Lavazza</div>
-                        <div class="coffee-brand checkmark">Lavazza</div>
-                        <div class="coffee-brand checkmark">Lavazza</div>
-                        <div class="coffee-brand checkmark">Lavazza</div>
-                        <div class="coffee-brand checkmark">Lavazza</div>
-                        <div class="coffee-brand checkmark">Lavazza</div>
-                        <div class="coffee-brand checkmark">Lavazza</div>
-                        <div class="coffee-brand checkmark">Lavazza</div>
-                        <div class="coffee-brand checkmark">Lavazza</div>
-                        <div class="coffee-brand checkmark">Lavazza</div>
-                        <div class="coffee-brand checkmark">Lavazza</div>
-                        <div class="coffee-brand checkmark">Lavazza</div>
-                        <div class="coffee-brand checkmark">Lavazza</div>
-                        <div class="coffee-brand checkmark">Lavazza</div>
-                        <div class="coffee-brand checkmark">Lavazza</div>
-                        <div class="coffee-brand checkmark">Lavazza</div>
                     </div>
                 </div>
                 <div class="filters__coffee-roast-levels">
@@ -63,16 +40,16 @@ export default class ShoppingPageTemplate implements ITemplate {
                         Уровень обжарки кофе
                     </p>
                     <div class="coffee-roast-levels__content">
-                        <div class="coffee-roast-level coffee-roast-level_checked">
-                            <img src="./assets/roast-level-light.svg" alt="light-roast">
+                        <div id="light" class="coffee-roast-level">
+                            <div class="roast-img"></div>
                             <div class="coffee-roast-level__name">Светлая</div>
                         </div>
-                        <div class="coffee-roast-level">
-                            <img src="./assets/roast-level-medium.svg" alt="medium-roast">
+                        <div id="medium" class="coffee-roast-level">
+                            <div class="roast-img"></div>
                             <div class="coffee-roast-level__name">Средняя</div>
                         </div>
-                        <div class="coffee-roast-level">
-                            <img src="./assets/roast-level-dark.svg" alt="dark-roast">
+                        <div id="dark" class="coffee-roast-level">
+                            <div class="roast-img"></div>
                             <div class="coffee-roast-level__name">Темная</div>
                         </div>
                     </div>
@@ -86,21 +63,16 @@ export default class ShoppingPageTemplate implements ITemplate {
                             <div class="dual-slider__input-fields">
                                 <div class="input-field text-input">
                                     <span>От:</span>
-                                    <input type="number" class="stock__input_min" min="0" value="250">
+                                    <input type="number" class="input_from">
                                 </div>
                                 <div class="input-field text-input">
                                     <span>До:</span>
-                                    <input type="number" class="stock__input_max" min="0" value="750">
+                                    <input type="number" class="input_to">
                                 </div>
                             </div>
                             <div class="dual-slider__ranges">
-                                <div class="dual-slider__line">
-                                    <div class="dual-slider__progress"></div>
-                                </div>
-                                <div class="dual-slider__input-ranges">
-                                    <input type="range" class="stock__range_min" min="0" max="1000" value="250">
-                                    <input type="range" class="stock__range_max" min="0" max="1000" value="750">
-                                </div>
+                                <input data-id="stock" type="range" class="range_from">
+                                <input data-id="stock" type="range" class="range_to">
                             </div>
                         </div>
                     </div>
@@ -114,21 +86,16 @@ export default class ShoppingPageTemplate implements ITemplate {
                             <div class="dual-slider__input-fields">
                                 <div class="input-field text-input">
                                     <span>От:</span>
-                                    <input type="number" class="stock__input_min" min="0" value="250">
+                                    <input type="number" class="input_from">
                                 </div>
                                 <div class="input-field text-input">
                                     <span>До:</span>
-                                    <input type="number" class="stock__input_max" min="0" value="750">
+                                    <input type="number" class="input_to">
                                 </div>
                             </div>
                             <div class="dual-slider__ranges">
-                                <div class="dual-slider__line">
-                                    <div class="dual-slider__progress"></div>
-                                </div>
-                                <div class="dual-slider__input-ranges">
-                                    <input type="range" class="stock__range_min" min="0" max="1000" value="250">
-                                    <input type="range" class="stock__range_max" min="0" max="1000" value="750">
-                                </div>
+                                <input data-id="prices" type="range" class="range_from">
+                                <input data-id="prices" type="range" class="range_to">
                             </div>
                         </div>
                     </div>
@@ -140,18 +107,16 @@ export default class ShoppingPageTemplate implements ITemplate {
                     <div class="view__search-box">
                         <div class="search__input text-input">
                             <input type="text">
-                            <img src="./assets/search.svg" alt="search">
+                            <div class="search-img"></div>
                         </div>
                         <div class="search__amount">
-                            Найдено 30
                         </div>
                     </div>
                     <div class="view__options">
-                        <div data-id="blocks" class="view__option view__option_checked button_small">
-                            <img src="./assets/blocks.svg" alt="blocks">
+                        <div id="blocks" class="view__option button_small">
+                            
                         </div>
-                        <div data-id="lines" class="view__option button_small">
-                            <img src="./assets/lines.svg" alt="lines">
+                        <div id="list" class="view__option button_small">
                         </div>
                     </div>
                     <div class="view__sort-options">
@@ -162,744 +127,70 @@ export default class ShoppingPageTemplate implements ITemplate {
                                 <span class="select-box__open-close"></span>
                             </div>
                             <div class="select-box__options">
-                                <div class="option sort-option option__checked">от А до Z</div>
-                                <div class="option sort-option">от Z до A</div>
-                                <div class="option sort-option">по возростанию цены</div>
-                                <div class="option sort-option">по убыванию цены</div>
+                                <div id="name-asc" class="option sort-option">от А до Z</div>
+                                <div id="name-desc" class="option sort-option">от Z до A</div>
+                                <div id="price-asc" class="option sort-option">по возростанию цены</div>
+                                <div id="price-desc" class="option sort-option">по убыванию цены</div>
                             </div>
                         </div>
                     </div> 
                 </div>
-                <div class="products__list_blocks">
+                <div class="products__list">
+                </div>
+                <template id="product-card_block__template">
                     <div class="product-card product-card_block">
                         <div class="product__image">
-                            <img src="https://i.postimg.cc/m27cHQJD/Corsica-1.webp" alt="coffee">
+                            <img src="#" alt="coffee">
                         </div>
                         <div class="product__content">
                             <div class="product__name">
-                                Super Crema
                             </div>
                             <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
+                                <div class="product__coffee-brand">Бренд:</div>
+                                <div class="product__coffee-sort">Сорт:</div>
+                                <div class="product__coffee-roast">Обжарка:</div>
+                                <div class="product__coffee-stock">В наличии:</div>
+                                <div class="product__coffee-weight">Вес:</div>
+                            </div>
+                            <div class="product__price-button">
+                                <button class="button button_price">
+                                    <div class="button_price__text">
+                                        В корзину
+                                    </div>
+                                    <div class="button_price__info product__price">
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <template id="product-card_list__template">
+                    <div class="product-card product-card_list">
+                        <div class="product__image">
+                            <img src="#" alt="coffee">
+                        </div>
+                        <div class="product__content">
+                            <div class="product__name">
+                            </div>
+                            <div class="product__info">
+                                <div class="product__coffee-brand">Бренд:</div>
+                                <div class="product__coffee-sort">Сорт:</div>
+                                <div class="product__coffee-roast">Обжарка:</div>
+                                <div class="product__coffee-stock">В наличии:</div>
+                                <div class="product__coffee-weight">Вес:</div>
                             </div>
                             <div class="product__price-button">
                                 <button class="button button_price button_price_checked">
                                     <div class="button_price__text">
                                         В корзину
-                                    </div>    
+                                    </div>
                                     <div class="button_price__info product__price">
-                                        100$
                                     </div>
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                French Roast
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-card product-card_block">
-                        <div class="product__image">
-                            <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                        </div>
-                        <div class="product__content">
-                            <div class="product__name">
-                                Coffee Good Beans
-                            </div>
-                            <div class="product__info">
-                                <div class="product__coffee-sort">Бренд: Lavazza</div>
-                                <div class="product__coffee-sort">Сорт: Robusta</div>
-                                <div class="product__coffee-roast">Обжарка: Dark</div>
-                                <div class="product__coffee-stock">В наличии: 20 штук</div>
-                            </div>
-                            <div class="product__price-button">
-                                <button class="button button_price">
-                                    <div class="button_price__text">
-                                        В корзину
-                                    </div>    
-                                    <div class="button_price__info product__price">
-                                        100$
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </template>
             </section>`;
         this.template.classList.add('shop');
     }

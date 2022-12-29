@@ -75,7 +75,7 @@
         background: url(./assets/reset.svg) center;
         background-size: cover;
         &::after {
-          content: "Сбросить фильтр";
+          content: attr(content);
         }
       }
     }
@@ -84,8 +84,8 @@
       background: url(./assets/save.svg) center;
       background-size: cover;
       &:hover::after {
-        left: -40px;
-        content: "Сохранить фильтр";
+        left: -45px;
+        content: attr(content);
       }
     }
 
@@ -94,7 +94,7 @@
       background-size: 26px 26px;
       &:hover::after {
         left: -65px;
-        content: "Cохраненный фильтр";
+        content: attr(content);
       }
     }
   }
@@ -168,40 +168,43 @@
       justify-content: space-evenly;
       margin: 10px 0;
       .coffee-roast-level {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        @include flex(center, center, column);
         cursor: pointer;
         user-select: none;
-        
-        img {
-          width: 30px;
-          transition: filter .2s ease-out;
-        }
 
         .coffee-roast-level__name {
+          color: $color-dark;
           text-align: center;
         }
+      }
 
-        &:hover {
-          .coffee-roast-level__name {
-            text-shadow: 0 0 1px $color-main;
-          }
+      .roast-img {
+        width: 30px;
+        height: 40px;
+        transition: transform .2s ease-out;
+        transform: scale(0.9);
+      }
 
-          img {
-            filter: drop-shadow(0 0 2px $color-main);
-          }
-        }
+      #light .roast-img {
+        background: url(./assets/roast-level-light.svg) center;
+        background-size: contain;
+      }
+      #medium .roast-img {
+        background: url(./assets/roast-level-medium.svg) center;
+        background-size: contain;
+      }
+      #dark .roast-img {
+        background: url(./assets/roast-level-dark.svg) center;
+        background-size: contain;
       }
 
       .coffee-roast-level_checked {
         .coffee-roast-level__name {
-          text-shadow: 0 0 1px $color-main;
+          color: $color-main;
         }
 
-        img {
-          filter: drop-shadow(0 0 2px $color-main);
+        .roast-img {
+          transform: scale(1.1);
         }
       }
     }
@@ -281,9 +284,12 @@
           width: 80%;
         }
 
-        img {
+        .search-img {
           width: 24px;
+          height: 24px;
           cursor: pointer;
+          background: url(./assets/search.svg) center;
+          background-size: contain;
         }
       }
 
@@ -298,16 +304,26 @@
       margin-left: auto;
       
       .view__option {
-        img {
-          width: 100%;
-        }
+        width: 30px;
+        height: 30px;
       }
 
-      .view__option_checked {
-        background: $color-main;
-        img {
-          filter: brightness(0%) grayscale(100%) invert(100%);
-        }
+      #blocks {
+        background: url(./assets/blocks.svg) center;
+        background-size: contain;
+      }
+      #list {
+        background: url(./assets/list.svg) center;
+        background-size: contain;
+      }
+
+      .view__option_checked#blocks {
+        background: url(./assets/blocks-light.svg) center, linear-gradient(to right, $color-additional, $color-additional);
+        background-size: contain;
+      }
+      .view__option_checked#list {
+        background: url(./assets/list-light.svg) center, linear-gradient(to right, $color-additional, $color-additional);
+        background-size: contain;
       }
     }
 
@@ -317,20 +333,12 @@
     }
   }
 
-  .products__list_blocks {
-    display: flex;
-    flex-wrap: wrap;
-    row-gap: 20px;
-    column-gap: 20px;
-    padding: 30px 10px 30px;
-    justify-content: space-evenly;
-  }
-
-  .products__list_lines {
+  .products__list {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     row-gap: 20px;
+    column-gap: 0;
     padding: 20px 5px 30px;
     justify-content: space-evenly;
 
@@ -341,7 +349,14 @@
       row-gap: 20px;
       column-gap: 20px;
       padding: 30px 10px 30px;
-      justify-content: space-evenly;
     }
+  }
+
+  .products__list_blocks {
+    flex-wrap: wrap;
+    flex-direction: row;
+    row-gap: 20px;
+    column-gap: 20px;
+    padding: 30px 10px 30px;
   }
 }

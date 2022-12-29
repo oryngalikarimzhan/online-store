@@ -15,8 +15,6 @@
   }
 
   &:hover::before {
-    background: url(./assets/check.svg) center;
-    background-size: cover;
     box-shadow: 0 0 5px 1px $color-main;
   }
 }

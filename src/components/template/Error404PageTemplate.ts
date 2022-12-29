@@ -1,5 +1,5 @@
 import ITemplate from '../model/ITemplate';
-import { STORENAME } from '../model/Utils';
+import { STORENAME } from '../utilities/Constants';
 
 export default class Error404PageTemplate implements ITemplate {
     template;

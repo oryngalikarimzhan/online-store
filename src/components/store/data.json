@@ -2,13 +2,13 @@
   "products": [
     {
       "id": 1,
-      "title": "Super Crema",
+      "name": "Super Crema",
       "description": "Мягкий и сливочный эспрессо средней обжарки с нотками лесного ореха и коричневого сахара. 60% арабика и 40% робуста",
       "price": 24.99,
       "roastLevel": "Medium",
       "stock": 40,
       "brand": "Lavazza",
-      "types": [
+      "sorts": [
         "Arabica",
         "Robusta"
       ],
@@ -20,13 +20,13 @@
     },
     {
       "id": 2,
-      "title": "Hair Bender",
+      "name": "Hair Bender",
       "description": "Hair Bender использует кофе из Латинской Америки, Индонезии и Африки для достижения сложного вкусового профиля с нотками сладких цитрусовых, темного шоколада и изюма. 100% кофе арабика",
       "price": 19.99,
       "roastLevel": "Medium",
       "stock": 34,
       "brand": "Stumptown Coffee Roasters",
-      "types": [
+      "sorts": [
         "Arabica"
       ],
       "weight": "340g",
@@ -37,13 +37,13 @@
     },
     {
       "id": 3,
-      "title": "French Roast",
+      "name": "French Roast",
       "description": "В San Francisco Bay Coffee используется только 100% арабика и сертифицированные кошерные кофейные зерна. Собран вручную и выращен на большой высоте",
       "price": 22.99,
       "roastLevel": "Dark",
       "stock": 36,
       "brand": "San Francisco Bay Coffee",
-      "types": [
+      "sorts": [
         "Arabica"
       ],
       "weight": "908g",
@@ -54,13 +54,13 @@
     },
     {
       "id": 4,
-      "title": "Morning Glory",
+      "name": "Morning Glory",
       "description": "Сладкий и сбалансированный, органический кофе с нюансами вкуса цитрусовых и шоколада из Гондуры, Эфиопии и Колумбии.",
       "price": 17.99,
       "roastLevel": "Light",
       "stock": 123,
       "brand": "Peace Coffee",
-      "types": [
+      "sorts": [
         "Excelsa",
         "Liberica"
       ],
@@ -72,13 +72,13 @@
     },
     {
       "id": 5,
-      "title": "Holler Mountain",
+      "name": "Holler Mountain",
       "description": "Holler Mountain дарит взрыв цитрусовых и ягодных джемов с нотками сливочной карамели. 100% кофе арабика",
       "price": 20.99,
       "roastLevel": "Medium",
       "stock": 32,
       "brand": "Stumptown Coffee Roasters",
-      "types": [
+      "sorts": [
         "Arabica"
       ],
       "weight": "340g",
@@ -89,13 +89,13 @@
     },
     {
       "id": 6,
-      "title": "Classico",
+      "name": "Classico",
       "description": "Классический обжаренный кофе средней обжарки Classico, состоящий из 9 лучших сортов арабики со всего мира, обладает стойкой сладостью и нежными нотами карамели, флердоранжа и жасмина.",
       "price": 64.99,
       "roastLevel": "Medium",
       "stock": 83,
       "brand": "Illy",
-      "types": [
+      "sorts": [
         "Arabica"
       ],
       "weight": "250g",
@@ -106,13 +106,13 @@
     },
     {
       "id": 7,
-      "title": "Major Dickason's",
+      "name": "Major Dickason's",
       "description": "Ароматный, крепкий, насыщенный. Разработанная для самых взыскательных клиентовю. Major Dickason's сочетает в себе лучшие сорта кофе из ведущих регионов мира, каждый из которых придает свои отличительные региональные характеристики, но при этом легко объединеняется до гладкой, сбалансированной чашки кофе.",
       "price": 13.58,
       "roastLevel": "Dark",
       "stock": 50,
       "brand": "Peet's Coffee",
-      "types": [
+      "sorts": [
         "Arabica"
       ],
       "weight": "510g",
@@ -123,13 +123,13 @@
     },
     {
       "id": 8,
-      "title": "Veranda",
+      "name": "Veranda",
       "description": "Наш самый легкий обжаренный кофе с нотками поджаренного солода и шоколадной выпечки",
       "price": 51.99,
       "roastLevel": "Light",
       "stock": 68,
       "brand": "Starbucks",
-      "types": [
+      "sorts": [
         "Arabica",
         "Liberica"
       ],
@@ -141,13 +141,13 @@
     },
     {
       "id": 9,
-      "title": "Pike Place",
+      "name": "Pike Place",
       "description": "Вкус Pike Place Roast хорошо округлен, с тонкими нотками какао и поджаренных орехов, уравновешивающими мягкое ощущение во рту.",
       "price": 44.19,
       "roastLevel": "Medium",
       "stock": 96,
       "brand": "Starbucks",
-      "types": [
+      "sorts": [
         "Arabica",
         "Robusta"
       ],
@@ -159,13 +159,13 @@
     },
     {
       "id": 10,
-      "title": "454 Horse Power",
+      "name": "454 Horse Power",
       "description": "Бархатистый, земной, энергичный. Эта темная лошадь с плавным ходом вызывает в воображении силу из глубин теней. Это победитель, чемпион вкуса. Запрыгивайте, держитесь и направляйтесь к холмам.",
       "price": 30.99,
       "roastLevel": "Dark",
       "stock": 9,
       "brand": "Kicking Horse Coffee",
-      "types": [
+      "sorts": [
         "Robusta"
       ],
       "weight": "1000g",
@@ -176,13 +176,13 @@
     },
     {
       "id": 11,
-      "title": "Smart Ass",
+      "name": "Smart Ass",
       "description": "Терпкая красная смородина, нотки сахарного тростника и молочного шоколада, медово-ягодное тело.",
       "price": 13.99,
       "roastLevel": "Medium",
       "stock": 5,
       "brand": "Kicking Horse Coffee",
-      "types": [
+      "sorts": [
         "Robusta",
         "Excelsa"
       ],
@@ -194,13 +194,13 @@
     },
     {
       "id": 12,
-      "title": "The Original",
+      "name": "The Original",
       "description": "Предпочитаете ли вы цельнозерновой, моносортный, ароматизированный или разовый кофе, у нас есть кофе для вас! Изучите нашу коллекцию и найдите свою идеальную чашку. Вся обжарка производится на собственном предприятии в Мэриленде, США.",
       "price": 40.99,
       "roastLevel": "Medium",
       "stock": 20,
       "brand": "Eight O'Clock Coffee",
-      "types": [
+      "sorts": [
         "Arabica"
       ],
       "weight": "1190g",
@@ -211,13 +211,13 @@
     },
     {
       "id": 13,
-      "title": "Corsica",
+      "name": "Corsica",
       "description": "Это кофе, который вы знаете и любите, с глубокими оттенками темного шоколада и ярким кофейным вкусом.",
       "price": 12.60,
       "roastLevel": "Dark",
       "stock": 6,
       "brand": "La Colombe",
-      "types": [
+      "sorts": [
         "Excelsa",
         "Robusta"
       ],
@@ -229,13 +229,13 @@
     },
     {
       "id": 14,
-      "title": "House",
+      "name": "House",
       "description": "Наша фирменная смесь предназначена для демонстрации присущей сладости и яркого фруктового вкуса, которые характеризуют наши любимые сорта кофе. Молочный шоколад, цитрусовые и яблоко — это вкусы, которые мы любим, и они представлены здесь с высокой четкостью.",
       "price": 16.50,
       "roastLevel": "Light",
       "stock": 14,
       "brand": "Intelligentsia",
-      "types": [
+      "sorts": [
         "Robusta"
       ],
       "weight": "340g",
@@ -246,13 +246,13 @@
     },
     {
       "id": 15,
-      "title": "Supernatural",
+      "name": "Supernatural",
       "description": "Натуральный процесс приготовления кофе включает в себя медленную сушку на солнце кофейных зерен внутри кофейной ягоды, используя силу ферментации, чтобы придать чашке естественную сладость и сочность.",
       "price": 19,
       "roastLevel": "Medium",
       "stock": 15,
       "brand": "Superlost Coffee",
-      "types": [
+      "sorts": [
         "Excelsa",
         "Liberica"
       ],
@@ -264,13 +264,13 @@
     },
     {
       "id": 16,
-      "title": "Death Wish Dark",
+      "name": "Death Wish Dark",
       "description": "Погрузитесь в гладкий, тонкий профиль вишневого и шоколадного вкуса, который никогда не бывает горьким.",
       "price": 29,
       "roastLevel": "Dark",
       "stock": 11,
       "brand": "Death Wish Coffee Co.",
-      "types": [
+      "sorts": [
         "Robusta",
         "Arabica"
       ],
@@ -282,13 +282,13 @@
     },
     {
       "id": 17,
-      "title": "Big Trouble",
+      "name": "Big Trouble",
       "description": "Big Trouble — это темная обжарка, состоящая из свежесобранного кофе со всего мира. Компоненты меняются в зависимости от сезона, но кофе всегда будет иметь вкус темного шоколада, карамели и округлое тело.",
       "price": 17.50,
       "roastLevel": "Dark",
       "stock": 8,
       "brand": "Counter Culture Coffee",
-      "types": [
+      "sorts": [
         "Liberica"
       ],
       "weight": "340g",
@@ -299,13 +299,13 @@
     },
     {
       "id": 18,
-      "title": "Post Alley",
+      "name": "Post Alley",
       "description": "Это дымная и интенсивная французская обжарка с удивительно гладкой стороной. Лучше всего сделать паузу, чтобы ароматы пробудили ваши чувства, прежде чем сделать первый глоток.",
       "price": 17.88,
       "roastLevel": "Dark",
       "stock": 8,
       "brand": "Seattle's Best Coffee",
-      "types": [
+      "sorts": [
         "Excelsa",
         "Arabica"
       ],
@@ -317,13 +317,13 @@
     },
     {
       "id": 19,
-      "title": "Cold Brew",
+      "name": "Cold Brew",
       "description": "Зерна арабики средней обжарки с нотками карамели и лесного ореха.",
       "price": 14.98,
       "roastLevel": "Medium",
       "stock": 4,
       "brand": "Bizzy",
-      "types": [
+      "sorts": [
         "Arabica"
       ],
       "weight": "454g",
@@ -334,13 +334,13 @@
     },
     {
       "id": 20,
-      "title": "Organic Guatemalan",
+      "name": "Organic Guatemalan",
       "description": "Наш органический гватемальский сорт средней обжарки обладает насыщенным вкусом землистого какао с тонкими цветочными нотками.",
       "price": 17,
       "roastLevel": "Medium",
       "stock": 10,
       "brand": "Dope Coffee",
-      "types": [
+      "sorts": [
         "Excelsa",
         "Robusta",
         "Liberica"
@@ -353,13 +353,13 @@
     },
     {
       "id": 21,
-      "title": "Organic",
+      "name": "Organic",
       "description": "Это очень темный и насыщенный драгоценный камень с дегустационными нотками темного шоколада, сладости и фруктов. Наслаждайтесь шоколадным богатством и тонким ароматом дыма этой самой продаваемой смеси.",
       "price": 45,
       "roastLevel": "Dark",
       "stock": 3,
       "brand": "Equal Exchange",
-      "types": [
+      "sorts": [
         "Liberica"
       ],
       "weight": "283g",
@@ -370,13 +370,13 @@
     },
     {
       "id": 22,
-      "title": "East Fourteenth",
+      "name": "East Fourteenth",
       "description": "Насыщенный, насыщенный свежеобжаренный кофе демонстрирует таланты кофейных кооперативов Уганды и для нас представляет большую историю International Blvd. Ароматы напоминают ежевику, темный шоколад и финики для восхитительного напитка.",
       "price": 14,
       "roastLevel": "Dark",
       "stock": 6,
       "brand": "Red Bay Coffee",
-      "types": [
+      "sorts": [
         "Robusta"
       ],
       "weight": "340g",
@@ -387,13 +387,13 @@
     },
     {
       "id": 23,
-      "title": "Peerless Organic",
+      "name": "Peerless Organic",
       "description": "Наша органическая французская обжарка представляет собой смелую и мягкую смесь зерен арабики со сладким и теплым вкусом. Нотки какао и поджаренной карамели пробудят ваши чувства бодрящим ароматом и бодрящим вкусом.",
       "price": 32.17,
       "roastLevel": "Dark",
       "stock": 26,
       "brand": "Peerless Coffee & Tea",
-      "types": [
+      "sorts": [
         "Arabica"
       ],
       "weight": "908g",
@@ -404,13 +404,13 @@
     },
     {
       "id": 24,
-      "title": "Tanzania Peaberry",
+      "name": "Tanzania Peaberry",
       "description": "Tanzania Peaberry кофе из Северной и Южной Танзании, Африка. Дегустационные ноты: карамель, косточковые фрукты и шоколад. Промытый и высушенный на солнце процесс. Отличный кофе для капельного, френч-пресса или пуровера.",
       "price": 46,
       "roastLevel": "Medium",
       "stock": 13,
       "brand": "Stone Street Coffee",
-      "types": [
+      "sorts": [
         "Arabica"
       ],
       "weight": "454g",
@@ -421,13 +421,13 @@
     },
     {
       "id": 25,
-      "title": "Koffee Kult Dark",
+      "name": "Koffee Kult Dark",
       "description": "Крепкий черный кофе с ярко выраженным вкусом, но в зернах с гладкими отверстиями. Не горький. Лучший выбор кофе в зернах для гурманов. Баночные ноты: тяжелое тело, гладкое, коричное и яркое с долгим послевкусием.",
       "price": 35.99,
       "roastLevel": "Dark",
       "stock": 7,
       "brand": "Koffee Kult",
-      "types": [
+      "sorts": [
         "Liberica",
         "Robusta"
       ],
@@ -439,13 +439,13 @@
     },
     {
       "id": 26,
-      "title": "Daybreak Morning",
+      "name": "Daybreak Morning",
       "description": "Light Roast с фруктово-карамельной сладостью и ореховым послевкусием для солнечного вкуса с каждым глотком",
       "price": 20.23,
       "roastLevel": "Light",
       "stock": 31,
       "brand": "Caribou Coffee",
-      "types": [
+      "sorts": [
         "Arabica"
       ],
       "weight": "454g",
@@ -456,13 +456,13 @@
     },
     {
       "id": 27,
-      "title": "Delicata",
+      "name": "Delicata",
       "description": "Классическая смесь центрально- и южноамериканских зерен, эта изысканная чашка кофе легкой обжарки начинается со сладкого лимона и заканчивается гладкой консистенцией молочного шоколада.",
       "price": 11.96,
       "roastLevel": "Light",
       "stock": 17,
       "brand": "Amora",
-      "types": [
+      "sorts": [
         "Liberica",
         "Arabica"
       ],
@@ -474,13 +474,13 @@
     },
     {
       "id": 28,
-      "title": "Hazelnut Crème",
+      "name": "Hazelnut Crème",
       "description": "Мы используем нашу фирменную смесь 100% арабики для нашего кофе Hazelnut Creme средней обжарки, который отличается богатым ореховым вкусом лесного ореха с оттенком сладости.",
       "price": 16.79,
       "roastLevel": "Medium",
       "stock": 4,
       "brand": "New England Coffee",
-      "types": [
+      "sorts": [
         "Arabica"
       ],
       "weight": "312g",
@@ -491,13 +491,13 @@
     },
     {
       "id": 29,
-      "title": "Supremo",
+      "name": "Supremo",
       "description": "Кофе средней обжарки со сладким цветочным ароматом и винными нотками, которые вы смакуете с каждой чашкой. Сделано из лучшего колумбийского кофе.",
       "price": 20.99,
       "roastLevel": "Medium",
       "stock": 7,
       "brand": "Don Francisco's",
-      "types": [
+      "sorts": [
         "Arabica"
       ],
       "weight": "340g",
@@ -508,13 +508,13 @@
     },
     {
       "id": 30,
-      "title": "Bright",
+      "name": "Bright",
       "description": "Яркий — это слово, которое мы используем для описания кофе, который естественным образом склонен к фруктовости с легкой освежающей кислинкой. Эта сияющая и бодрящая органическая смесь объединяет сорта кофе из Восточной Африки.",
       "price": 47.97,
       "roastLevel": "Light",
       "stock": 4,
       "brand": "Blue Bottle Coffee",
-      "types": [
+      "sorts": [
         "Liberica"
       ],
       "weight": "340g",

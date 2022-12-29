@@ -13,7 +13,7 @@
                 <div class="header__top">
                     <div class="header__logo">
                         <a  class="logo" href="/">
-                            <img src="#" alt="logo">
+                            <span class="logo-img"></span>
                             <h1>
                                 Golden Beans
                             </h1>
@@ -34,171 +34,16 @@
                     </ul>
                 </nav>
                 <div class="header__cart-logo">
-                    <a class="cart-logo" href="#cart">
-                        <img src="#" alt="shop-cart">
-                    </a>
+                    <a class="cart-logo" href="#cart"></a>
                 </div>
             </div>
         </header>
         <main class="main">
-            <article>
-                <section class="filters">
-                    <div class="filters__presets">
-                        <div class="filters__reset"></div>
-                        <div class="filters__save"></div>
-                        <div class="filters__restore"></div>
-                    </div>
-                    <div class="filters__coffee-sorts">
-                        <div class="coffee-sorts__title">Сорты кофе</div>
-                        <div class="coffee-sorts__content">
-                            <div class="coffee-sort">Arabica</div>
-                            <div class="coffee-sort">Robusta</div>
-                            <div class="coffee-sort">Liberica</div>
-                            <div class="coffee-sort">Excelsa</div>
-                        </div>
-                    </div>
-                    <div class="filters__coffee-brands">
-                        <div class="coffee-brand">Lavazza</div>
-                    </div>
-                    <div class="filters__coffee-roast-levels">
-                        <div class="coffee-roast-levels__title">
-                            Бренды кофе
-                        </div>
-                        <div class="coffee-roast-levels__content">
-                            <div class="coffee-roast-level coffee-roast-level_checked">
-                                <img src="./assets/roast-level-light.svg" alt="light-roast">
-                                <div class="coffee-roast-level__name">Светлая</div>
-                            </div>
-                            <div class="coffee-roast-level">
-                                <img src="./assets/roast-level-medium.svg" alt="medium-roast">
-                                <div class="coffee-roast-level__name">Средняя</div>
-                            </div>
-                            <div class="coffee-roast-level">
-                                <img src="./assets/roast-level-dark.svg" alt="dark-roast">
-                                <div class="coffee-roast-level__name">Темная</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="filters__coffee-in-stock">
-                        <div class="coffee-in-stock__title">
-                            Наличие
-                        </div>
-                        <div class="coffee-in-stock__dual-slider">
-                            <div class="dual-slider">
-                                <div class="dual-slider__input-fields">
-                                    <div class="input-field">
-                                        <span>От:</span>
-                                        <input type="number" class="input_min" min="0" value="250">
-                                    </div>
-                                    <div class="input-field">
-                                        <span>До:</span>
-                                        <input type="number" class="input_max" min="0" value="750">
-                                    </div>
-                                </div>
-                                <div class="dual-slider__ranges">
-                                    <div class="dual-slider__line">
-                                        <div class="dual-slider__progress"></div>
-                                    </div>
-                                    <div class="dual-slider__input-ranges">
-                                        <input type="range" class="range_min" min="0" max="1000" value="250">
-                                        <input type="range" class="range_max" min="0" max="1000" value="750">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="filters__coffee-prices">
-
-                    </div>
-                </section>
-                <section class="products">
-                    <div class="products__view">
-                        <div class="view__search-box">
-                            <div class="search__input">
-                                <input type="text">
-                                <img src="./assets/search.svg" alt="search">
-                            </div>
-                            <div class="search__amount">
-                                Найдено 30
-                            </div>
-                        </div>
-                        <div class="view__options">
-                            <div class="view__option view__option_checked">
-                                <img src="./assets/blocks.svg" alt="blocks">
-                            </div>
-                            <div class="view__option">
-                                <img src="./assets/lines.svg" alt="lines">
-                            </div>
-                        </div>
-                        <div class="view__sort-options">
-                            <div class="select-box select-box_active">
-                                <div class="select-box__label">
-                                    <span class="select-box__sort-img"></span>
-                                    <span>Сортировать</span>
-                                    <span class="select-box__open-close"></span>
-                                </div>
-                                <div class="select-box__options">
-                                    <div class="option sort-option option__checked">от А до Z</div>
-                                    <div class="option sort-option">от Z до A</div>
-                                    <div class="option sort-option">по возростанию цены</div>
-                                    <div class="option sort-option">по убыванию цены</div>
-                                </div>
-                            </div>
-                        </div>  
-                    </div>
-                    <div class="products__list_lines">
-                        <div class="product-card">
-                            <div class="product__image">
-                                <img src="https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg" alt="coffee">
-                            </div>
-                            <div class="product__content">
-                                <div class="product__name">
-                                    Coffee Good Beans
-                                </div>
-                                <div class="product__info">
-                                    <div class="product__coffee-sort"></div>
-                                    <div class="product__coffee-roast"></div>
-                                </div>
-                                <div class="product__price-button">
-                                    <button class="button button_price">
-                                        <div class="button_price__text">
-                                            В корзину
-                                        </div>
-                                        <div class="button_price__info product__price">
-                                            100$
-                                        </div>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-card"></div>
-                        <div class="product-card"></div>
-                        <div class="product-card"></div>
-                        <div class="product-card"></div>
-                        <div class="product-card"></div>
-                        <div class="product-card"></div>
-                        <div class="product-card"></div>
-                        <div class="product-card"></div>
-                        <div class="product-card"></div>
-                        <div class="product-card"></div>
-                        <div class="product-card"></div>
-                        <div class="product-card"></div>
-                        <div class="product-card"></div>
-                        <div class="product-card"></div>
-                        <div class="product-card"></div>
-                        <div class="product-card"></div>
-                        <div class="product-card"></div>
-                        <div class="product-card"></div>
-                        <div class="product-card"></div>
-                    </div>
-                </section>
-            </article>
         </main>
         <footer class="footer">
             <div class="project-info">
                 <div class="course-info">
-                    <a href="https://rs.school/js/">
-                        <img class="course-img" src="./assets/rs-school-js.svg" alt="RSSchool">
+                    <a class="course-img" href="https://rs.school/js/">
                     </a>
                 </div>
                 <div class="creators-info">
