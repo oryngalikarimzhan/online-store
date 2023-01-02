@@ -1,7 +1,7 @@
 *,
 *::after,
 *::before {
-  font-family: "Marmelad";
+  font-family: "Roboto Condensed";
 }
 
 html {
@@ -13,16 +13,18 @@ body {
   display: flex;
   flex-direction: column;
   color: $color-main;
+  background: $color-background;
+  font-weight: 300;
 }
 
 button {
-  font-family: "Marmelad";
+  font-family: "Roboto Condensed";
   @include adaptive-font(16, 25);
   color: $color-main;
 }
 
 h2 {
-  @include adaptive-font(16, 50);
+  @include adaptive-font(20, 50);
 }
 
 h3 {
@@ -41,12 +43,13 @@ p {
 
 input,
 div {
-  font-family: "Marmelad";
+  font-family: "Roboto Condensed";
   font-size: 1.6rem;
   color: $color-main;
 }
 
 .main {
+  margin-top: 70px;
   min-height: calc(100vh - 140px);
   @include media-tablet {
     min-height: calc(100vh - 100px);

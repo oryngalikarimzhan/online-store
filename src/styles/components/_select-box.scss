@@ -3,18 +3,18 @@
   position: relative;
   
   .select-box__label {
-    @extend %border;
     display: flex;
     align-items: center;
     font-size: 1.6rem;
     color: $color-main;
     width: 100%;
+    background: $color-primary;
     padding: 5px;
     column-gap: 10px;
-    position: relative;
     z-index: 2;
     cursor: pointer;
     user-select: none;
+    @extend %border;
 
     .select-box__sort-img {
       width: 30px;
@@ -34,27 +34,29 @@
   .select-box__options {
     z-index: 0;
     width: 100%;
-    padding: 50px 5px 5px;
-    @extend %border;
-    background: $color-light;
+    padding: 30px 5px 5px;
+    background: $color-primary;
     position: absolute;
-    color: $color-dark;
     font-size: 1.6rem;
-    top: 0;
-    opacity: 0;
-    visibility: hidden;
+    top: 20px;
+    left: 0;
+    @extend %border;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform .2s linear;
 
     .option {
       padding-left: 5px;
+      color: $color-main;
       cursor: pointer;
       user-select: none;
       &:hover {
-        background: rgba($color-dark, 0.1);
+        color: $color-light;
       }
     }
 
     .option__checked {
-      background: rgba($color-main, 0.4);
+      background: rgba($color-dark, 0.4);
     }
   }
 }
@@ -68,7 +70,6 @@
   }
 
   .select-box__options {
-    opacity: 1;
-    visibility: visible;
+    transform: scaleY(1);
   }
 }

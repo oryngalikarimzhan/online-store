@@ -264,7 +264,7 @@ export default class Shop {
             'Сорты: ' + filteredProduct.sorts.join(', ');
         (productCard.querySelector('.product__coffee-roast') as E).innerHTML = 'Обжарка: ' + filteredProduct.roastLevel;
         (productCard.querySelector('.product__coffee-stock') as E).innerHTML =
-            'В наличии: ' + filteredProduct.stock.toString();
+            'В наличии: ' + filteredProduct.stock.toString() + ' шт.';
         (productCard.querySelector('.product__coffee-weight') as E).innerHTML = 'Вес: ' + filteredProduct.weight;
         (productCard.querySelector('.product__price') as E).innerHTML = filteredProduct.price + '$';
         return productCard;
@@ -396,12 +396,12 @@ export default class Shop {
 
         controlSlider.style.background = `linear-gradient(
         to right,
-        hsl(0, 0%, 90%) 0%,
-        hsl(0, 0%, 90%) ${(fromPosition / rangeDistance) * 100}%,
-        rgb(153, 101, 21) ${(fromPosition / rangeDistance) * 100}%,
-        rgb(153, 101, 21) ${(toPosition / rangeDistance) * 100}%, 
-        hsl(0, 0%, 90%) ${(toPosition / rangeDistance) * 100}%, 
-        hsl(0, 0%, 90%) 100%)`;
+        #ece6e0 0%,
+        #ece6e0 ${(fromPosition / rangeDistance) * 100}%,
+        #b17a49 ${(fromPosition / rangeDistance) * 100}%,
+        #b17a49 ${(toPosition / rangeDistance) * 100}%, 
+        #ece6e0 ${(toPosition / rangeDistance) * 100}%, 
+        #ece6e0 100%)`;
     };
 
     private setToggleAccessible = (currentTarget: I, toSlider?: I) => {

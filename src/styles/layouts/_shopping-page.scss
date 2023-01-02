@@ -1,12 +1,13 @@
 .shop {
   max-width: 1280px;
-  margin: 150px auto 50px;
-  min-height: calc(100vh - 140px);
+  margin: 80px auto 50px;
+  min-height: calc(150vh);
   display: flex;
   padding: 0 15px;
   column-gap: 10px;
+
   @include media-laptop {
-    margin: 90px auto 50px;
+    margin: 20px auto 50px;
   }
 
   @include media-tablet {
@@ -30,6 +31,7 @@
   }
 
   .filters__wrapper {
+    background: $color-primary;
     display: flex;
     flex-direction: column;
     @extend %border;
@@ -48,18 +50,18 @@
     .filters__reset,
     .filters__save,
     .filters__restore {
-      transition: background .1s ease-out;
+      transition: background .3s linear;
 
       &::after {
         content: "";
         position: relative;
-        top: -25px;
+        top: 25px;
         left: -40px;
-        font-size: 1.4rem;
+        font-size: 1.3rem;
         white-space: nowrap;
-        color: $color-dark;
+        color: $color-main;
         opacity: 0;
-        transition: opacity .2s ease-out;
+        transition: opacity .3s linear;
       }
 
       &:hover::after {
@@ -69,11 +71,11 @@
     }
 
     .filters__reset {
-      background: url(./assets/filter.svg) center;
-      background-size: cover;
+      background: url(./assets/filter.svg) center no-repeat;
+      background-size: 22px 22px;
       &:hover {
-        background: url(./assets/reset.svg) center;
-        background-size: cover;
+        background: url(./assets/reset.svg) center no-repeat;
+        background-size: 22px 22px;
         &::after {
           content: attr(content);
         }
@@ -81,8 +83,8 @@
     }
 
     .filters__save {
-      background: url(./assets/save.svg) center;
-      background-size: cover;
+      background: url(./assets/save.svg) center no-repeat;
+      background-size: 22px 22px;
       &:hover::after {
         left: -45px;
         content: attr(content);
@@ -90,22 +92,27 @@
     }
 
     .filters__restore {
-      background: url(./assets/restore.svg) center;
-      background-size: 26px 26px;
+      background: url(./assets/restore.svg) center no-repeat;
+      background-size: 22px 22px;
       &:hover::after {
-        left: -65px;
+        left: -60px;
         content: attr(content);
       }
     }
   }
 
   .filters__coffee-sorts {
-    border-top: 1px solid rgba($color-dark, 0.1);
-    box-shadow: 0 -2px 1px rgba($color-dark, 0.2);
+    border-top: 2px solid rgba($color-main, 0.3);
     display: flex;
     flex-direction: column;
     align-items: center;
     font-size: 1.6rem;
+
+    .coffee-sorts__title {
+      padding-left: 10px;
+      align-self: flex-start;
+      font-weight: 400;
+    }
 
     .coffee-sorts__content {
       padding: 5px 10px;
@@ -119,21 +126,21 @@
         display: flex;
         align-items: center;
         padding-left: 30px;
-        color: $color-dark;
       }
     }
   }
 
   .filters__coffee-brands {
-    border-top: 1px solid rgba($color-dark, 0.1);
-    box-shadow: 0 -2px 1px rgba($color-dark, 0.2);
+    border-top: 2px solid rgba($color-main, 0.3);
     height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
     .coffee-brands__title {
-      text-align: center;
+      padding-left: 10px;
+      align-self: flex-start;
+      font-weight: 400;
     }
 
     .coffee-brands__content {
@@ -143,7 +150,6 @@
       padding: 5px 0 0 10px;
       @extend %custom-scroll;
       .coffee-brand {
-        color: $color-dark;
         font-size: 1.6rem;
         height: 30px;
         padding-left: 30px;
@@ -153,13 +159,14 @@
   }
 
   .filters__coffee-roast-levels {
-    border-top: 1px solid rgba($color-dark, 0.1);
-    box-shadow: 0 -2px 1px rgba($color-dark, 0.2);
+    border-top: 2px solid rgba($color-main, 0.3);
     display: flex;
     flex-direction: column;
 
     .coffee-roast-levels__title {
-      text-align: center;
+      padding-left: 10px;
+      align-self: flex-start;
+      font-weight: 400;
     }
 
     .coffee-roast-levels__content {
@@ -173,38 +180,52 @@
         user-select: none;
 
         .coffee-roast-level__name {
-          color: $color-dark;
+          color: $color-main;
           text-align: center;
+        }
+
+        &:hover {
+          .roast-img {
+            border: 2px solid $color-primary;
+            outline: 2px solid $color-main;
+          }
+
+          .coffee-roast-level__name {
+            color: $color-light;
+          }
         }
       }
 
       .roast-img {
-        width: 30px;
-        height: 40px;
-        transition: transform .2s ease-out;
-        transform: scale(0.9);
+        width: 45px;
+        height: 45px;
+        outline: 0px solid $color-main;
+        border: 2px solid $color-main;
+        border-radius: 50%;
+        transition: outline .2s ease-out, border .2s ease-out;
       }
 
       #light .roast-img {
-        background: url(./assets/roast-level-light.svg) center;
-        background-size: contain;
+        background: url(./assets/roast-level-light.svg) center no-repeat, linear-gradient($color-light, $color-light);
+        background-size: 30px 35px;
       }
       #medium .roast-img {
-        background: url(./assets/roast-level-medium.svg) center;
-        background-size: contain;
+        background: url(./assets/roast-level-medium.svg) center no-repeat, linear-gradient($color-light, $color-light);
+        background-size: 30px 35px;
       }
       #dark .roast-img {
-        background: url(./assets/roast-level-dark.svg) center;
-        background-size: contain;
+        background: url(./assets/roast-level-dark.svg) center no-repeat, linear-gradient($color-light, $color-light);
+        background-size: 30px 35px;
       }
 
       .coffee-roast-level_checked {
         .coffee-roast-level__name {
-          color: $color-main;
+          color: $color-light;
         }
 
         .roast-img {
-          transform: scale(1.1);
+          border: 2px solid $color-primary;
+          outline: 2px solid $color-main;
         }
       }
     }
@@ -212,13 +233,14 @@
   }
 
   .filters__coffee-stock {
-    border-top: 1px solid rgba($color-dark, 0.1);
-    box-shadow: 0 -2px 1px rgba($color-dark, 0.2);
+    border-top: 2px solid rgba($color-main, 0.3);
     display: flex;
     flex-direction: column;
 
     .coffee-stock__title {
-      text-align: center;
+      padding-left: 10px;
+      align-self: flex-start;
+      font-weight: 400;
     }
 
     .coffee-stock__dual-slider {
@@ -227,13 +249,14 @@
   }
 
   .filters__coffee-prices {
-    border-top: 1px solid rgba($color-dark, 0.1);
-    box-shadow: 0 -2px 1px rgba($color-dark, 0.2);
+    border-top: 2px solid rgba($color-main, 0.3);
     display: flex;
     flex-direction: column;
 
     .coffee-prices__title {
-      text-align: center;
+      padding-left: 10px;
+      align-self: flex-start;
+      font-weight: 400;
     }
 
     .coffee-prices__dual-slider {
@@ -251,7 +274,7 @@
     flex: 1;
   }
   .products__view {
-    background: $color-light;
+    background: $color-primary;
     @extend %border;
     height: 65px;
     width: 100%;
@@ -279,7 +302,7 @@
 
       .search__input {
         height: 40px;
-
+        background: $color-light;
         input {
           width: 80%;
         }
@@ -309,25 +332,26 @@
       }
 
       #blocks {
-        background: url(./assets/blocks.svg) center;
-        background-size: contain;
+        background: url(./assets/blocks.svg) center no-repeat;
+        background-size: 18px 18px;
       }
       #list {
-        background: url(./assets/list.svg) center;
-        background-size: contain;
+        background: url(./assets/list.svg) center no-repeat;
+        background-size: 22px 22px;
       }
 
       .view__option_checked#blocks {
-        background: url(./assets/blocks-light.svg) center, linear-gradient(to right, $color-additional, $color-additional);
-        background-size: contain;
+        background: url(./assets/blocks-light.svg) center no-repeat, linear-gradient(to right, $color-main, $color-main);
+        background-size: 18px 18px;
       }
       .view__option_checked#list {
-        background: url(./assets/list-light.svg) center, linear-gradient(to right, $color-additional, $color-additional);
-        background-size: contain;
+        background: url(./assets/list-light.svg) center no-repeat, linear-gradient(to right, $color-main, $color-main);
+        background-size: 22px 22px;
       }
     }
 
     .view__sort-options {
+      font-weight: 400;
       padding-left: 10px;
       @include flex(center, flex-end);
     }

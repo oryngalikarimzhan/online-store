@@ -19,7 +19,7 @@ export default class ShoppingPageTemplate implements ITemplate {
                 </div>
                 <div class="filters__coffee-sorts">
                     <p class="coffee-sorts__title">
-                        Сорты кофе
+                        Сорт
                     </p>
                     <div class="coffee-sorts__content">
                         <div id="arabica" class="coffee-sort checkmark">Арабика</div>
@@ -30,14 +30,14 @@ export default class ShoppingPageTemplate implements ITemplate {
                 </div>
                 <div class="filters__coffee-brands">
                     <p class="coffee-brands__title">
-                        Бренды кофе
+                        Бренд
                     </p>
                     <div class="coffee-brands__content">
                     </div>
                 </div>
                 <div class="filters__coffee-roast-levels">
                     <p class="coffee-roast-levels__title">
-                        Уровень обжарки кофе
+                        Обжарка
                     </p>
                     <div class="coffee-roast-levels__content">
                         <div id="light" class="coffee-roast-level">
@@ -149,8 +149,8 @@ export default class ShoppingPageTemplate implements ITemplate {
                                 <div class="product__coffee-brand">Бренд:</div>
                                 <div class="product__coffee-sort">Сорт:</div>
                                 <div class="product__coffee-roast">Обжарка:</div>
-                                <div class="product__coffee-stock">В наличии:</div>
                                 <div class="product__coffee-weight">Вес:</div>
+                                <div class="product__coffee-stock">В наличии:</div>
                             </div>
                             <div class="product__price-button">
                                 <button class="button button_price">
@@ -176,8 +176,8 @@ export default class ShoppingPageTemplate implements ITemplate {
                                 <div class="product__coffee-brand">Бренд:</div>
                                 <div class="product__coffee-sort">Сорт:</div>
                                 <div class="product__coffee-roast">Обжарка:</div>
-                                <div class="product__coffee-stock">В наличии:</div>
                                 <div class="product__coffee-weight">Вес:</div>
+                                <div class="product__coffee-stock">В наличии:</div>
                             </div>
                             <div class="product__price-button">
                                 <button class="button button_price button_price_checked">
