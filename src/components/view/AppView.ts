@@ -1,7 +1,7 @@
 import IProduct from '../model/IProduct';
 import ITemplate from '../model/ITemplate';
 import { QueryMap } from '../model/Types';
-import ShoppingPageTemplate from '../template/ShoppingPageTemplate';
+import ShopTemplate from '../template/Shop.template';
 import Shop from './Shop';
 
 export default class AppView {
@@ -12,9 +12,9 @@ export default class AppView {
     }
 
     renderShopPage = (filteredProducts: IProduct[], products: IProduct[], queries: QueryMap) => {
-        const template = new ShoppingPageTemplate();
-        const contentElement = template.getPageTemplate();
-        this.shop.draw(this.shop.getContentElement() ?? contentElement, filteredProducts, products, queries);
+        const template = new ShopTemplate();
+        const htmlElement = template.getPageTemplate();
+        this.shop.draw(this.shop.getContentElement() ?? htmlElement, filteredProducts, products, queries);
         this.addPageHeaders(template);
     };
 

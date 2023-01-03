@@ -17,13 +17,7 @@
 
 .filters {
   flex: 0 0 300px;
-  position: sticky;
-  top: 70px;
-  max-height: 700px;
 
-  @include media-laptop {
-    position: static;
-  }
   @include media-tablet {
     display: flex;
     justify-content: center;
@@ -31,12 +25,18 @@
   }
 
   .filters__wrapper {
+    position: sticky;
+    top: 70px;
     background: $color-primary;
     display: flex;
     flex-direction: column;
     @extend %border;
 
+    @include media-laptop {
+      position: static;
+    }
     @include media-tablet {
+      
       max-width: 600px;
     }
   }
@@ -105,7 +105,6 @@
     border-top: 2px solid rgba($color-main, 0.3);
     display: flex;
     flex-direction: column;
-    align-items: center;
     font-size: 1.6rem;
 
     .coffee-sorts__title {
@@ -115,16 +114,14 @@
     }
 
     .coffee-sorts__content {
-      padding: 5px 10px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
+      padding: 5px 15px 5px 5px;
 
       .coffee-sort {
         flex: 0 0 50%;
         height: 30px;
         display: flex;
         align-items: center;
+        justify-content: space-between;
         padding-left: 30px;
       }
     }
@@ -147,12 +144,14 @@
       overflow: scroll;
       overflow-x: hidden;
       margin: 5px 5px 5px 0;
-      padding: 5px 0 0 10px;
+      padding: 5px 5px 0 5px;
       @extend %custom-scroll;
       .coffee-brand {
-        font-size: 1.6rem;
-        height: 30px;
         padding-left: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
       }
     }
     

@@ -39,7 +39,7 @@ export default class HomePageTemplate implements ITemplate {
                     </button>
                 </div>
                 <h2>
-                    Выбери свой кофе. 
+                    Выбери свой кофе.
                 </h2>
             </div>
             <div class="home-page__content-2">
@@ -81,7 +81,7 @@ export default class HomePageTemplate implements ITemplate {
                     <img class="coffee-roast__image" src="https://i.postimg.cc/tgCtQtdH/roast-level.jpg" alt="roast-level">
                     <div class="coffee-roast__title">
                         <h4>
-                            Так же при выборе нужно знать, что кофейные зерна отличаются по cтепеням прожарки. Есть основные 3 степени: 
+                            Так же при выборе нужно знать, что кофейные зерна отличаются по cтепеням прожарки. Есть основные 3 степени:
                         <p>
                     </div>
                     <div class="coffee-roast__roast-levels">

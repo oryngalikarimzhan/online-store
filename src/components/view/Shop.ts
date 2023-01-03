@@ -1,9 +1,9 @@
 import IProduct from '../model/IProduct';
-import { QueryMap, I, E } from '../model/Types';
+import { QueryMap, I, E, CartItem } from '../model/Types';
+import ProductsService from '../service/ProductsService';
 import { parseStr, addParameterToQuery, deleteParameterFromQuery, composeStr } from '../utilities/Utils';
 
 /** TODO
- * количество сортов, брендов
  * Карточки ссылки
  * Корзина
  *
@@ -28,25 +28,27 @@ export default class Shop {
             this.contentElement = htmlElement;
             this.buildNewContent(this.contentElement, filteredProducts, products, queries);
         } else {
-            this.updateOldContent(this.contentElement, filteredProducts, queries);
+            this.updateOldContent(this.contentElement, filteredProducts, products, queries);
         }
     };
 
     buildNewContent = (htmlElement: E, filteredProducts: IProduct[], products: IProduct[], queries: QueryMap) => {
         console.log('============== NEW TEMPLATE ==============');
+
         const productCardTemplate: HTMLTemplateElement = this.defineProductCardTemplate(htmlElement, queries.view);
 
         this.addPresetButtonHandlers(htmlElement);
         this.checkSorts(htmlElement, queries.sorts);
-
+        this.countSorts(htmlElement, filteredProducts, products);
         this.checkBrand(htmlElement, products, queries.brands);
-
+        this.countBrands(htmlElement, filteredProducts, products);
         this.checkRoastLevels(htmlElement, queries.roast);
 
         this.buildSlider(
             '.coffee-stock__dual-slider',
             htmlElement,
             products,
+            filteredProducts,
             (product) => product.stock,
             queries.stock
         );
@@ -54,6 +56,7 @@ export default class Shop {
             '.coffee-prices__dual-slider',
             htmlElement,
             products,
+            filteredProducts,
             (product) => product.price,
             queries.prices
         );
@@ -71,13 +74,30 @@ export default class Shop {
         contentContainer.append(htmlElement);
     };
 
-    updateOldContent = (htmlElement: E, filteredProducts: IProduct[], queries: QueryMap) => {
+    updateOldContent = (htmlElement: E, filteredProducts: IProduct[], products: IProduct[], queries: QueryMap) => {
         console.log('============== OLD TEMPLATE ==============');
+
+        this.countSorts(htmlElement, filteredProducts, products);
+        this.countBrands(htmlElement, filteredProducts, products);
+
+        this.updateSliderValues(
+            filteredProducts,
+            (product) => product.stock,
+            this.getSliderInputElements('.coffee-stock__dual-slider', htmlElement)
+        );
+        this.updateSliderValues(
+            filteredProducts,
+            (product) => product.price,
+            this.getSliderInputElements('.coffee-prices__dual-slider', htmlElement)
+        );
+
         const productCardTemplate: HTMLTemplateElement = this.defineProductCardTemplate(htmlElement, queries.view);
-        const productsListContainer = htmlElement.querySelector('.products__list') as E;
-        productsListContainer.innerHTML = '';
+
         const searchAmount = htmlElement.querySelector('.search__amount') as E;
         searchAmount.innerHTML = 'Найдено ' + filteredProducts.length;
+
+        const productsListContainer = htmlElement.querySelector('.products__list') as E;
+        productsListContainer.innerHTML = '';
         for (const filteredProduct of filteredProducts) {
             productsListContainer?.append(this.buildProductCard(productCardTemplate, filteredProduct));
         }
@@ -89,7 +109,11 @@ export default class Shop {
             const brand = document.createElement('div') as E;
             brand.classList.add('coffee-brand');
             brand.classList.add('checkmark');
-            brand.innerHTML = product.brand;
+            brand.innerHTML = `
+                <span class="coffee-brand__name">
+                    ${product.brand}
+                </span>
+                <span class="coffee-brand__count"></span>`;
             brandMap.set(product.brand, brand);
         }
         return brandMap;
@@ -108,12 +132,20 @@ export default class Shop {
         brandMap.forEach((brand) => brandsContainer.append(brand));
         brandsContainer.addEventListener('click', (e) => {
             const target = e.target as E;
-            if (!target.classList.contains('checkmark_checked')) {
-                target.classList.add('checkmark_checked');
-                window.location.hash = addParameterToQuery('brands', composeStr(target.innerHTML));
+
+            const closest = target.closest('.coffee-brand') as E;
+            if (!closest.classList.contains('checkmark_checked')) {
+                closest.classList.add('checkmark_checked');
+                window.location.hash = addParameterToQuery(
+                    'brands',
+                    composeStr((closest.firstElementChild as E).innerHTML.trim())
+                );
             } else {
-                target.classList.remove('checkmark_checked');
-                window.location.hash = deleteParameterFromQuery('brands', composeStr(target.innerHTML));
+                closest.classList.remove('checkmark_checked');
+                window.location.hash = deleteParameterFromQuery(
+                    'brands',
+                    composeStr((closest.firstElementChild as E).innerHTML.trim())
+                );
             }
         });
     };
@@ -128,20 +160,65 @@ export default class Shop {
         return htmlElement.querySelector('#product-card_list__template') as HTMLTemplateElement;
     };
 
+    private countSorts = (htmlElement: E, filteredProducts: IProduct[], products: IProduct[]) => {
+        const sortElements = htmlElement.querySelectorAll('.coffee-sort');
+        sortElements?.forEach((el) => {
+            const lengthFiltered = ProductsService.getProductsBySorts(filteredProducts, [`${el.id}`]).length;
+            const lengthAll = ProductsService.getProductsBySorts(products, [`${el.id}`]).length;
+
+            const countEl = el.querySelector('.coffee-sort__count') as E;
+            if (countEl.innerHTML) {
+                countEl.innerHTML = `${lengthFiltered}/${countEl.innerHTML.split('/')[1]}`;
+            } else {
+                countEl.innerHTML = `${lengthFiltered}/${lengthAll}`;
+            }
+            if (lengthFiltered === 0) {
+                (el as HTMLElement).style.color = '#5e514f';
+            } else {
+                (el as HTMLElement).style.color = '#b17a49';
+            }
+        });
+    };
+
+    private countBrands = (htmlElement: E, filteredProducts: IProduct[], products: IProduct[]) => {
+        const sortElements = htmlElement.querySelectorAll('.coffee-brand');
+        sortElements?.forEach((el) => {
+            const nameEl = el.querySelector('.coffee-brand__name') as E;
+            const lengthFiltered = ProductsService.getProductsByBrands(filteredProducts, [
+                `${composeStr(nameEl.innerHTML.trim())}`,
+            ]).length;
+            const lengthAll = ProductsService.getProductsByBrands(products, [`${composeStr(nameEl.innerHTML.trim())}`])
+                .length;
+
+            const countEl = el.querySelector('.coffee-brand__count') as E;
+            if (countEl.innerHTML) {
+                countEl.innerHTML = `${lengthFiltered}/${countEl.innerHTML.split('/')[1]}`;
+            } else {
+                countEl.innerHTML = `${lengthFiltered}/${lengthAll}`;
+            }
+            if (lengthFiltered === 0) {
+                (el as HTMLElement).style.color = '#5e514f';
+            } else {
+                (el as HTMLElement).style.color = '#b17a49';
+            }
+        });
+    };
+
     private checkSorts = (htmlElement: E, sorts: string[]) => {
         if (sorts) {
-            sorts.forEach((sort) =>
-                htmlElement.querySelector(`#${sort.toLowerCase()}`)?.classList.add('checkmark_checked')
-            );
+            sorts.forEach((sort) => {
+                htmlElement.querySelector(`#${sort.toLowerCase()}`)?.classList.add('checkmark_checked');
+            });
         }
         htmlElement.querySelector('.coffee-sorts__content')?.addEventListener('click', (e) => {
             const target = e.target as E;
-            if (!target.classList.contains('checkmark_checked')) {
-                target.classList.add('checkmark_checked');
-                window.location.hash = addParameterToQuery('sorts', target.id);
+            const closest = target.closest('.coffee-sort') as E;
+            if (!closest.classList.contains('checkmark_checked')) {
+                closest.classList.add('checkmark_checked');
+                window.location.hash = addParameterToQuery('sorts', closest.id);
             } else {
-                target.classList.remove('checkmark_checked');
-                window.location.hash = deleteParameterFromQuery('sorts', target.id);
+                closest.classList.remove('checkmark_checked');
+                window.location.hash = deleteParameterFromQuery('sorts', closest.id);
             }
         });
     };
@@ -257,6 +334,8 @@ export default class Shop {
 
     private buildProductCard = (productCardTemplate: HTMLTemplateElement, filteredProduct: IProduct) => {
         const productCard = <E>productCardTemplate.content.cloneNode(true);
+        const cardElement = productCard.querySelector('.product-card') as E;
+        cardElement.dataset.id = `${filteredProduct.id}`;
         (productCard.querySelector('.product__image img') as HTMLImageElement).src = filteredProduct.images[0];
         (productCard.querySelector('.product__name') as E).innerHTML = filteredProduct.name;
         (productCard.querySelector('.product__coffee-brand') as E).innerHTML = 'Бренд: ' + filteredProduct.brand;
@@ -267,19 +346,64 @@ export default class Shop {
             'В наличии: ' + filteredProduct.stock.toString() + ' шт.';
         (productCard.querySelector('.product__coffee-weight') as E).innerHTML = 'Вес: ' + filteredProduct.weight;
         (productCard.querySelector('.product__price') as E).innerHTML = filteredProduct.price + '$';
+
+        cardElement.addEventListener('click', (e) => {
+            const target = e.target as E;
+            if (target.closest('.product-card') && !target.closest('.product__price-button')) {
+                window.location.hash = `#shop-item/${cardElement.dataset.id}`;
+            }
+        });
+
+        const priceButtonContainer = productCard.querySelector('.product__price-button') as E;
+        const priceButton = priceButtonContainer.querySelector('.button_price') as E;
+
+        if (window.localStorage.getItem('gb-cart') !== null) {
+            const cart = JSON.parse(window.localStorage.getItem('gb-cart') || '[]');
+            const shopItem: { id: number; amount: number; totalPrice: number } = cart.find(
+                (s: { id: number; amount: number; totalPrice: number }) => s.id === filteredProduct.id
+            );
+            if (shopItem) {
+                priceButton.classList.add('button_price_checked');
+                (priceButton.firstElementChild as E).innerHTML = 'В корзине';
+            }
+        }
+
+        priceButtonContainer.addEventListener('click', () => {
+            if (priceButton.classList.contains('button_price_checked')) {
+                priceButton.classList.remove('button_price_checked');
+                (priceButton.firstElementChild as E).innerHTML = 'В корзину';
+
+                if (window.localStorage.getItem('gb-cart') !== null) {
+                    const cart = JSON.parse(window.localStorage.getItem('gb-cart') || '[]');
+                    const index = cart.findIndex((cartItem: CartItem) => cartItem.id === filteredProduct.id);
+                    cart.splice(index, 1);
+                    window.localStorage.setItem('gb-cart', JSON.stringify(cart));
+                }
+            } else {
+                priceButton.classList.add('button_price_checked');
+                (priceButton.firstElementChild as E).innerHTML = 'В корзине';
+
+                const newCartItem: CartItem = {
+                    id: filteredProduct.id,
+                    amount: 1,
+                    totalPrice: filteredProduct.price,
+                };
+
+                if (window.localStorage.getItem('gb-cart') !== null) {
+                    const cart = JSON.parse(window.localStorage.getItem('gb-cart') || '[]');
+                    cart.push(newCartItem);
+                    window.localStorage.setItem('gb-cart', JSON.stringify(cart));
+                } else {
+                    window.localStorage.setItem('gb-cart', JSON.stringify([newCartItem]));
+                }
+            }
+        });
         return productCard;
     };
 
-    private buildSlider = (
-        selector: string,
-        htmlElement: E,
-        products: IProduct[],
-        callBack: (product: IProduct) => number,
-        queryParam: string[]
-    ) => {
+    private getMinMaxValues = (products: IProduct[], callBack: (product: IProduct) => number) => {
         let min = Math.min(...products.map(callBack));
         let max = Math.max(...products.map(callBack));
-
         if (Number(min) === min && min % 1 !== 0) {
             min = Math.floor(min);
         }
@@ -287,11 +411,15 @@ export default class Shop {
             max = Math.ceil(max);
         }
 
-        const fromSlider = htmlElement.querySelector(`${selector} .range_from`) as I;
-        const toSlider = htmlElement.querySelector(`${selector} .range_to`) as I;
-        const fromInput = htmlElement.querySelector(`${selector} .input_from`) as I;
-        const toInput = htmlElement.querySelector(`${selector} .input_to`) as I;
+        return [min, max];
+    };
 
+    private updateSliderValues = (
+        filteredProducts: IProduct[],
+        callBack: (product: IProduct) => number,
+        inputElements: I[],
+        queryParam?: string[]
+    ) => {
         let valueFrom: number;
         let valueTo: number;
 
@@ -299,28 +427,51 @@ export default class Shop {
             valueFrom = +queryParam[0];
             valueTo = +queryParam[1];
         } else {
-            valueFrom = min;
-            valueTo = max;
+            [valueFrom, valueTo] = this.getMinMaxValues(filteredProducts, callBack);
         }
 
-        fromSlider.min = `${min}`;
-        fromSlider.max = `${max}`;
+        const [fromSlider, toSlider, fromInput, toInput] = inputElements;
+
         fromSlider.value = `${valueFrom}`;
-
-        toSlider.min = `${min}`;
-        toSlider.max = `${max}`;
         toSlider.value = `${valueTo}`;
-
-        fromInput.min = `${min}`;
-        fromInput.max = `${max}`;
         fromInput.value = `${valueFrom}`;
-
-        toInput.min = `${min}`;
-        toInput.max = `${max}`;
         toInput.value = `${valueTo}`;
 
         this.fillSlider(fromSlider, toSlider, toSlider);
         this.setToggleAccessible(toSlider);
+    };
+
+    private getSliderInputElements = (selector: string, htmlElement: E) => {
+        const fromSlider = htmlElement.querySelector(`${selector} .range_from`) as I;
+        const toSlider = htmlElement.querySelector(`${selector} .range_to`) as I;
+        const fromInput = htmlElement.querySelector(`${selector} .input_from`) as I;
+        const toInput = htmlElement.querySelector(`${selector} .input_to`) as I;
+
+        return [fromSlider, toSlider, fromInput, toInput];
+    };
+
+    private buildSlider = (
+        selector: string,
+        htmlElement: E,
+        products: IProduct[],
+        filteredProducts: IProduct[],
+        callBack: (product: IProduct) => number,
+        queryParam: string[]
+    ) => {
+        const [min, max] = this.getMinMaxValues(products, callBack);
+        const inputElements = this.getSliderInputElements(selector, htmlElement);
+        const [fromSlider, toSlider, fromInput, toInput] = inputElements;
+
+        fromSlider.min = `${min}`;
+        fromSlider.max = `${max}`;
+        toSlider.min = `${min}`;
+        toSlider.max = `${max}`;
+        fromInput.min = `${min}`;
+        fromInput.max = `${max}`;
+        toInput.min = `${min}`;
+        toInput.max = `${max}`;
+
+        this.updateSliderValues(filteredProducts, callBack, inputElements, queryParam);
 
         fromSlider.addEventListener('input', () => this.controlFromSlider(fromSlider, toSlider, fromInput));
         toSlider.addEventListener('input', () => this.controlToSlider(fromSlider, toSlider, toInput));

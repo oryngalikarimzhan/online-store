@@ -1,18 +1,17 @@
 import AppRouter from '../router/AppRouter';
 
 function composeStr(str: string) {
-    return str.replace(/ /g, '_').toLowerCase();
+    return str.replace(/ /g, '+').toLowerCase();
 }
 
 function parseStr(composedStr: string) {
     return composedStr
-        .split('_')
+        .split('+')
         .map((s) => `${s[0].toUpperCase()}${s.slice(1)}`)
         .join(' ');
 }
 
-function addParameterToQuery(queryKey: string, queryValue: string | string[], hash?: string) {
-    if (!hash) hash = window.location.hash;
+function addParameterToQuery(queryKey: string, queryValue: string | string[], hash = window.location.hash) {
     if (hash.includes('/?')) {
         const params = hash.split('/?');
         hash = params[0] + '/?';

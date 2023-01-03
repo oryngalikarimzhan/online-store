@@ -83,7 +83,6 @@ export default class ShopItemPageTemplate implements ITemplate {
                     </div>
                 </div>
             </section>`;
-        this.template.classList.add('shop');
     }
 
     getPageTemplate(): HTMLElement {

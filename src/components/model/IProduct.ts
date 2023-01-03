@@ -7,6 +7,7 @@ export default interface IProduct {
     stock: number;
     brand: string;
     sorts: string[];
+    country: string;
     weight: string;
     images: string[];
 }

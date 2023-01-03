@@ -12,7 +12,8 @@
         "Arabica",
         "Robusta"
       ],
-      "weight": "1000g",
+      "country": "Италия",
+      "weight": "1000г",
       "images": [
         "https://i.postimg.cc/kGmC3tc1/lavazza-1.jpg",
         "https://i.postimg.cc/L53pH6QH/lavazza-2.jpg"
@@ -29,7 +30,8 @@
       "sorts": [
         "Arabica"
       ],
-      "weight": "340g",
+      "country": "США",
+      "weight": "340г",
       "images": [
         "https://i.postimg.cc/52ZkRWpp/Stumptown-1.webp",
         "https://i.postimg.cc/q7yZfD5r/Stumptown-2.webp"
@@ -46,7 +48,8 @@
       "sorts": [
         "Arabica"
       ],
-      "weight": "908g",
+      "country": "США",
+      "weight": "908г",
       "images": [
         "https://i.postimg.cc/4NWDw0rF/san-francisco-1.webp",
         "https://i.postimg.cc/cHG2rGn6/san-francisco-2.jpg"
@@ -64,7 +67,8 @@
         "Excelsa",
         "Liberica"
       ],
-      "weight": "340g",
+      "country": "Мексика",
+      "weight": "340г",
       "images": [
         "https://i.postimg.cc/jjnYDh33/PEACE-COFFEE-1.webp",
         "https://i.postimg.cc/gjdCBbz1/PEACE-COFFEE-2.webp"
@@ -81,7 +85,8 @@
       "sorts": [
         "Arabica"
       ],
-      "weight": "340g",
+      "country": "США",
+      "weight": "340г",
       "images": [
         "https://i.postimg.cc/1XG9fKX1/Holler-Mountain-1.webp",
         "https://i.postimg.cc/Yq7rTTDr/Holler-Mountain-2.jpg"
@@ -98,7 +103,8 @@
       "sorts": [
         "Arabica"
       ],
-      "weight": "250g",
+      "country": "Италия",
+      "weight": "250г",
       "images": [
         "https://i.postimg.cc/5tr9G0TT/illy-Classico-1.jpg",
         "https://i.postimg.cc/k4tMdCd4/illy-Classico-2.jpg"
@@ -115,7 +121,8 @@
       "sorts": [
         "Arabica"
       ],
-      "weight": "510g",
+      "country": "США",
+      "weight": "510г",
       "images": [
         "https://i.postimg.cc/qRfVyC9J/Peets-Coffee-dark-1.webp",
         "https://i.postimg.cc/0Qpgfysp/Peets-Coffee-dark-2.jpg"
@@ -133,7 +140,8 @@
         "Arabica",
         "Liberica"
       ],
-      "weight": "340g",
+      "country": "США",
+      "weight": "340г",
       "images": [
         "https://i.postimg.cc/3Jfq2vvs/Starbucks-Veranda_Blend-1.webp",
         "https://i.postimg.cc/fyBr23g0/Starbucks-Veranda_Blend-2.webp"
@@ -151,7 +159,8 @@
         "Arabica",
         "Robusta"
       ],
-      "weight": "453g",
+      "country": "США",
+      "weight": "453г",
       "images": [
         "https://i.postimg.cc/8kH9P3PP/Starbucks-Pike-Place-1.webp",
         "https://i.postimg.cc/3Rj6GfX1/Starbucks-Pike-Place-2.webp"
@@ -168,7 +177,8 @@
       "sorts": [
         "Robusta"
       ],
-      "weight": "1000g",
+      "country": "Канада",
+      "weight": "1000г",
       "images": [
         "https://i.postimg.cc/mg2bgCGK/Kicking-Horse-Coffee-1.webp",
         "https://i.postimg.cc/wTkqzFnh/Kicking-Horse-Coffee-2.jpg"
@@ -186,7 +196,8 @@
         "Robusta",
         "Excelsa"
       ],
-      "weight": "284g",
+      "country": "Канада",
+      "weight": "284г",
       "images": [
         "https://i.postimg.cc/g25fbZcV/Smart-Ass-1.webp",
         "https://i.postimg.cc/25ZgkS3P/Smart-Ass-2.webp"
@@ -203,7 +214,8 @@
       "sorts": [
         "Arabica"
       ],
-      "weight": "1190g",
+      "country": "США",
+      "weight": "1190г",
       "images": [
         "https://i.postimg.cc/2jZysQzw/Eight-OClock-Coffee-original-1.webp",
         "https://i.postimg.cc/5tyNnv78/Eight-OClock-Coffee-original-2.jpg"
@@ -221,7 +233,8 @@
         "Excelsa",
         "Robusta"
       ],
-      "weight": "340p",
+      "country": "США",
+      "weight": "340г",
       "images": [
         "https://i.postimg.cc/m27cHQJD/Corsica-1.webp",
         "https://i.postimg.cc/4xZYbYR1/Corsica-2.webp"
@@ -238,7 +251,8 @@
       "sorts": [
         "Robusta"
       ],
-      "weight": "340g",
+      "country": "США",
+      "weight": "340г",
       "images": [
         "https://i.postimg.cc/6pjB2qWq/Intelligentsia-House-Blend-1.jpg",
         "https://i.postimg.cc/1RwRCyH7/Intelligentsia-House-Blend-2.webp"
@@ -256,7 +270,8 @@
         "Excelsa",
         "Liberica"
       ],
-      "weight": "227g",
+      "country": "CША",
+      "weight": "227г",
       "images": [
         "https://i.postimg.cc/0QvX9GTw/Superlost-Supernatural-1.png",
         "https://i.postimg.cc/JnQ60D8d/Superlost-Supernatural-2.webp"
@@ -274,7 +289,8 @@
         "Robusta",
         "Arabica"
       ],
-      "weight": "454g",
+      "country": "США",
+      "weight": "454г",
       "images": [
         "https://i.postimg.cc/SRCKchZ5/Death-Wish-1.jpg",
         "https://i.postimg.cc/fTQyDVyh/Death-Wish-2.jpg"
@@ -291,7 +307,8 @@
       "sorts": [
         "Liberica"
       ],
-      "weight": "340g",
+      "country": "США",
+      "weight": "340г",
       "images": [
         "https://i.postimg.cc/250rW6C3/Counter-Culture-Coffee-1.webp",
         "https://i.postimg.cc/pLY22C7f/Counter-Culture-Coffee-2.jpg"
@@ -309,7 +326,8 @@
         "Excelsa",
         "Arabica"
       ],
-      "weight": "566g",
+      "country": "США",
+      "weight": "566г",
       "images": [
         "https://i.postimg.cc/pr2SJQkH/Seattle_s-Best-Post-Alley-Blend-1.webp",
         "https://i.postimg.cc/x1qWZRQj/Seattle_s-Best-Post-Alley-Blend-2.jpg"
@@ -326,7 +344,8 @@
       "sorts": [
         "Arabica"
       ],
-      "weight": "454g",
+      "country": "США",
+      "weight": "454г",
       "images": [
         "https://i.postimg.cc/xC7Qs4J2/Bizzy-Organic-Cold-Brew-1.webp",
         "https://i.postimg.cc/Dwg8C723/Bizzy-Organic-Cold-Brew-2.webp"
@@ -345,7 +364,8 @@
         "Robusta",
         "Liberica"
       ],
-      "weight": "340g",
+      "country": "CША",
+      "weight": "340г",
       "images": [
         "https://i.postimg.cc/qRnr5G86/organic-guatemalan-1webp.webp",
         "https://i.postimg.cc/BZTs5MSd/organic-guatemalan-2.webp"
@@ -362,7 +382,8 @@
       "sorts": [
         "Liberica"
       ],
-      "weight": "283g",
+      "country": "США",
+      "weight": "283г",
       "images": [
         "https://i.postimg.cc/XYysFD35/Equal-Exchange-1.png",
         "https://i.postimg.cc/905mmkWB/Equal-Exchange-2.jpg"
@@ -379,7 +400,8 @@
       "sorts": [
         "Robusta"
       ],
-      "weight": "340g",
+      "country": "CША",
+      "weight": "340г",
       "images": [
         "https://i.postimg.cc/T19ZzNh1/Red-Bay-Coffee-1.webp",
         "https://i.postimg.cc/WpwLqzSV/Red-Bay-Coffee-2.webp"
@@ -396,7 +418,8 @@
       "sorts": [
         "Arabica"
       ],
-      "weight": "908g",
+      "country": "США",
+      "weight": "908г",
       "images": [
         "https://i.postimg.cc/jdqVHTk7/Peerless-1.webp",
         "https://i.postimg.cc/6p3XXKrX/Peerless-2.webp"
@@ -413,7 +436,8 @@
       "sorts": [
         "Arabica"
       ],
-      "weight": "454g",
+      "country": "США",
+      "weight": "454г",
       "images": [
         "https://i.postimg.cc/t41Mk4dY/Stone-Street-Coffee-Tanzanian-Peaberry-1.png",
         "https://i.postimg.cc/zXGMLjVw/Stone-Street-Coffee-Tanzanian-Peaberry-2.jpg"
@@ -431,7 +455,8 @@
         "Liberica",
         "Robusta"
       ],
-      "weight": "907g",
+      "country": "CША",
+      "weight": "907г",
       "images": [
         "https://i.postimg.cc/3wkYghNB/Koffee-Kult-1.webp",
         "https://i.postimg.cc/FKwmp6JQ/Koffee-Kult-2.jpg"
@@ -448,7 +473,8 @@
       "sorts": [
         "Arabica"
       ],
-      "weight": "454g",
+      "country": "США",
+      "weight": "454г",
       "images": [
         "https://i.postimg.cc/vBpB1Bvf/Caribou-1.jpg",
         "https://i.postimg.cc/vTVsCtf6/Blue-Bottle-2.webp"
@@ -466,7 +492,8 @@
         "Liberica",
         "Arabica"
       ],
-      "weight": "226g",
+      "country": "CША",
+      "weight": "226г",
       "images": [
         "https://i.postimg.cc/s2j31Sdt/Amora-DELICATA-1.webp",
         "https://i.postimg.cc/0r1svK0X/Amora-DELICATA-2.jpg"
@@ -483,7 +510,8 @@
       "sorts": [
         "Arabica"
       ],
-      "weight": "312g",
+      "country": "США",
+      "weight": "312г",
       "images": [
         "https://i.postimg.cc/9Fc2LZzz/New-England-Coffee-1.webp",
         "https://i.postimg.cc/02ZsFjJn/New-England-Coffee-2webp.jpg"
@@ -500,7 +528,8 @@
       "sorts": [
         "Arabica"
       ],
-      "weight": "340g",
+      "country": "США",
+      "weight": "340г",
       "images": [
         "https://i.postimg.cc/QxgttjKK/Don-Francisco-1.webp",
         "https://i.postimg.cc/2S2SQTwz/Don-Francisco-2.jpg"
@@ -517,7 +546,8 @@
       "sorts": [
         "Liberica"
       ],
-      "weight": "340g",
+      "country": "США",
+      "weight": "340г",
       "images": [
         "https://i.postimg.cc/TwhGJ6P0/Blue-Bottle-1.webp",
         "https://i.postimg.cc/vTVsCtf6/Blue-Bottle-2.webp"

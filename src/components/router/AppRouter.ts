@@ -27,7 +27,7 @@ class AppRouter {
             this.controller[controllerMethod as keyof AppController](requestParams);
         } else {
             requestParams.endpoint = 'error404';
-            this.controller['getErrorPage' as keyof AppController](requestParams);
+            this.controller['getNotFoundPage' as keyof AppController](requestParams);
         }
     };
 
