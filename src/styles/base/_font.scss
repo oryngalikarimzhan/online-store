@@ -1,4 +1,18 @@
 @font-face {
-  font-family: "Marmelad";
-  src: url("./assets/fonts/Marmelad-Regular.ttf") format("truetype");
+  font-family: "Roboto Condensed";
+  src: url("./assets/fonts/RobotoCondensed-Regular.ttf") format("truetype");
 }
+
+@font-face {
+  font-family: "Roboto Condensed";
+  src: url("./assets/fonts/RobotoCondensed-Light.ttf") format("truetype");
+  font-weight: 300;
+}
+
+
+@font-face {
+  font-family: "Roboto Condensed";
+  src: url("./assets/fonts/RobotoCondensed-Bold.ttf") format("truetype");
+  font-weight: bold;
+}
+

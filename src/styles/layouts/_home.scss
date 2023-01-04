@@ -1,11 +1,15 @@
+.home {
+  background: white;
+}
 .home-page__promo {
-  height: 100vh;
+  height: calc(100vh - 70px);
   background: url("https://i.postimg.cc/90Gnkq4s/main-bg.jpg") center top no-repeat;
   background-size: cover;
   display: flex;
   justify-content: center;
 
   @include media-tablet {
+    height: calc(100vh - 50px);
     background-size: auto 100vh;
   }
 
@@ -14,7 +18,7 @@
     @include flex(center, flex-start, column);
 
     h2 {
-      width: 21ch;
+      width: 100%;
       color: $color-light;
       white-space: nowrap;
       animation: typing 2s steps(22), blink .5s step-end infinite alternate;
@@ -31,7 +35,7 @@
         width: 0
       }
     }
-        
+    
     @keyframes blink {
       50% {
         border-color: transparent
@@ -41,50 +45,88 @@
 }
 
 .home-page__info {
-  background: $color-additional;
-  height: 50vh;
-  @include flex(center, center);
+  background: $color-primary;
+  height: 70vh;
+  @include flex(center, center, column);
+
 
   .info__wrapper {
     width: 70vw;
     color: $color-light;
     text-align: center;
   }
+
+  .shop__button {
+    margin-top: 5vh;
+    .button {
+      background: $color-main;
+
+      &:hover {
+        background: $color-light;
+      }
+    }
+  }
 }
 
 .home-page__content-1 {
+  min-height: 80vh;
   background: url("https://i.postimg.cc/DfsH0RC5/top-bg-image.jpg") center top no-repeat;
   background-size: 100vw auto;
-  @include flex(flex-end, center);
+  @include flex(flex-start, center, column);
+
+  .shop__button {
+    margin: 80vh 0 0 5vw;
+  }
 
   h2 {
-    margin: 120vh 0 10vh;
+    color: $color-primary;
+    margin: 30px 0 20vh 5vw;
     text-align: center;
     text-transform: uppercase;
   }
 
   @include media-tablet {
+    justify-content: flex-end;
+    align-items: center;
+    .shop__button {
+      margin: 35vh 0 0 0;
+    }
     h2 {
-      margin: 50vh 0 10vh;
+      margin: 30px 0 10vh;
     }
   }
+
 }
 
 .home-page__content-2 {
-  height: 150vh;
+  min-height: 80vh;
   background: url("https://i.postimg.cc/LXg7zWm9/middle-bg-image.jpg") center top no-repeat;
   background-size: 100vw auto;
-  @include flex(flex-end, center);
+  @include flex(center, center, column);
   
-  @include media-tablet {
-    height: 70vh;
+  .shop__button {
+    margin-top: 40vh;
   }
 
   h4 {
+    margin: 80vh 0 0;
+    padding-bottom: 10vh;
+    color: $color-primary;
     width: 80vw;
     text-align: center;
-    margin-bottom: 5vh;
   }
+
+  @include media-tablet {
+    min-height: 70vh;
+    justify-content: flex-start;
+    .shop__button {
+      display: none;
+    }
+    h4 {
+      margin-top: 55vh;
+    }
+  }
+
 }
 
 .coffee-sorts__wrapper {

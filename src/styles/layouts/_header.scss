@@ -1,10 +1,10 @@
 .header {
   height: 70px;
   width: 100%;
-  background: black;
+  background: $color-primary;
   padding: 0 20px;
   position: fixed;
-  z-index: 2;
+  z-index: 3;
   left: 0;
   top: 0;
 
@@ -23,6 +23,7 @@
 }
 
 .header__top {
+  height: 100%;
   @include media-tablet {
     @include flex(center, space-between);
     width: 100%;
@@ -31,9 +32,11 @@
   }
 
 .header__logo {
-  width: calc(100px + 50 * (100vw / 1200));
-  max-width: calc(100px + 50 * (1920px / 1200));
+  width: 200px;
   height: 100%;
+  @include media-tablet {
+    width: 130px;
+  }
 }
 
 .header__navigation {
@@ -51,18 +54,24 @@
 
 .header__cart-logo {
   margin-left: auto;
+  margin-right: 100px;
+  width: 100px;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
 
   .cart-logo {
-    img {
-      width: 50px;
-    }
+    display: block;
+    width: 40px;
+    height: 100%;
+    background: url(./assets/empty-cart.svg) center no-repeat;
+    background-size: contain;
   }
 
   @include media-tablet {
     position: absolute;
-    right: 80px;
-    top: 10px;
-
+    right: 10px;
+    margin-right: 0;
     .cart-logo {
       img {
         width: 40px;
