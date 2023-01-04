@@ -32,20 +32,21 @@ class AppRouter {
     };
 
     static parsePath = () => {
-        const hash = window.location.hash.replace('#', '');
+        const hash = window.location.hash.replace('#/', '');
         if (hash.length == 0 || hash === '/') {
             return { endpoint: 'home' };
         }
-        const [endpoint, queriesStr] = hash.split('/?');
-        return { endpoint, queries: AppRouter.getQueries(queriesStr) };
+        const [endpoint, params] = hash.split('/');
+        return { endpoint, queries: AppRouter.getQueries(params) };
     };
 
-    static getQueries = (queriesStr: string): QueryMap => {
+    // FOR TEST ?roast=medium,dark&sorts=robusta,arabica&prices=20,30&order=name,asc&stock=40,50&brands=lavazza,stumptown+coffee+roasters,illy
+    static getQueries = (params: string): QueryMap => {
         const queries: QueryMap = {};
-        queriesStr?.split('&').forEach((param) => {
-            const keyValue = param.split('=');
-            queries[keyValue[0]] = keyValue[1]?.split('|') || [];
-        });
+        const searchParams = new URLSearchParams(params);
+        for (const param of searchParams) {
+            queries[param[0]] = param[1].split(',') || param[1];
+        }
         return queries;
     };
 }

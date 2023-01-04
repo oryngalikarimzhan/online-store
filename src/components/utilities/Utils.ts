@@ -1,12 +1,6 @@
-import AppRouter from '../router/AppRouter';
-
-function composeStr(str: string) {
-    return str.replace(/ /g, '+').toLowerCase();
-}
-
 function parseStr(composedStr: string) {
     return composedStr
-        .split('+')
+        .split(' ')
         .map((s) => `${s[0].toUpperCase()}${s.slice(1)}`)
         .join(' ');
 }
@@ -14,50 +8,41 @@ function parseStr(composedStr: string) {
 function addParameterToQuery(queryKey: string, queryValue: string | string[], hash = window.location.hash) {
     if (hash.includes('/?')) {
         const params = hash.split('/?');
-        hash = params[0] + '/?';
-        const queries = AppRouter.getQueries(params[1]);
+        const searchParams = new URLSearchParams(params[1]);
         if (typeof queryValue === 'string') {
-            if (queries[queryKey]) {
-                queries[queryKey].push(queryValue);
-            } else {
-                queries[queryKey] = [queryValue];
-            }
+            const prevValue = searchParams.get(queryKey);
+            searchParams.set(queryKey, `${prevValue !== null ? prevValue + ',' : ''}${queryValue}`);
         } else {
-            queries[queryKey] = [queryValue[0], queryValue[1]];
+            searchParams.set(queryKey, `${queryValue[0]},${queryValue[1]}`);
         }
-        for (const key of Object.keys(queries)) {
-            if (hash[hash.length - 1] !== '?') hash += '&';
-            hash += `${key}=${queries[key].join('|')}`;
-        }
+        hash = params[0] + '/?' + decodeURIComponent(searchParams.toString());
     } else {
-        hash = `${hash}/?${queryKey}=${queryValue}`;
+        hash = `${hash[hash.length - 1] === '/' ? hash.slice(0, -1) : hash}/?${queryKey}=${queryValue}`;
     }
     return hash;
 }
 
 function deleteParameterFromQuery(queryKey: string, queryValue: string) {
     let hash = window.location.hash;
-    if (hash.includes(queryKey)) {
-        const params = hash.split('/?');
-        hash = params[0] + '/?';
-        const queries = AppRouter.getQueries(params[1]);
-        if (queries[queryKey].length === 1) {
-            for (const key of Object.keys(queries)) {
-                if (queryKey !== key) {
-                    if (hash[hash.length - 1] !== '?') hash += '&';
-                    hash += `${key}=${queries[key].join('|')}`;
-                }
-            }
+    const params = hash.split('/?');
+    const searchParams = new URLSearchParams(params[1]);
+    const prevValue = searchParams.get(queryKey);
+    if (prevValue) {
+        if (prevValue?.includes(',')) {
+            searchParams.set(
+                queryKey,
+                prevValue
+                    .split(',')
+                    .filter((value) => value !== queryValue)
+                    .join(',')
+            );
         } else {
-            queries[queryKey].splice(queries[queryKey].indexOf(queryValue), 1);
-            for (const key of Object.keys(queries)) {
-                if (hash[hash.length - 1] !== '?') hash += '&';
-                hash += `${key}=${queries[key].join('|')}`;
-            }
+            searchParams.delete(queryKey);
         }
-        if (hash === params[0] + '/?') hash = params[0];
+        const searchParamsStr = decodeURIComponent(searchParams.toString());
+        hash = `${params[0]}${searchParamsStr.length === 0 ? '' : '/?' + searchParamsStr}`;
     }
     return hash;
 }
 
-export { composeStr, parseStr, addParameterToQuery, deleteParameterFromQuery };
+export { parseStr, addParameterToQuery, deleteParameterFromQuery };

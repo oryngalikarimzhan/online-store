@@ -1,29 +1,39 @@
 import { RequestPath } from '../model/Types';
-import ProductsService from '../service/ProductsService';
+import {
+    getProductsBySorts,
+    getProductsByRoastLevels,
+    getProductsByBrands,
+    getProductsByPrices,
+    getProductsByStockAmount,
+    getAndOrderProductsBy,
+    getProductsBySearchText,
+    getAllProducts,
+} from '../service/ProductsService';
 import IProduct from '../model/IProduct';
 import AppView from '../view/AppView';
 
 export default class AppController {
     private readonly view: AppView;
     private readonly filtersMap = new Map([
-        ['sorts', ProductsService.getProductsBySorts],
-        ['roast', ProductsService.getProductsByRoastLevels],
-        ['brands', ProductsService.getProductsByBrands],
-        ['prices', ProductsService.getProductsByPrices],
-        ['stock', ProductsService.getProductsByStockAmount],
-        ['order', ProductsService.getAndOrderProductsBy],
-        ['search', ProductsService.getProductsBySearchText],
+        ['sorts', getProductsBySorts],
+        ['roast', getProductsByRoastLevels],
+        ['brands', getProductsByBrands],
+        ['prices', getProductsByPrices],
+        ['stock', getProductsByStockAmount],
+        ['order', getAndOrderProductsBy],
+        ['search', getProductsBySearchText],
     ]);
     constructor() {
         this.view = new AppView();
     }
 
     getShopPage = (params: RequestPath) => {
-        let filteredProducts: IProduct[] = ProductsService.getAllProducts();
+        let filteredProducts: IProduct[] = getAllProducts();
         if (params.queries) {
             for (const queryName of Object.keys(params.queries)) {
                 const method = this.filtersMap.get(queryName);
-                if (method !== undefined) {
+
+                if (method) {
                     filteredProducts = method(filteredProducts, params.queries[queryName]);
                 }
             }
@@ -32,7 +42,7 @@ export default class AppController {
             console.log(filteredProducts);
             console.groupEnd();
 
-            this.view.renderShopPage(filteredProducts, ProductsService.getAllProducts(), params.queries);
+            this.view.renderShopPage(filteredProducts, getAllProducts(), params.queries);
         }
     };
 

@@ -1,20 +1,7 @@
-import IProduct from '../model/IProduct';
-import { QueryMap, I, E, CartItem } from '../model/Types';
-import ProductsService from '../service/ProductsService';
-import { parseStr, addParameterToQuery, deleteParameterFromQuery, composeStr } from '../utilities/Utils';
-
-/** TODO
- * Карточки ссылки
- * Корзина
- *
- * карточка товара содержит кнопку добавления в корзину. Состояние кнопки меняется при добавлении/удалении, а также восстанавливается если товар был добавлен на других страницах +5
- *
- * должна быть возможность перехода на страницу с описанием товара. Как это реализовать - решать вам. Например, это может быть кнопка, клик по карточке товара и т.д. +5
- *
- * в случае, если товаров не нашлось, информация об этом дополнительно выводится в блоке товаров
- *
- * Например, при выборе определенной категории товара, в других фильтрах должно пересчитываться количество найденных товаров с указанием сколько найдено при такой конфигурации фильтров, а также сколько доступно без учета всех применённых фильтров. В случае с dual-slider должен меняться их состояние-диапазон.
- *  */
+import IProduct from '../../model/IProduct';
+import { QueryMap, I, E, CartItem } from '../../model/Types';
+import { getProductsByBrands, getProductsBySorts } from '../../service/ProductsService';
+import { addParameterToQuery, deleteParameterFromQuery, parseStr } from '../../utilities/Utils';
 
 export default class Shop {
     private contentElement: E | null = null;
@@ -64,10 +51,14 @@ export default class Shop {
         this.checkSearchText(htmlElement, queries.search, filteredProducts.length);
         this.checkView(htmlElement);
         this.checkOrder(htmlElement, queries.order);
-        for (const filteredProduct of filteredProducts) {
-            htmlElement
-                .querySelector('.products__list')
-                ?.append(this.buildProductCard(productCardTemplate, filteredProduct));
+
+        const productsListContainer = htmlElement.querySelector('.products__list') as E;
+        if (filteredProducts.length === 0) {
+            productsListContainer.innerHTML = 'Ничего не найдено';
+        } else {
+            for (const filteredProduct of filteredProducts) {
+                productsListContainer.append(this.buildProductCard(productCardTemplate, filteredProduct));
+            }
         }
         const contentContainer = document.querySelector('.main') as E;
         contentContainer.innerHTML = '';
@@ -83,12 +74,14 @@ export default class Shop {
         this.updateSliderValues(
             filteredProducts,
             (product) => product.stock,
-            this.getSliderInputElements('.coffee-stock__dual-slider', htmlElement)
+            this.getSliderInputElements('.coffee-stock__dual-slider', htmlElement),
+            queries.stock
         );
         this.updateSliderValues(
             filteredProducts,
             (product) => product.price,
-            this.getSliderInputElements('.coffee-prices__dual-slider', htmlElement)
+            this.getSliderInputElements('.coffee-prices__dual-slider', htmlElement),
+            queries.prices
         );
 
         const productCardTemplate: HTMLTemplateElement = this.defineProductCardTemplate(htmlElement, queries.view);
@@ -98,8 +91,13 @@ export default class Shop {
 
         const productsListContainer = htmlElement.querySelector('.products__list') as E;
         productsListContainer.innerHTML = '';
-        for (const filteredProduct of filteredProducts) {
-            productsListContainer?.append(this.buildProductCard(productCardTemplate, filteredProduct));
+
+        if (filteredProducts.length === 0) {
+            (htmlElement.querySelector('.products__list') as E).innerHTML = 'Ничего не найдено';
+        } else {
+            for (const filteredProduct of filteredProducts) {
+                productsListContainer.append(this.buildProductCard(productCardTemplate, filteredProduct));
+            }
         }
     };
 
@@ -138,13 +136,13 @@ export default class Shop {
                 closest.classList.add('checkmark_checked');
                 window.location.hash = addParameterToQuery(
                     'brands',
-                    composeStr((closest.firstElementChild as E).innerHTML.trim())
+                    (closest.firstElementChild as E).innerHTML.trim().toLowerCase()
                 );
             } else {
                 closest.classList.remove('checkmark_checked');
                 window.location.hash = deleteParameterFromQuery(
                     'brands',
-                    composeStr((closest.firstElementChild as E).innerHTML.trim())
+                    (closest.firstElementChild as E).innerHTML.trim().toLowerCase()
                 );
             }
         });
@@ -163,8 +161,8 @@ export default class Shop {
     private countSorts = (htmlElement: E, filteredProducts: IProduct[], products: IProduct[]) => {
         const sortElements = htmlElement.querySelectorAll('.coffee-sort');
         sortElements?.forEach((el) => {
-            const lengthFiltered = ProductsService.getProductsBySorts(filteredProducts, [`${el.id}`]).length;
-            const lengthAll = ProductsService.getProductsBySorts(products, [`${el.id}`]).length;
+            const lengthFiltered = getProductsBySorts(filteredProducts, [`${el.id}`]).length;
+            const lengthAll = getProductsBySorts(products, [`${el.id}`]).length;
 
             const countEl = el.querySelector('.coffee-sort__count') as E;
             if (countEl.innerHTML) {
@@ -184,11 +182,9 @@ export default class Shop {
         const sortElements = htmlElement.querySelectorAll('.coffee-brand');
         sortElements?.forEach((el) => {
             const nameEl = el.querySelector('.coffee-brand__name') as E;
-            const lengthFiltered = ProductsService.getProductsByBrands(filteredProducts, [
-                `${composeStr(nameEl.innerHTML.trim())}`,
-            ]).length;
-            const lengthAll = ProductsService.getProductsByBrands(products, [`${composeStr(nameEl.innerHTML.trim())}`])
+            const lengthFiltered = getProductsByBrands(filteredProducts, [`${nameEl.innerHTML.trim().toLowerCase()}`])
                 .length;
+            const lengthAll = getProductsByBrands(products, [`${nameEl.innerHTML.trim().toLowerCase()}`]).length;
 
             const countEl = el.querySelector('.coffee-brand__count') as E;
             if (countEl.innerHTML) {
@@ -232,12 +228,14 @@ export default class Shop {
         htmlElement.querySelector('.coffee-roast-levels__content')?.addEventListener('click', (e) => {
             const target = e.target as E;
             const closest = target.closest('.coffee-roast-level') as E;
-            if (!closest.classList.contains('coffee-roast-level_checked')) {
-                closest.classList.add('coffee-roast-level_checked');
-                window.location.hash = addParameterToQuery('roast', closest.id);
-            } else {
-                closest.classList.remove('coffee-roast-level_checked');
-                window.location.hash = deleteParameterFromQuery('roast', closest.id);
+            if (closest) {
+                if (!closest.classList.contains('coffee-roast-level_checked')) {
+                    closest.classList.add('coffee-roast-level_checked');
+                    window.location.hash = addParameterToQuery('roast', closest.id);
+                } else {
+                    closest.classList.remove('coffee-roast-level_checked');
+                    window.location.hash = deleteParameterFromQuery('roast', closest.id);
+                }
             }
         });
     };
@@ -250,7 +248,7 @@ export default class Shop {
             searchAmount.innerHTML = 'Найдено ' + searchResult;
         }
         input.addEventListener('input', () => {
-            const composedStr = composeStr(input.value);
+            const composedStr = input.value.toLowerCase();
             if (input.value.length === 0) {
                 console.log(deleteParameterFromQuery('search', ''));
                 window.location.hash = deleteParameterFromQuery('search', '');
@@ -270,7 +268,7 @@ export default class Shop {
             const target = e.target as E;
             const closest = target.closest('.view__option') as E;
 
-            if (!closest.classList.contains('view__option_checked')) {
+            if (closest && !closest.classList.contains('view__option_checked')) {
                 htmlElement
                     ?.querySelectorAll('.view__option')
                     .forEach((el) => el.classList.remove('view__option_checked'));
@@ -305,7 +303,7 @@ export default class Shop {
 
     private checkOrder = (htmlElement: E, order: string[]) => {
         if (order) {
-            (htmlElement.querySelector(`#${order[0]}`) as E).classList.add('option__checked');
+            (htmlElement.querySelector(`#${order[0]}-${order[1]}`) as E).classList.add('option__checked');
         }
         htmlElement.querySelector('.select-box__label')?.addEventListener('click', (e) => {
             const target = e.target as E;
@@ -325,7 +323,7 @@ export default class Shop {
                 target.classList.add('option__checked');
                 window.location.hash = addParameterToQuery(
                     'order',
-                    target.id,
+                    target.id.split('-'),
                     prevOption ? deleteParameterFromQuery('order', prevOption.id) : undefined
                 );
             }
@@ -350,7 +348,7 @@ export default class Shop {
         cardElement.addEventListener('click', (e) => {
             const target = e.target as E;
             if (target.closest('.product-card') && !target.closest('.product__price-button')) {
-                window.location.hash = `#shop-item/${cardElement.dataset.id}`;
+                window.location.hash = `#/coffee/${cardElement.dataset.id}`;
             }
         });
 
@@ -570,11 +568,11 @@ export default class Shop {
         const saveButton = htmlElement.querySelector('.filters__save') as E;
         htmlElement.querySelector('.filters__reset')?.addEventListener('click', () => {
             this.contentElement = null;
-            window.location.hash = '#shop';
+            window.location.hash = '#/shop';
         });
 
         saveButton.addEventListener('click', () => {
-            if (window.location.hash !== '#shop') {
+            if (window.location.hash !== '#/shop') {
                 saveButton.setAttribute('content', 'Фильтр сохранён');
                 navigator.clipboard.writeText(window.location.href);
                 window.localStorage.setItem('saved-filter', window.location.hash);

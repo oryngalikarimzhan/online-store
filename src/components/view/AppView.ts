@@ -2,7 +2,7 @@ import IProduct from '../model/IProduct';
 import ITemplate from '../model/ITemplate';
 import { QueryMap } from '../model/Types';
 import ShopTemplate from '../template/Shop.template';
-import Shop from './Shop';
+import Shop from './shop/Shop';
 
 export default class AppView {
     private readonly shop: Shop;
