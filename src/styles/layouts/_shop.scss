@@ -35,9 +35,9 @@
     @include media-laptop {
       position: static;
     }
+
     @include media-tablet {
-      
-      max-width: 600px;
+      flex: 0 1 600px
     }
   }
 
