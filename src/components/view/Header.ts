@@ -1,27 +1,23 @@
 import { CartItem, E } from '../model/Types';
+import { CARTSTORAGE } from '../utilities/Constants';
 
 export class Header {
     draw = () => {
         const header = <E>document.querySelector('.header');
         (document.querySelector('.burger') as E).addEventListener('click', () => {
-            if (header.classList.contains('header_burger-on')) {
-                header.classList.remove('header_burger-on');
-            } else {
-                header.classList.add('header_burger-on');
-            }
+            header.classList.toggle('header_burger-on');
         });
 
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 768 && header.classList.contains('header_burger-on')) {
-                header.classList.remove('header_burger-on');
-            }
+        const mediaPoint = window.matchMedia('(max-width: 1023px)');
+        mediaPoint.addEventListener('change', () => {
+            header.classList.remove('header_burger-on');
         });
 
         Header.updateHeaderCart();
     };
 
     static updateHeaderCart = () => {
-        const cart = JSON.parse(window.localStorage.getItem('gb-cart') || '[]');
+        const cart = JSON.parse(window.localStorage.getItem(CARTSTORAGE) || '[]');
         if (cart.length > 0) {
             const totalAmount = cart.reduce((acc: number, cartItem: CartItem) => acc + cartItem.amount, 0);
             const totalPrice = cart.reduce((acc: number, cartItem: CartItem) => acc + cartItem.totalPrice, 0);

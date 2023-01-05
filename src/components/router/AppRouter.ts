@@ -3,6 +3,12 @@ import { QueryMap, RequestPath } from '../model/Types';
 
 class AppRouter {
     readonly controller: AppController;
+    readonly routes = new Map([
+        ['shop', 'getShopPage'],
+        ['home', 'getHomePage'],
+        ['coffee', 'getCoffeePage'],
+        ['cart', 'getCartPage'],
+    ]);
 
     constructor() {
         this.controller = new AppController();
@@ -21,12 +27,10 @@ class AppRouter {
         console.log('queries =', requestParams.queries);
         console.groupEnd();
 
-        const controllerMethod =
-            'get' + requestParams.endpoint[0].toUpperCase() + requestParams.endpoint.slice(1) + 'Page';
-        if (controllerMethod in this.controller) {
+        const controllerMethod = this.routes.get(requestParams.endpoint);
+        if (controllerMethod) {
             this.controller[controllerMethod as keyof AppController](requestParams);
         } else {
-            requestParams.endpoint = 'error404';
             this.controller['getNotFoundPage' as keyof AppController](requestParams);
         }
     };

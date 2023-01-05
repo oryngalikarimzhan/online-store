@@ -1,3 +1,6 @@
+import { CartItem } from '../model/Types';
+import { CARTSTORAGE } from './Constants';
+
 function parseStr(composedStr: string) {
     return composedStr
         .split(' ')
@@ -45,4 +48,12 @@ function deleteParameterFromQuery(queryKey: string, queryValue: string) {
     return hash;
 }
 
-export { parseStr, addParameterToQuery, deleteParameterFromQuery };
+function getCartItemsArrFromLS() {
+    return JSON.parse(window.localStorage.getItem(CARTSTORAGE) || '[]');
+}
+
+function setCartItemsArrToLS(cart: CartItem[]) {
+    window.localStorage.setItem(CARTSTORAGE, JSON.stringify(cart));
+}
+
+export { parseStr, addParameterToQuery, deleteParameterFromQuery, getCartItemsArrFromLS, setCartItemsArrToLS };

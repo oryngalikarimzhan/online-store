@@ -5,7 +5,7 @@ import {
     getProductsByBrands,
     getProductsByPrices,
     getProductsByStockAmount,
-    getAndOrderProductsBy,
+    getProductsOrderedBy,
     getProductsBySearchText,
     getAllProducts,
 } from '../service/ProductsService';
@@ -20,7 +20,7 @@ export default class AppController {
         ['brands', getProductsByBrands],
         ['prices', getProductsByPrices],
         ['stock', getProductsByStockAmount],
-        ['order', getAndOrderProductsBy],
+        ['order', getProductsOrderedBy],
         ['search', getProductsBySearchText],
     ]);
     constructor() {
