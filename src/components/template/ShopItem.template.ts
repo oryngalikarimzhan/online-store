@@ -16,14 +16,14 @@ export default class ShopItemPageTemplate implements ITemplate {
             <section class="shop-item__content">
                 <div class="shop-item__images">
                     <div class="shop-item__image">
-                        <img src="https://i.postimg.cc/kGmC3tc1/lavazza-1.jpg" alt="">
+                        <img class="image-main" src="https://i.postimg.cc/kGmC3tc1/lavazza-1.jpg" alt="">
                     </div>
                     <div class="shop-item__thumbnails">
                         <div class="shop-item__thumbnail">
-                            <img src="https://i.postimg.cc/kGmC3tc1/lavazza-1.jpg" alt="">
+                            <img class="image-thumb" src="https://i.postimg.cc/kGmC3tc1/lavazza-1.jpg" alt="">
                         </div>
                         <div class="shop-item__thumbnail">
-                            <img src="https://i.postimg.cc/L53pH6QH/lavazza-2.jpg" alt="">
+                            <img class="image-thumb" src="https://i.postimg.cc/L53pH6QH/lavazza-2.jpg" alt="">
                         </div>
                     </div>
                 </div>

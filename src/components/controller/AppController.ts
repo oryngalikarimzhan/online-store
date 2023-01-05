@@ -46,6 +46,12 @@ export default class AppController {
         }
     };
 
+    getCoffeePage = () => {
+        const data: IProduct[] = getAllProducts();
+        const id = Number(window.location.hash.replace('#/', '').split('/')[1]);
+        this.view.renderCoffeePage(data, id);
+    };
+
     // getErrorPage = (params: RequestPath) => {
     //     this.renderPage(params.endpoint);
     // };
