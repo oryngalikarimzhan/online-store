@@ -40,19 +40,16 @@ export default class ShopItemPageTemplate implements ITemplate {
 
                 </div>
                 <div class="shop-item__control">
-                    <div class="control__wrapper">
-                        <div class="stock__button">
-                            <div class="button_stock">
-                                <div class="stock__reduce-item">
-                                    <div class="reduce-item__image"></div>
-                                </div>
-                                <div class="stock__amount-item">
-                                    1
-                                </div>
-                                <div class="stock__add-item">
-                                    <div class="add-item__image"></div>
-                                </div>
+                        <div class="control__wrapper">
+                            <div class="price-total">
+                            <div class="total__text">
+                                Цена:
                             </div>
+                            <div class="total__price">
+                                20$
+                            </div>
+                        </div>
+                        <div class="stock__button">
                             <div class="stock__item-left">
                                 <div class="item-left__text">
                                     В наличии:
@@ -60,14 +57,6 @@ export default class ShopItemPageTemplate implements ITemplate {
                                 <div class="item-left__amount">
                                     20
                                 </div>
-                            </div>
-                        </div>
-                        <div class="price-total">
-                            <div class="total__text">
-                                Цена:
-                            </div>
-                            <div class="total__price">
-                                20$
                             </div>
                         </div>
                         <div class="cart__button">
