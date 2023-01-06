@@ -5,14 +5,18 @@ import ShopTemplate from '../template/Shop.template';
 import CoffeeItemTemplate from '../template/ShopItem.template';
 import Shop from './shop/Shop';
 import Coffee from './details/Details';
+import Error404PageTemplate from '../template/NotFound.template';
+import Error from './error/Error';
 
 export default class AppView {
     private readonly shop: Shop;
     private readonly coffee: Coffee;
+    private readonly error: Error;
 
     constructor() {
         this.shop = new Shop();
         this.coffee = new Coffee();
+        this.error = new Error();
     }
 
     renderShopPage = (filteredProducts: IProduct[], products: IProduct[], queries: QueryMap) => {
@@ -33,6 +37,12 @@ export default class AppView {
         const sorts = num.sorts.length > 1 ? num.sorts[0] + num.sorts[1] : num.sorts[0];
         this.coffee.changeInfo(num, sorts);
         this.coffee.changePhotoOnClick();
+    };
+
+    renderErrorPage = () => {
+        const template = new Error404PageTemplate();
+        const htmlElement = template.getPageTemplate();
+        this.error.draw(htmlElement);
     };
 
     private addPageHeaders = (template: ITemplate) => {

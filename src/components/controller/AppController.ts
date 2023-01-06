@@ -49,12 +49,16 @@ export default class AppController {
     getCoffeePage = () => {
         const data: IProduct[] = getAllProducts();
         const id = Number(window.location.hash.replace('#/', '').split('/')[1]);
-        this.view.renderCoffeePage(data, id);
+        if (typeof id === 'number' && id !== undefined) {
+            this.view.renderCoffeePage(data, id);
+        } else {
+            this.getErrorPage();
+        }
     };
 
-    // getErrorPage = (params: RequestPath) => {
-    //     this.renderPage(params.endpoint);
-    // };
+    getErrorPage = () => {
+        this.view.renderErrorPage();
+    };
 
     // getHomePage = (params: RequestPath) => {
     //     this.renderPage(params.endpoint);
