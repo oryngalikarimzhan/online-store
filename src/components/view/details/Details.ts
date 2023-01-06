@@ -37,4 +37,14 @@ export default class Coffee {
         (document.querySelector('.item-left__amount') as HTMLElement).innerText = String(data.stock);
         (document.querySelector('.total__price') as HTMLElement).innerText = String(data.price) + '$';
     };
+    changePhotoOnClick = () => {
+        const photosThumb = document.querySelectorAll<HTMLImageElement>('.image-thumb');
+        const mainPhoto = document.querySelector('.image-main') as HTMLImageElement;
+        photosThumb.forEach((photo) => {
+            photo.addEventListener('click', (e) => {
+                const target = e.target as HTMLImageElement;
+                mainPhoto.src = target.src;
+            });
+        });
+    };
 }

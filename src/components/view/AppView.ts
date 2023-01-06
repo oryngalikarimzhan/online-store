@@ -32,6 +32,7 @@ export default class AppView {
         this.coffee.changePhotos(num.images);
         const sorts = num.sorts.length > 1 ? num.sorts[0] + num.sorts[1] : num.sorts[0];
         this.coffee.changeInfo(num, sorts);
+        this.coffee.changePhotoOnClick();
     };
 
     private addPageHeaders = (template: ITemplate) => {
