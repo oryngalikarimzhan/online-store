@@ -1,9 +1,9 @@
 import { CartItem, E } from '../model/Types';
-import { CARTSTORAGE } from '../utilities/Constants';
+import { getCartItemsArrFromLS } from '../utilities/Utils';
 
 export class Header {
     draw = () => {
-        const header = <E>document.querySelector('.header');
+        const header = document.querySelector('.header') as E;
         (document.querySelector('.burger') as E).addEventListener('click', () => {
             header.classList.toggle('header_burger-on');
         });
@@ -17,7 +17,7 @@ export class Header {
     };
 
     static updateHeaderCart = () => {
-        const cart = JSON.parse(window.localStorage.getItem(CARTSTORAGE) || '[]');
+        const cart = getCartItemsArrFromLS();
         if (cart.length > 0) {
             const totalAmount = cart.reduce((acc: number, cartItem: CartItem) => acc + cartItem.amount, 0);
             const totalPrice = cart.reduce((acc: number, cartItem: CartItem) => acc + cartItem.totalPrice, 0);

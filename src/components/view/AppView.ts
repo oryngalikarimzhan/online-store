@@ -12,6 +12,7 @@ export default class AppView {
     constructor() {
         this.shop = new Shop();
         this.header = new Header();
+        this.header.draw();
     }
 
     renderShopPage = (filteredProducts: IProduct[], products: IProduct[], queries: QueryMap) => {
@@ -22,7 +23,6 @@ export default class AppView {
             this.shop.draw(oldHtmlElement, filteredProducts, products, queries);
         } else {
             this.shop.draw(htmlElement, filteredProducts, products, queries);
-            this.header.draw();
             this.addPageHeaders(template);
         }
     };
