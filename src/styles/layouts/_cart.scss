@@ -2,7 +2,7 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 15px;
-  height: calc(100vh - 140px);
+  min-height: calc(100vh - 140px);
   display: flex;
   column-gap: 20px;
 }
@@ -23,19 +23,104 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 30px;
 
     .cart-item__title {
-      width: 100%;
       display: flex;
+      flex: 2;
       align-items: center;
-      font-size: calc(1rem + 1vw);
+      font-size: calc(1.5rem + 1vw);
       letter-spacing: .03em;
     }
 
     .cart-item__page-control {
       display: flex;
+      flex: 1;
       justify-content: space-between;
       align-items: center;
+
+      .cart-item__limit {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        column-gap: 5px;
+
+        .limit {
+          text-align: center;
+          @extend %border;
+          background: $color-light;
+          box-shadow: 0 0 20px 1px rgba($color-light, 0.5);
+          font-size: 120%;
+        }
+      }
+
+      .cart-item__pages {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        column-gap: 5px;
+
+        .button_stock {
+          @extend %border;
+          height: 100%;
+          background: $color-light;
+          
+          overflow: hidden;
+          display: flex;
+          justify-content: space-between;
+          user-select: none;
+  
+          .stock__reduce-item {
+            width: 35%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+  
+            .reduce-item__image {
+              cursor: pointer;
+              background: url(./assets/chevron_left.svg) center no-repeat, linear-gradient(rgba($color-main, 0.2), rgba($color-main, 0.2));
+              background-size: 16px 16px;
+              width: 25px;
+              height: 25px;
+              border-radius: 50%;
+  
+              &:hover {
+                background: url(./assets/chevron_left.svg) center no-repeat, linear-gradient(rgba($color-dark, 0.2), rgba($color-dark, 0.2));
+                background-size: 16px 16px;
+              }
+            }
+          }
+  
+          .stock__amount-item {
+            width: 30%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+          }
+  
+          .stock__add-item {
+            cursor: pointer;
+            width: 35%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+  
+            .add-item__image {
+              background: url(./assets/chevron_right.svg) center no-repeat, linear-gradient(rgba($color-main, 0.2), rgba($color-main, 0.2));
+              background-size: 16px 16px;
+              width: 25px;
+              height: 25px;
+              border-radius: 50%;
+  
+              &:hover {
+                background: url(./assets/chevron_right.svg) center no-repeat, linear-gradient(rgba($color-dark, 0.2), rgba($color-dark, 0.2));
+                background-size: 16px 16px;
+              }
+            }
+          }
+        }
+      }
     }
   }
 
@@ -66,12 +151,12 @@
       padding: 20px;
       display: flex;
       flex-direction: column;
-      row-gap: 5px;
+      row-gap: 10px;
     
       .stock__button {
         display: flex;
-        row-gap: 5px;
-        flex-direction: column-reverse;
+        row-gap: 10px;
+        flex-direction: column;
         justify-content: space-between;
     
         .button_stock {
@@ -83,7 +168,7 @@
           user-select: none;
     
           .stock__reduce-item {
-            width: 35%;
+            width: 55%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -104,7 +189,7 @@
           }
     
           .stock__amount-item {
-            width: 30%;
+            width: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -113,7 +198,7 @@
     
           .stock__add-item {
             cursor: pointer;
-            width: 35%;
+            width: 55%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -153,7 +238,7 @@
     
         .total__price {
           color: $color-dark;
-          font-size: 2rem;
+          font-size: 1.5rem;
           font-weight: bold;
         }
       }
@@ -205,15 +290,53 @@
     background: $color-light;
     box-shadow: 0 0 20px 1px rgba($color-light, 0.5);
     border-radius: 10px;
+
+    .promo-title {
+      font-size: 120%;
+    }
+
+    .promocode {
+      margin: 15px 0;
+      @extend %border;
+      height: 30%;
+      background: $color-light;
+      padding-left: 10px;
+    }
+
+    .button-promo {
+      background: $color-main;
+      color: $color-light;
+      border-radius: 10px; 
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      border: 2px solid $color-primary;
+      outline: 0px solid $color-main;
+      transition: border .2s linear, outline .2s linear;
+      &:hover {
+        border: 2px solid $color-primary;
+        outline: 2px solid $color-main;
+      }
+    }
   }
 
   .cart-summary {
     padding: 10px;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     background: $color-light;
     box-shadow: 0 0 20px 1px rgba($color-light, 0.5);
     border-radius: 10px;
+
+    .rules {
+      margin: 20px 0;
+      font-size: 70%;
+      width: 80%;
+    }
 
     .cart-summary__title {
       margin-bottom: 16px;
@@ -249,8 +372,23 @@
     }
 
     .cart-summary__checkout-button {
+      background: $color-main;
+      color: $color-light;
+      border-radius: 10px; 
       width: 100%;
-      background: $color-primary;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      border: 2px solid $color-primary;
+      outline: 0px solid $color-main;
+      transition: border .2s linear, outline .2s linear;
+      &:hover {
+        border: 2px solid $color-primary;
+        outline: 2px solid $color-main;
+      }
     }
   }
 }

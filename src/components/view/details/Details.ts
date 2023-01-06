@@ -48,6 +48,14 @@ export default class Coffee {
         });
     };
 
+    getSortsName = (data: IProduct) => {
+        const arr: Array<string> = [];
+        data.sorts.forEach((sort) => {
+            arr.push(sort);
+        });
+        return arr.length > 1 ? arr.join(', ') : arr[0];
+    };
+
     inCartChecker = (value: number) => {
         const addCartButton = document.querySelector('.button_cart') as E;
         if (window.localStorage.getItem('gb-cart') !== null) {

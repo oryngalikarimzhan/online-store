@@ -64,7 +64,7 @@ export default class AppController {
     //     this.renderPage(params.endpoint);
     // };
 
-    // getCartPage = (params: RequestPath) => {
-    //     this.renderPage(params.endpoint);
-    // };
+    getCartPage = () => {
+        this.view.renderCartPage();
+    };
 }

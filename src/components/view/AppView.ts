@@ -7,16 +7,20 @@ import Shop from './shop/Shop';
 import Coffee from './details/Details';
 import Error404PageTemplate from '../template/NotFound.template';
 import Error from './error/Error';
+import CartPageTemplate from '../template/Cart.template';
+import Cart from './cart/Cart';
 
 export default class AppView {
     private readonly shop: Shop;
     private readonly coffee: Coffee;
     private readonly error: Error;
+    private readonly cart: Cart;
 
     constructor() {
         this.shop = new Shop();
         this.coffee = new Coffee();
         this.error = new Error();
+        this.cart = new Cart();
     }
 
     renderShopPage = (filteredProducts: IProduct[], products: IProduct[], queries: QueryMap) => {
@@ -34,11 +38,16 @@ export default class AppView {
         const breadCrumbText = `Кофе / ${num.sorts} / ${num.roastLevel} / ${num.brand} / ${num.name}`;
         this.coffee.changeBreadcrumb(breadCrumbText);
         this.coffee.changePhotos(num.images);
-        const sorts = num.sorts.length > 1 ? num.sorts[0] + num.sorts[1] : num.sorts[0];
-        this.coffee.changeInfo(num, sorts);
+        this.coffee.changeInfo(num, this.coffee.getSortsName(num));
         this.coffee.changePhotoOnClick();
         this.coffee.inCartChecker(num.id);
         this.coffee.addRemoveFromCartUsingButton(num);
+    };
+
+    renderCartPage = () => {
+        const template = new CartPageTemplate();
+        const htmlElement = template.getPageTemplate();
+        this.cart.draw(htmlElement);
     };
 
     renderErrorPage = () => {
