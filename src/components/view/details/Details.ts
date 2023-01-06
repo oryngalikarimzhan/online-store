@@ -1,5 +1,5 @@
 import IProduct from '../../model/IProduct';
-import { E } from '../../model/Types';
+import { E, CartItem } from '../../model/Types';
 
 export default class Coffee {
     private contentElement: E | null = null;
@@ -45,6 +45,54 @@ export default class Coffee {
                 const target = e.target as HTMLImageElement;
                 mainPhoto.src = target.src;
             });
+        });
+    };
+
+    inCartChecker = (value: number) => {
+        const addCartButton = document.querySelector('.button_cart') as E;
+        if (window.localStorage.getItem('gb-cart') !== null) {
+            const cart = JSON.parse(window.localStorage.getItem('gb-cart') || '[]');
+            const shopItem: { id: number; amount: number; totalPrice: number } = cart.find(
+                (s: CartItem) => s.id === value
+            );
+            if (shopItem) {
+                addCartButton.classList.add('button_price_checked');
+                (addCartButton as E).innerHTML = 'В корзине';
+            }
+        }
+    };
+
+    addRemoveFromCartUsingButton = (data: IProduct) => {
+        const addCartButton = document.querySelector('.button_cart') as E;
+        addCartButton.addEventListener('click', () => {
+            if (addCartButton.classList.contains('button_price_checked')) {
+                addCartButton.classList.remove('button_price_checked');
+                (addCartButton as E).innerHTML = 'В корзину';
+
+                if (window.localStorage.getItem('gb-cart') !== null) {
+                    const cart = JSON.parse(window.localStorage.getItem('gb-cart') || '[]');
+                    const index = cart.findIndex((s: CartItem) => s.id === data.id);
+                    cart.splice(index, 1);
+                    window.localStorage.setItem('gb-cart', JSON.stringify(cart));
+                }
+            } else {
+                addCartButton.classList.add('button_price_checked');
+                (addCartButton as E).innerHTML = 'В корзине';
+
+                const newCartItem: CartItem = {
+                    id: data.id,
+                    amount: 1,
+                    totalPrice: data.price,
+                };
+
+                if (window.localStorage.getItem('gb-cart') !== null) {
+                    const cart = JSON.parse(window.localStorage.getItem('gb-cart') || '[]');
+                    cart.push(newCartItem);
+                    window.localStorage.setItem('gb-cart', JSON.stringify(cart));
+                } else {
+                    window.localStorage.setItem('gb-cart', JSON.stringify([newCartItem]));
+                }
+            }
         });
     };
 }

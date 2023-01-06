@@ -37,6 +37,8 @@ export default class AppView {
         const sorts = num.sorts.length > 1 ? num.sorts[0] + num.sorts[1] : num.sorts[0];
         this.coffee.changeInfo(num, sorts);
         this.coffee.changePhotoOnClick();
+        this.coffee.inCartChecker(num.id);
+        this.coffee.addRemoveFromCartUsingButton(num);
     };
 
     renderErrorPage = () => {
