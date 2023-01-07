@@ -1,5 +1,7 @@
 import IProduct from '../../model/IProduct';
 import { E, CartItem } from '../../model/Types';
+import { getCartItemsArrFromLS, setCartItemsArrToLS } from '../../utilities/Utils';
+import { Header } from '../Header';
 
 export default class Coffee {
     private contentElement: E;
@@ -53,16 +55,14 @@ export default class Coffee {
         data.sorts.forEach((sort) => {
             arr.push(sort);
         });
-        return arr.length > 1 ? arr.join(', ') : arr[0];
+        return arr.join(', ');
     };
 
     inCartChecker = (value: number) => {
         const addCartButton = document.querySelector('.button_cart') as E;
-        if (window.localStorage.getItem('gb-cart') !== null) {
-            const cart = JSON.parse(window.localStorage.getItem('gb-cart') || '[]');
-            const shopItem: { id: number; amount: number; totalPrice: number } = cart.find(
-                (s: CartItem) => s.id === value
-            );
+        const cart = getCartItemsArrFromLS();
+        if (cart !== null) {
+            const shopItem: CartItem = cart.find((s: CartItem) => s.id === value);
             if (shopItem) {
                 addCartButton.classList.add('button_price_checked');
                 (addCartButton as E).innerHTML = 'В корзине';
@@ -72,16 +72,16 @@ export default class Coffee {
 
     addRemoveFromCartUsingButton = (data: IProduct) => {
         const addCartButton = document.querySelector('.button_cart') as E;
+        const cart = getCartItemsArrFromLS();
         addCartButton.addEventListener('click', () => {
             if (addCartButton.classList.contains('button_price_checked')) {
                 addCartButton.classList.remove('button_price_checked');
                 (addCartButton as E).innerHTML = 'В корзину';
 
-                if (window.localStorage.getItem('gb-cart') !== null) {
-                    const cart = JSON.parse(window.localStorage.getItem('gb-cart') || '[]');
+                if (cart !== null) {
                     const index = cart.findIndex((s: CartItem) => s.id === data.id);
                     cart.splice(index, 1);
-                    window.localStorage.setItem('gb-cart', JSON.stringify(cart));
+                    setCartItemsArrToLS(cart);
                 }
             } else {
                 addCartButton.classList.add('button_price_checked');
@@ -93,14 +93,14 @@ export default class Coffee {
                     totalPrice: data.price,
                 };
 
-                if (window.localStorage.getItem('gb-cart') !== null) {
-                    const cart = JSON.parse(window.localStorage.getItem('gb-cart') || '[]');
+                if (cart !== null) {
                     cart.push(newCartItem);
-                    window.localStorage.setItem('gb-cart', JSON.stringify(cart));
+                    setCartItemsArrToLS(cart);
                 } else {
-                    window.localStorage.setItem('gb-cart', JSON.stringify([newCartItem]));
+                    setCartItemsArrToLS([newCartItem]);
                 }
             }
+            Header.updateHeaderCart();
         });
     };
 }

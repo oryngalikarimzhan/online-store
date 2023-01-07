@@ -25,7 +25,6 @@ export default class AppView {
         this.cart = new Cart();
         this.header = new Header();
         this.header.draw();
-
     }
 
     renderShopPage = (filteredProducts: IProduct[], products: IProduct[], queries: QueryMap) => {
@@ -40,11 +39,11 @@ export default class AppView {
         }
     };
 
-    renderCoffeePage = (data: IProduct[], id: number) => {
+    renderCoffeePage = (num: IProduct) => {
         const template = new CoffeeItemTemplate();
         const htmlElement = template.getPageTemplate();
         this.coffee.draw(htmlElement);
-        const num = data[id - 1];
+        // const num = data[id - 1];
         const breadCrumbText = `Кофе / ${num.sorts} / ${num.roastLevel} / ${num.brand} / ${num.name}`;
         this.coffee.changeBreadcrumb(breadCrumbText);
         this.coffee.changePhotos(num.images);
@@ -52,18 +51,23 @@ export default class AppView {
         this.coffee.changePhotoOnClick();
         this.coffee.inCartChecker(num.id);
         this.coffee.addRemoveFromCartUsingButton(num);
+        this.addPageHeaders(template);
     };
 
     renderCartPage = () => {
         const template = new CartPageTemplate();
         const htmlElement = template.getPageTemplate();
         this.cart.draw(htmlElement);
+        this.cart.init();
+        this.cart.updateCartByPages();
+        this.addPageHeaders(template);
     };
 
     renderErrorPage = () => {
         const template = new Error404PageTemplate();
         const htmlElement = template.getPageTemplate();
         this.error.draw(htmlElement);
+        this.addPageHeaders(template);
     };
 
     private addPageHeaders = (template: ITemplate) => {

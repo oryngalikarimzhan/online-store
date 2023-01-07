@@ -8,6 +8,7 @@ import {
     getProductsOrderedBy,
     getProductsBySearchText,
     getAllProducts,
+    getProductById,
 } from '../service/ProductsService';
 import IProduct from '../model/IProduct';
 import AppView from '../view/AppView';
@@ -46,13 +47,20 @@ export default class AppController {
         }
     };
 
-    getCoffeePage = () => {
-        const data: IProduct[] = getAllProducts();
-        const id = Number(window.location.hash.replace('#/', '').split('/')[1]);
-        if (typeof id === 'number' && id !== undefined) {
-            this.view.renderCoffeePage(data, id);
-        } else {
-            this.getErrorPage();
+    getCoffeePage = (params: RequestPath) => {
+        let id: string;
+        if (params.queries) {
+            id = Object.keys(params.queries)[0];
+            if (typeof +id === 'number' && id !== undefined) {
+                const product = getProductById(+id);
+                if (product) {
+                    this.view.renderCoffeePage(product);
+                } else {
+                    this.getErrorPage();
+                }
+            } else {
+                this.getErrorPage();
+            }
         }
     };
 
