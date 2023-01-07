@@ -46,15 +46,25 @@ export default class AppController {
         }
     };
 
-    // getErrorPage = (params: RequestPath) => {
-    //     this.renderPage(params.endpoint);
-    // };
+    getCoffeePage = () => {
+        const data: IProduct[] = getAllProducts();
+        const id = Number(window.location.hash.replace('#/', '').split('/')[1]);
+        if (typeof id === 'number' && id !== undefined) {
+            this.view.renderCoffeePage(data, id);
+        } else {
+            this.getErrorPage();
+        }
+    };
+
+    getErrorPage = () => {
+        this.view.renderErrorPage();
+    };
 
     // getHomePage = (params: RequestPath) => {
     //     this.renderPage(params.endpoint);
     // };
 
-    // getCartPage = (params: RequestPath) => {
-    //     this.renderPage(params.endpoint);
-    // };
+    getCartPage = () => {
+        this.view.renderCartPage();
+    };
 }
