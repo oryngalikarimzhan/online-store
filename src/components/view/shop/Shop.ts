@@ -1,7 +1,14 @@
 import IProduct from '../../model/IProduct';
 import { QueryMap, I, E, CartItem } from '../../model/Types';
 import { getProductsByBrands, getProductsBySorts } from '../../service/ProductsService';
-import { addParameterToQuery, deleteParameterFromQuery, parseStr } from '../../utilities/Utils';
+import {
+    addParameterToQuery,
+    deleteParameterFromQuery,
+    getCartItemsArrFromLS,
+    parseStr,
+    setCartItemsArrToLS,
+} from '../../utilities/Utils';
+import { Header } from '../Header';
 
 export default class Shop {
     private contentElement: E | null = null;
@@ -354,32 +361,31 @@ export default class Shop {
 
         const priceButtonContainer = productCard.querySelector('.product__price-button') as E;
         const priceButton = priceButtonContainer.querySelector('.button_price') as E;
+        const priceButtonText = priceButton.firstElementChild as E;
 
-        if (window.localStorage.getItem('gb-cart') !== null) {
-            const cart = JSON.parse(window.localStorage.getItem('gb-cart') || '[]');
-            const shopItem: { id: number; amount: number; totalPrice: number } = cart.find(
-                (s: { id: number; amount: number; totalPrice: number }) => s.id === filteredProduct.id
-            );
+        const cart = getCartItemsArrFromLS();
+        if (cart.length > 0) {
+            const shopItem = cart.find((s: CartItem) => s.id === filteredProduct.id);
             if (shopItem) {
                 priceButton.classList.add('button_price_checked');
-                (priceButton.firstElementChild as E).innerHTML = 'В корзине';
+                priceButtonText.innerHTML = 'В корзине';
             }
         }
 
         priceButtonContainer.addEventListener('click', () => {
+            const cart = getCartItemsArrFromLS();
             if (priceButton.classList.contains('button_price_checked')) {
                 priceButton.classList.remove('button_price_checked');
-                (priceButton.firstElementChild as E).innerHTML = 'В корзину';
+                priceButtonText.innerHTML = 'В корзину';
 
-                if (window.localStorage.getItem('gb-cart') !== null) {
-                    const cart = JSON.parse(window.localStorage.getItem('gb-cart') || '[]');
+                if (cart.length > 0) {
                     const index = cart.findIndex((cartItem: CartItem) => cartItem.id === filteredProduct.id);
                     cart.splice(index, 1);
-                    window.localStorage.setItem('gb-cart', JSON.stringify(cart));
+                    setCartItemsArrToLS(cart);
                 }
             } else {
                 priceButton.classList.add('button_price_checked');
-                (priceButton.firstElementChild as E).innerHTML = 'В корзине';
+                priceButtonText.innerHTML = 'В корзине';
 
                 const newCartItem: CartItem = {
                     id: filteredProduct.id,
@@ -387,14 +393,15 @@ export default class Shop {
                     totalPrice: filteredProduct.price,
                 };
 
-                if (window.localStorage.getItem('gb-cart') !== null) {
-                    const cart = JSON.parse(window.localStorage.getItem('gb-cart') || '[]');
+                if (cart.length > 0) {
                     cart.push(newCartItem);
-                    window.localStorage.setItem('gb-cart', JSON.stringify(cart));
+                    setCartItemsArrToLS(cart);
                 } else {
-                    window.localStorage.setItem('gb-cart', JSON.stringify([newCartItem]));
+                    setCartItemsArrToLS([newCartItem]);
                 }
             }
+
+            Header.updateHeaderCart();
         });
         return productCard;
     };

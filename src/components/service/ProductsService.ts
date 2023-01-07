@@ -18,15 +18,23 @@ export const getProductsByBrands = (products: IProduct[], queryValue: string[]) 
 };
 
 export const getProductsByPrices = (products: IProduct[], queryValue: string[]) => {
-    return products.filter((product) => +queryValue[0] <= product.price && +queryValue[1] >= product.price);
+    const [min, max] = queryValue.map((n) => +n);
+    if (!Number.isNaN(min) && !Number.isNaN(max)) {
+        return products.filter((product) => min <= product.price && max >= product.price);
+    }
+    return products;
 };
 
 export const getProductsByStockAmount = (products: IProduct[], queryValue: string[]) => {
-    return products.filter((product) => +queryValue[0] <= product.stock && +queryValue[1] >= product.stock);
+    const [min, max] = queryValue.map((n) => +n);
+    if (!Number.isNaN(min) && !Number.isNaN(max)) {
+        return products.filter((product) => min <= product.stock && max >= product.stock);
+    }
+    return products;
 };
 
 export const getProductsBySearchText = (products: IProduct[], queryValue: string[]) => {
-    const queryText = queryValue[0].toLocaleLowerCase();
+    const queryText = queryValue[0].toLowerCase();
     return products.filter(
         (product) =>
             product.brand.toLocaleLowerCase().includes(queryText) ||
@@ -36,10 +44,13 @@ export const getProductsBySearchText = (products: IProduct[], queryValue: string
     );
 };
 
-export const getAndOrderProductsBy = (products: IProduct[], queryValue: string[]) => {
+export const getProductsOrderedBy = (products: IProduct[], queryValue: string[]) => {
     type K = keyof IProduct;
-    if (queryValue[1] === 'asc') {
+    const [target, direction] = queryValue;
+    if ((target === 'name' || target === 'price') && direction === 'asc') {
         return products.sort((a, b) => (a[<K>queryValue[0]] > b[<K>queryValue[0]] ? 1 : -1));
+    } else if ((target === 'name' || target === 'price') && direction === 'desc') {
+        return products.sort((a, b) => (a[<K>queryValue[0]] < b[<K>queryValue[0]] ? 1 : -1));
     }
-    return products.sort((a, b) => (a[<K>queryValue[0]] < b[<K>queryValue[0]] ? 1 : -1));
+    return products;
 };

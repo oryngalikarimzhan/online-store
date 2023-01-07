@@ -2,6 +2,7 @@ import IProduct from '../model/IProduct';
 import ITemplate from '../model/ITemplate';
 import { QueryMap } from '../model/Types';
 import ShopTemplate from '../template/Shop.template';
+import { Header } from './Header';
 import CoffeeItemTemplate from '../template/ShopItem.template';
 import Shop from './shop/Shop';
 import Coffee from './details/Details';
@@ -12,6 +13,7 @@ import Cart from './cart/Cart';
 
 export default class AppView {
     private readonly shop: Shop;
+    private readonly header: Header;
     private readonly coffee: Coffee;
     private readonly error: Error;
     private readonly cart: Cart;
@@ -21,13 +23,21 @@ export default class AppView {
         this.coffee = new Coffee();
         this.error = new Error();
         this.cart = new Cart();
+        this.header = new Header();
+        this.header.draw();
+
     }
 
     renderShopPage = (filteredProducts: IProduct[], products: IProduct[], queries: QueryMap) => {
         const template = new ShopTemplate();
         const htmlElement = template.getPageTemplate();
-        this.shop.draw(this.shop.getContentElement() ?? htmlElement, filteredProducts, products, queries);
-        this.addPageHeaders(template);
+        const oldHtmlElement = this.shop.getContentElement();
+        if (oldHtmlElement) {
+            this.shop.draw(oldHtmlElement, filteredProducts, products, queries);
+        } else {
+            this.shop.draw(htmlElement, filteredProducts, products, queries);
+            this.addPageHeaders(template);
+        }
     };
 
     renderCoffeePage = (data: IProduct[], id: number) => {

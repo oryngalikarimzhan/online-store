@@ -42,46 +42,107 @@
 .header__navigation {
   display: flex;
   @include media-tablet {
-    background: black;
+    background: $color-primary;
+    filter: brightness(115%);
     position: absolute;
     justify-content: center;
     width: 100%;
     top: 50px;
     left: 0;
-    
   }
 }
 
-.header__cart-logo {
+.header__cart {
   margin-left: auto;
-  margin-right: 100px;
-  width: 100px;
+  margin-right: 50px;
+  width: 180px;
   height: 100%;
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  column-gap: 10px;
 
-  .cart-logo {
+  .cart__logo {
     display: block;
     width: 40px;
-    height: 100%;
+    height: 40px;
+    border-radius: 10px;
     background: url(./assets/empty-cart.svg) center no-repeat;
     background-size: contain;
+    position: relative;
+
+    .cart__total-amount {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: $color-light;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      right: -5px;
+      background: #00a046;
+      display: none;
+    }
+
+    &:hover::before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: -5px;
+      width: 55px;
+      height: 55px;
+      background: rgba($color-dark, 0.3);
+      border-radius: 10px;
+    }
+  }
+
+  .cart__logo_full {
+    background: url(./assets/full-cart.svg) center no-repeat;
+    background-size: contain;
+
+    .cart__total-amount {
+      display: flex;
+    }
+  }
+
+  .cart__total-price {
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    span {
+      color: $color-light;
+      font-size: 2rem;
+    }
   }
 
   @include media-tablet {
     position: absolute;
     right: 10px;
-    margin-right: 0;
+    margin-right: 40px;
+    width: 150px;
+
     .cart-logo {
       img {
         width: 40px;
       }
     }
+
+    .cart__total-price {
+      font-size: 1.3rem;
+      span {
+        font-size: 1.6rem;
+      }
+    } 
   }
 }
 
 @include media-tablet {
-  .burger-on {
+  .header_burger-on {
     width: 100%;
 
     .header__wrapper {
