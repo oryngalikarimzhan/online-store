@@ -2,7 +2,7 @@
 import { E } from '../../model/Types';
 
 export default class Cart {
-    private contentElement: E | null = null;
+    private contentElement: E;
     constructor() {
         this.contentElement = document.querySelector('.main') as E;
     }

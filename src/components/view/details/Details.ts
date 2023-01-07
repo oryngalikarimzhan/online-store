@@ -2,7 +2,7 @@ import IProduct from '../../model/IProduct';
 import { E, CartItem } from '../../model/Types';
 
 export default class Coffee {
-    private contentElement: E | null = null;
+    private contentElement: E;
 
     constructor() {
         this.contentElement = document.querySelector('.main') as E;
