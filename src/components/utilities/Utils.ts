@@ -1,5 +1,5 @@
 import { CartItem } from '../model/Types';
-import { CARTSTORAGE } from './Constants';
+import { CARTSTORAGE, SHOPLINK } from './Constants';
 
 function parseStr(composedStr: string) {
     return composedStr
@@ -20,7 +20,10 @@ function addParameterToQuery(queryKey: string, queryValue: string | string[], ha
         }
         hash = params[0] + '/?' + decodeURIComponent(searchParams.toString());
     } else {
-        hash = `${hash[hash.length - 1] === '/' ? hash.slice(0, -1) : hash}/?${queryKey}=${queryValue}`;
+        console.log('aaaaaaaa', queryValue);
+        hash = `${hash[hash.length - 1] === '/' ? hash.slice(0, -1) : hash}/?${queryKey}=${
+            typeof queryValue === 'string' ? queryValue.replace(/ /g, '+') : queryValue
+        }`;
     }
     return hash;
 }
@@ -56,4 +59,25 @@ function setCartItemsArrToLS(cart: CartItem[]) {
     window.localStorage.setItem(CARTSTORAGE, JSON.stringify(cart));
 }
 
-export { parseStr, addParameterToQuery, deleteParameterFromQuery, getCartItemsArrFromLS, setCartItemsArrToLS };
+function getShopLinkFromSessionStorage() {
+    const href = window.sessionStorage.getItem(SHOPLINK);
+    const currentHash = window.location.hash;
+    const shopHash = '#/shop';
+    if (href === null && !currentHash.includes(shopHash)) {
+        window.sessionStorage.setItem(SHOPLINK, shopHash);
+        return shopHash;
+    } else if (href !== null && !currentHash.includes(shopHash)) {
+        return href;
+    }
+    window.sessionStorage.setItem(SHOPLINK, currentHash);
+    return currentHash;
+}
+
+export {
+    parseStr,
+    addParameterToQuery,
+    deleteParameterFromQuery,
+    getCartItemsArrFromLS,
+    setCartItemsArrToLS,
+    getShopLinkFromSessionStorage,
+};

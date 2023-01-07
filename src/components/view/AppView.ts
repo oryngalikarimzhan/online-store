@@ -1,15 +1,19 @@
 import IProduct from '../model/IProduct';
 import ITemplate from '../model/ITemplate';
 import { QueryMap } from '../model/Types';
-import ShopTemplate from '../template/Shop.template';
-import { Header } from './Header';
-import CoffeeItemTemplate from '../template/ShopItem.template';
+
+import Header from './Header';
 import Shop from './shop/Shop';
 import Coffee from './details/Details';
-import Error404PageTemplate from '../template/NotFound.template';
 import Error from './error/Error';
-import CartPageTemplate from '../template/Cart.template';
 import Cart from './cart/Cart';
+import Home from './home/Home';
+
+import ShopTemplate from '../template/Shop.template';
+import CoffeeItemTemplate from '../template/ShopItem.template';
+import Error404PageTemplate from '../template/NotFound.template';
+import CartPageTemplate from '../template/Cart.template';
+import HomeTemplate from '../template/Home.template';
 
 export default class AppView {
     private readonly shop: Shop;
@@ -17,27 +21,35 @@ export default class AppView {
     private readonly coffee: Coffee;
     private readonly error: Error;
     private readonly cart: Cart;
+    private readonly home: Home;
 
     constructor() {
+        this.header = new Header();
         this.shop = new Shop();
+        this.home = new Home();
         this.coffee = new Coffee();
         this.error = new Error();
         this.cart = new Cart();
-        this.header = new Header();
         this.header.draw();
-
     }
 
     renderShopPage = (filteredProducts: IProduct[], products: IProduct[], queries: QueryMap) => {
         const template = new ShopTemplate();
         const htmlElement = template.getPageTemplate();
         const oldHtmlElement = this.shop.getContentElement();
-        if (oldHtmlElement) {
+        if (oldHtmlElement !== null) {
             this.shop.draw(oldHtmlElement, filteredProducts, products, queries);
         } else {
             this.shop.draw(htmlElement, filteredProducts, products, queries);
             this.addPageHeaders(template);
         }
+    };
+
+    renderHomePage = () => {
+        const template = new HomeTemplate();
+        const htmlElement = template.getPageTemplate();
+        this.home.draw(htmlElement);
+        this.addPageHeaders(template);
     };
 
     renderCoffeePage = (data: IProduct[], id: number) => {
