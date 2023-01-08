@@ -5,19 +5,28 @@ import {
     addParameterToQuery,
     deleteParameterFromQuery,
     getCartItemsArrFromLS,
+    getShopLinkFromSessionStorage,
     parseStr,
     setCartItemsArrToLS,
 } from '../../utilities/Utils';
-import { Header } from '../Header';
+import Header from '../Header';
 
 export default class Shop {
+    private readonly contentContainer = document.querySelector('.main') as E;
     private contentElement: E | null = null;
 
     getContentElement = () => {
+        if (
+            this.contentElement &&
+            (this.contentContainer.firstElementChild as E).className !== this.contentElement.className
+        ) {
+            this.contentElement = null;
+        }
         return this.contentElement;
     };
 
     draw = (htmlElement: E, filteredProducts: IProduct[], products: IProduct[], queries: QueryMap) => {
+        (document.querySelector('#shop-link') as HTMLLinkElement).href = getShopLinkFromSessionStorage();
         if (!this.contentElement) {
             this.contentElement = htmlElement;
             this.buildNewContent(this.contentElement, filteredProducts, products, queries);
@@ -58,6 +67,8 @@ export default class Shop {
         this.checkSearchText(htmlElement, queries.search, filteredProducts.length);
         this.checkView(htmlElement);
         this.checkOrder(htmlElement, queries.order);
+        const searchAmount = htmlElement.querySelector('.search__amount') as E;
+        searchAmount.innerHTML = 'Найдено ' + filteredProducts.length;
 
         const productsListContainer = htmlElement.querySelector('.products__list') as E;
         if (filteredProducts.length === 0) {
@@ -67,9 +78,8 @@ export default class Shop {
                 productsListContainer.append(this.buildProductCard(productCardTemplate, filteredProduct));
             }
         }
-        const contentContainer = document.querySelector('.main') as E;
-        contentContainer.innerHTML = '';
-        contentContainer.append(htmlElement);
+        this.contentContainer.innerHTML = '';
+        this.contentContainer.append(htmlElement);
     };
 
     updateOldContent = (htmlElement: E, filteredProducts: IProduct[], products: IProduct[], queries: QueryMap) => {

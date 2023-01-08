@@ -1,7 +1,7 @@
 import { CartItem, E } from '../model/Types';
-import { getCartItemsArrFromLS } from '../utilities/Utils';
+import { getCartItemsArrFromLS, getShopLinkFromSessionStorage } from '../utilities/Utils';
 
-export class Header {
+export default class Header {
     draw = () => {
         const header = document.querySelector('.header') as E;
         (document.querySelector('.burger') as E).addEventListener('click', () => {
@@ -12,7 +12,7 @@ export class Header {
         mediaPoint.addEventListener('change', () => {
             header.classList.remove('header_burger-on');
         });
-
+        (document.querySelector('#shop-link') as HTMLLinkElement).href = getShopLinkFromSessionStorage();
         Header.updateHeaderCart();
     };
 
