@@ -5,6 +5,10 @@ export const getAllProducts = () => {
     return data.products.map((el) => el);
 };
 
+export const getProductById = (id: number) => {
+    return getAllProducts().find((product: IProduct) => product.id === id);
+};
+
 export const getProductsByRoastLevels = (products: IProduct[], queryValue: string[]) => {
     return products.filter((product) => queryValue.includes(product.roastLevel.toLowerCase()));
 };

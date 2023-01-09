@@ -59,6 +59,22 @@ function setCartItemsArrToLS(cart: CartItem[]) {
     window.localStorage.setItem(CARTSTORAGE, JSON.stringify(cart));
 }
 
+
+function getTotalDiscount() {
+    return Number(JSON.parse(window.localStorage.getItem('discount') || '[]'));
+}
+
+function setTotalDiscount(discountVal: number) {
+    window.localStorage.setItem('discount', JSON.stringify(discountVal));
+}
+
+function getAppliedPromos() {
+    return JSON.parse(window.localStorage.getItem('promosApplied') || '[]');
+}
+
+function setAppliedPromos(promocode: string[]) {
+    window.localStorage.setItem('promosApplied', JSON.stringify(promocode));
+
 function getShopLinkFromSessionStorage() {
     const href = window.sessionStorage.getItem(SHOPLINK);
     const currentHash = window.location.hash;
@@ -71,6 +87,7 @@ function getShopLinkFromSessionStorage() {
     }
     window.sessionStorage.setItem(SHOPLINK, currentHash);
     return currentHash;
+
 }
 
 export {
@@ -79,5 +96,9 @@ export {
     deleteParameterFromQuery,
     getCartItemsArrFromLS,
     setCartItemsArrToLS,
+    getTotalDiscount,
+    setTotalDiscount,
+    setAppliedPromos,
+    getAppliedPromos,
     getShopLinkFromSessionStorage,
 };

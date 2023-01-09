@@ -20,7 +20,10 @@ export default class Header {
         const cart = getCartItemsArrFromLS();
         if (cart.length > 0) {
             const totalAmount = cart.reduce((acc: number, cartItem: CartItem) => acc + cartItem.amount, 0);
-            const totalPrice = cart.reduce((acc: number, cartItem: CartItem) => acc + cartItem.totalPrice, 0);
+            const totalPrice = cart.reduce(
+                (acc: number, cartItem: CartItem) => acc + cartItem.totalPrice * cartItem.amount,
+                0
+            );
             (document.querySelector('.cart__total-amount') as E).innerHTML = `${totalAmount}`;
             (document.querySelector('.cart__total-price span') as E).innerHTML = `${totalPrice.toFixed(2)}$`;
             (document.querySelector('.cart__logo') as E).classList.add('cart__logo_full');
