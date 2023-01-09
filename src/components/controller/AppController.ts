@@ -1,4 +1,4 @@
-import { RequestPath } from '../model/Types';
+import { RequestParams } from '../model/Types';
 import {
     getProductsBySorts,
     getProductsByRoastLevels,
@@ -28,7 +28,7 @@ export default class AppController {
         this.view = new AppView();
     }
 
-    getShopPage = (params: RequestPath) => {
+    getShopPage = (params: RequestParams) => {
         let filteredProducts: IProduct[] = getAllProducts();
         if (params.queries) {
             for (const queryName of Object.keys(params.queries)) {
@@ -68,9 +68,9 @@ export default class AppController {
         this.view.renderErrorPage();
     };
 
-    // getHomePage = (params: RequestPath) => {
-    //     this.renderPage(params.endpoint);
-    // };
+    getHomePage = () => {
+        this.view.renderHomePage();
+    };
 
     getCartPage = () => {
         this.view.renderCartPage();

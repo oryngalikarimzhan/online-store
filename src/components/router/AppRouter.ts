@@ -1,5 +1,5 @@
 import AppController from '../controller/AppController';
-import { QueryMap, RequestPath } from '../model/Types';
+import { QueryMap, RequestParams } from '../model/Types';
 
 class AppRouter {
     readonly controller: AppController;
@@ -20,7 +20,7 @@ class AppRouter {
     };
 
     private route = () => {
-        const requestParams: RequestPath = AppRouter.parsePath();
+        const requestParams: RequestParams = AppRouter.parsePath();
         console.group('REQUEST');
         console.log('hash =', window.location.hash);
         console.log('endpoint =', requestParams.endpoint);
@@ -31,7 +31,7 @@ class AppRouter {
         if (controllerMethod) {
             this.controller[controllerMethod as keyof AppController](requestParams);
         } else {
-            this.controller['getNotFoundPage' as keyof AppController](requestParams);
+            this.controller['getErrorPage' as keyof AppController](requestParams);
         }
     };
 
