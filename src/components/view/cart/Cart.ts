@@ -9,7 +9,7 @@ import {
     getAppliedPromos,
 } from '../../utilities/Utils';
 import promo from '../../promo/promo.json';
-import { Header } from '../Header';
+import Header from '../Header';
 import { getProductById } from '../../service/ProductsService';
 
 export default class Cart {

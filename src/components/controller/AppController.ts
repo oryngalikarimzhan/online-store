@@ -47,7 +47,7 @@ export default class AppController {
         }
     };
 
-    getCoffeePage = (params: RequestPath) => {
+    getCoffeePage = (params: RequestParams) => {
         let id: string;
         if (params.queries) {
             id = Object.keys(params.queries)[0];

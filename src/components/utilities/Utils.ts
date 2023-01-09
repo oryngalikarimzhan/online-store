@@ -59,7 +59,6 @@ function setCartItemsArrToLS(cart: CartItem[]) {
     window.localStorage.setItem(CARTSTORAGE, JSON.stringify(cart));
 }
 
-
 function getTotalDiscount() {
     return Number(JSON.parse(window.localStorage.getItem('discount') || '[]'));
 }
@@ -74,6 +73,7 @@ function getAppliedPromos() {
 
 function setAppliedPromos(promocode: string[]) {
     window.localStorage.setItem('promosApplied', JSON.stringify(promocode));
+}
 
 function getShopLinkFromSessionStorage() {
     const href = window.sessionStorage.getItem(SHOPLINK);
@@ -87,7 +87,6 @@ function getShopLinkFromSessionStorage() {
     }
     window.sessionStorage.setItem(SHOPLINK, currentHash);
     return currentHash;
-
 }
 
 export {

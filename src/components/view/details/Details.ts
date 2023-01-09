@@ -1,7 +1,7 @@
 import IProduct from '../../model/IProduct';
 import { E, CartItem } from '../../model/Types';
 import { getCartItemsArrFromLS, setCartItemsArrToLS } from '../../utilities/Utils';
-import { Header } from '../Header';
+import Header from '../Header';
 
 export default class Coffee {
     private contentElement: E;
