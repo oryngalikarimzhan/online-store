@@ -1,6 +1,7 @@
 import IProduct from '../../model/IProduct';
 import { E, CartItem } from '../../model/Types';
 import { getCartItemsArrFromLS, setCartItemsArrToLS } from '../../utilities/Utils';
+import Cart from '../cart/Cart';
 import Header from '../Header';
 
 export default class Coffee {
@@ -15,6 +16,41 @@ export default class Coffee {
             this.contentElement.innerHTML = '';
             this.contentElement.insertAdjacentElement('afterbegin', htmlElement);
         }
+    };
+
+    buyNow = (data: IProduct, value: number) => {
+        const checkoutBtn = document.querySelector('.buy-now__button') as E;
+        checkoutBtn.addEventListener('click', () => {
+            const cart = getCartItemsArrFromLS();
+            if (cart !== null) {
+                const shopItem: CartItem = cart.find((s: CartItem) => s.id === value);
+                if (shopItem) {
+                    window.location.hash = '#/cart';
+                    window.setTimeout(() => {
+                        Header.updateHeaderCart();
+                        Cart.openCheckout();
+                    }, 100);
+                } else {
+                    const newCartItem: CartItem = {
+                        id: data.id,
+                        amount: 1,
+                        totalPrice: data.price,
+                    };
+
+                    if (cart !== null) {
+                        cart.push(newCartItem);
+                        setCartItemsArrToLS(cart);
+                    } else {
+                        setCartItemsArrToLS([newCartItem]);
+                    }
+                    window.location.hash = '#/cart';
+                    window.setTimeout(() => {
+                        Header.updateHeaderCart();
+                        Cart.openCheckout();
+                    }, 100);
+                }
+            }
+        });
     };
 
     changeBreadcrumb = (link: string) => {
