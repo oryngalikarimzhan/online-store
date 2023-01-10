@@ -16,7 +16,7 @@ export default class HomeTemplate implements ITemplate {
                         ЛУЧШИЕ КОФЕ У НАС.
                     </h2>
                     <div class="promo__button">
-                        <button onclick="location.href='#shop'" class="button button_regular">
+                        <button onclick="location.href='#/shop'" class="button button_regular">
                             Купить
                         </button>
                     </div>
@@ -27,14 +27,14 @@ export default class HomeTemplate implements ITemplate {
                     Попробуйте кофейные зерна высочайшего качества со всего мира. У нас вы найдете вкусные сертифицированные органические кофе ручной обжарки. Побалуйте себя и пейте лучший органический кофе!
                 </h3>
                 <div class="shop__button">
-                    <button onclick="location.href='#shop'" class="button button_regular">
+                    <button onclick="location.href='#/shop'" class="button button_regular">
                         Купить
                     </button>
                 </div>
             </section>
             <div class="home-page__content-1">
                 <div class="shop__button">
-                    <button onclick="location.href='#shop'" class="button button_regular">
+                    <button onclick="location.href='#/shop'" class="button button_regular">
                         Купить
                     </button>
                 </div>
@@ -44,7 +44,7 @@ export default class HomeTemplate implements ITemplate {
             </div>
             <div class="home-page__content-2">
                 <div class="shop__button">
-                    <button onclick="location.href='#shop'" class="button button_regular">
+                    <button onclick="location.href='#/shop'" class="button button_regular">
                         Купить
                     </button>
                 </div>
@@ -129,7 +129,7 @@ export default class HomeTemplate implements ITemplate {
                         </div>
                     </div>
                     <div class="coffee-roast__button">
-                        <button onclick="location.href='#shop'" class="button button_regular">
+                        <button onclick="location.href='#/shop'" class="button button_regular">
                             Купить
                         </button>
                     </div>
