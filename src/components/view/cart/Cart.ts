@@ -34,84 +34,65 @@ export default class Cart {
 
         cartElem.dataset.id = String(productInCart.id);
         (cartCard.querySelector('.cart-item__image img') as HTMLImageElement).src = productInCart.images[0];
+        (cartCard.querySelector('.cart-item__description') as HTMLDivElement).innerText = productInCart.description;
+        (cartCard.querySelector('.order-num') as HTMLDivElement).innerText = String(order);
+        (cartCard.querySelector('.item-left__amount') as HTMLDivElement).innerText = String(productInCart.stock);
+        (cartCard.querySelector('.stock__amount-item') as HTMLImageElement).innerText = cart[index].amount;
         (cartCard.querySelector(
             '.cart-item__name-brand'
         ) as HTMLDivElement).innerText = `${productInCart.brand} ${productInCart.name}`;
-        (cartCard.querySelector('.cart-item__description') as HTMLDivElement).innerText = productInCart.description;
-        (cartCard.querySelector('.order-num') as HTMLDivElement).innerText = String(order);
+
         const totalPriceTemp = cartCard.querySelector('.total__price span') as E;
-        (cartCard.querySelector('.item-left__amount') as HTMLDivElement).innerText = String(productInCart.stock);
         totalPriceTemp.innerText = String(`${(productInCart.price * cart[index].amount).toFixed(2)}`);
-        (cartCard.querySelector('.stock__amount-item') as HTMLImageElement).innerText = cart[index].amount;
-        cartElem.addEventListener('click', (e) => {
-            const target = e.target as E;
-            if (target.closest('.stock__reduce-item')) {
-                totalPriceTemp.innerText = `${(parseFloat(totalPriceTemp.innerText) - productInCart.price).toFixed(2)}`;
-            }
-            if (target.closest('.stock__add-item')) {
-                totalPriceTemp.innerText = `${(parseFloat(totalPriceTemp.innerText) + productInCart.price).toFixed(2)}`;
-            }
-        });
 
         const reduceBtn = cartCard.querySelector('.reduce-item__image') as E;
         const currentPage = document.querySelector('.current-page') as HTMLDivElement;
         const limit = document.querySelector('.limit') as HTMLInputElement;
+        const currAmount = cartCard.querySelector('.stock__amount-item') as E;
 
-        reduceBtn.addEventListener('click', (e) => {
+        reduceBtn.addEventListener('click', () => {
             const cart = getCartItemsArrFromLS();
             if (cart !== null) {
-                if (e.target) {
-                    const target = e.target as Element;
-                    const id = (target.closest('.cart-item__info') as HTMLElement).dataset.id;
-                    const currAmount = target.parentNode?.nextSibling?.nextSibling as HTMLElement;
-                    if (id) {
-                        const index = cart.findIndex((s: CartItem) => Number(s.id) === +id);
-                        if (currAmount.textContent && +currAmount.textContent !== 1) {
-                            cart[index].amount -= 1;
-                            setCartItemsArrToLS(cart);
-                            currAmount.innerHTML = `${cart[index].amount}`;
-                            Header.updateHeaderCart();
-                            this.updateQtySum(getTotalDiscount());
-                        } else if (currAmount.textContent && +currAmount.textContent === 1) {
-                            cart.splice(index, 1);
-                            setCartItemsArrToLS(cart);
-                            this.emptyCart();
-                            Header.updateHeaderCart();
-                            const numOfPages = Math.ceil(cart.length / +limit.value);
-                            if (currentPage.textContent) {
-                                if (+currentPage.textContent >= numOfPages) {
-                                    this.updateCart(numOfPages, Number(limit.value));
-                                    currentPage.innerText = String(numOfPages);
-                                } else {
-                                    this.updateCart(Number(currentPage.textContent), Number(limit.value));
-                                }
-                            }
-                            this.updateQtySum(getTotalDiscount());
+                const id = productInCart.id;
+                const index = cart.findIndex((s: CartItem) => Number(s.id) === +id);
+                if (cart[index].amount !== 1) {
+                    cart[index].amount -= 1;
+                    setCartItemsArrToLS(cart);
+                    currAmount.innerHTML = `${cart[index].amount}`;
+                    Header.updateHeaderCart();
+                    this.updateQtySum(getTotalDiscount());
+                    totalPriceTemp.innerText = `${(cart[index].amount * productInCart.price).toFixed(2)}`;
+                } else {
+                    cart.splice(index, 1);
+                    setCartItemsArrToLS(cart);
+                    this.emptyCart();
+                    Header.updateHeaderCart();
+                    const numOfPages = Math.ceil(cart.length / +limit.value);
+                    if (currentPage.textContent) {
+                        if (+currentPage.textContent >= numOfPages) {
+                            this.updateCart(numOfPages, Number(limit.value));
+                            currentPage.innerText = String(numOfPages);
+                        } else {
+                            this.updateCart(Number(currentPage.textContent), Number(limit.value));
                         }
                     }
+                    this.updateQtySum(getTotalDiscount());
                 }
             }
         });
 
         const increaseBtn = cartCard.querySelector('.add-item__image') as E;
-        increaseBtn.addEventListener('click', (e) => {
+        increaseBtn.addEventListener('click', () => {
             const cart = getCartItemsArrFromLS();
-            if (e.target) {
-                const target = e.target as Element;
-                const id = (target.closest('.cart-item__info') as HTMLElement).dataset.id;
-                const currAmount = target.parentNode?.previousSibling?.previousSibling as HTMLElement;
-                if (id) {
-                    const index = cart.findIndex((s: CartItem) => Number(s.id) === +id);
-                    const remaining = getProductById(+id)?.stock;
+            const id = productInCart.id;
+            const index = cart.findIndex((s: CartItem) => Number(s.id) === id);
 
-                    if (remaining && cart[index].amount < remaining) {
-                        cart[index].amount += 1;
-                        setCartItemsArrToLS(cart);
-                        currAmount.innerHTML = `${cart[index].amount}`;
-                        Header.updateHeaderCart();
-                        this.updateQtySum(getTotalDiscount());
-                    }
-                }
+            if (cart[index].amount < productInCart.stock) {
+                cart[index].amount += 1;
+                setCartItemsArrToLS(cart);
+                currAmount.innerHTML = `${cart[index].amount}`;
+                Header.updateHeaderCart();
+                totalPriceTemp.innerText = `${(cart[index].amount * productInCart.price).toFixed(2)}`;
             }
         });
 
@@ -279,6 +260,7 @@ export default class Cart {
             ) {
                 creditCardNumberInput.value += ' ';
             } else if (
+                joinedValue.length !== 1 &&
                 joinedValue.length % 4 === 1 &&
                 dataSetValue?.length === value.length - 1 &&
                 joinedValue.length !== 16
