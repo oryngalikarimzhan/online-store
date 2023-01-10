@@ -5,6 +5,11 @@
   min-height: calc(100vh - 140px);
   display: flex;
   column-gap: 20px;
+
+  @include media-mobile {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .cart-empty {
@@ -29,16 +34,20 @@
   box-shadow: 0 0 20px 1px rgba($color-light, 0.5);
   border-radius: 10px;
   max-width: 816px;
+  min-width: 300px;
 
+  @include media-mobile {
+    margin-bottom: 0;
+  }
   .cart-item__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 30px;
+    column-gap: 20px;
 
     .cart-item__title {
       display: flex;
-      flex: 2;
       align-items: center;
       font-size: calc(1.5rem + 1vw);
       letter-spacing: .03em;
@@ -46,9 +55,17 @@
 
     .cart-item__page-control {
       display: flex;
-      flex: 1;
+      margin-left: auto;
       justify-content: space-between;
       align-items: center;
+      @include media-tablet {
+        flex-wrap: wrap;
+        row-gap: 5px;
+        justify-content: flex-end;
+      }
+      
+      
+      column-gap: 5px;
 
       .cart-item__limit {
         display: flex;
@@ -139,19 +156,33 @@
     display: flex;
     flex-direction: row;
     min-height: 150px;
+
+    @include media-tablet {
+      flex-wrap: wrap;
+    }
   
   
     .info__wrapper {
       padding: 20px;
+      width: 100%;
+
+      @include media-tablet {
+        order: 1;
+      }
+
   
       .cart-item__name-brand {
         color: $color-dark;
         cursor: pointer;
-        @include adaptive-font(20, 30);
+        @include adaptive-font(16, 24);
       }
   
       .cart-item__description {
         margin-top: 10px;
+
+        @include media-tablet {
+          display: none;
+        }
       }
   
       .cart-item__brand {
@@ -164,6 +195,11 @@
       display: flex;
       flex-direction: column;
       row-gap: 10px;
+
+      @include media-mobile {
+        padding: 5px;
+        margin-left: auto;
+      }
     
       .stock__button {
         display: flex;
@@ -459,6 +495,7 @@
       visibility: visible;
     }
 
+
     .discount-line-container {
       display: flex;
       flex-direction: row;
@@ -468,6 +505,13 @@
       padding-left: 10px;
       width: 280px;
       justify-content: space-between;
+
+      @include media-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 200px;
+      }
 
       .discount-text {
         margin: 10px 0;

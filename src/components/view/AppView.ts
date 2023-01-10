@@ -63,6 +63,7 @@ export default class AppView {
         this.coffee.changePhotoOnClick();
         this.coffee.inCartChecker(num.id);
         this.coffee.addRemoveFromCartUsingButton(num);
+        this.coffee.buyNow(num, num.id);
         this.addPageHeaders(template);
     };
 

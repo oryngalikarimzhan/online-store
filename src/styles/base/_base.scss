@@ -25,14 +25,17 @@ button {
 
 h2 {
   @include adaptive-font(20, 50);
+  font-weight: 300;
 }
 
 h3 {
-  @include adaptive-font(16, 40);
+  @include adaptive-font(16, 30);
+  font-weight: 300;
 }
 
 h4 {
   @include adaptive-font(16, 30);
+  font-weight: 300;
 }
 
 h1,
@@ -53,5 +56,6 @@ div {
   min-height: calc(100vh - 140px);
   @include media-tablet {
     min-height: calc(100vh - 100px);
+    margin-top: 50px;
   }
 }

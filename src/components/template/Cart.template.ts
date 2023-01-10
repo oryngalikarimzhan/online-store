@@ -115,7 +115,7 @@ export default class CartPageTemplate implements ITemplate {
                                             <div class="discount-container"></div>
                                         </div>
                                         <div class="discount-title">
-                                            <p class="discount-amount">20&nbsp;000&nbsp;₸</p>
+                                            <div class="discount-amount">20&nbsp;000&nbsp;₸</div>
                                         </div>
                                     </li>
                                 </span>
@@ -131,11 +131,9 @@ export default class CartPageTemplate implements ITemplate {
                                     </li>
                                 </span>
                             </ul>
-                            <a class="cart-summary__checkout" href="/checkout">
-                                <button class="cart-summary__checkout-button">
-                                    <p class="">Оформить заказ</p>
-                                </button>
-                            </a>
+                            <button class="cart-summary__checkout-button">
+                                <p class="">Оформить заказ</p>
+                            </button>
                         <span class="">
                             <p class="rules">Оформляя заказ, вы подтверждаете свое согласие с нашими условиями покупки в интернет-магазине</p>
                         </span>
@@ -153,7 +151,52 @@ export default class CartPageTemplate implements ITemplate {
                         <div class="discount-remove-btn">Remove</div>
                     </div>
                 </template>
-                </section>`;
+                </section>
+                <div class="modal__overlay modal__overlay--hidden">
+                <div class="modal__wrapper">
+                    <form class="purchase-form">
+                        <div class="form__input-field purchase__name" warner="">
+                            <input type="text" class="form__input" placeholder="Имя и фамилия" required>
+                            <div class="form__input-flag"></div>
+                        </div>
+                        <div class="form__input-field purchase__phone" warner="">
+                            <input type="tel" class="form__input" placeholder="Телефон" required>
+                            <div class="form__input-flag"></div>
+                        </div>
+                        <div class="form__input-field purchase__address" warner="">
+                            <input type="text" class="form__input" placeholder="Адрес" required>
+                            <div class="form__input-flag"></div>
+                        </div>
+                        <div class="form__input-field purchase__email" warner="">
+                            <input type="email" class="form__input" placeholder="Электронная почта" required>
+                            <div class="form__input-flag"></div>
+                        </div>
+
+                        <div class="form__credit-card purchase__credit-card">
+                            <div class="credit-card">
+                                <div class="credit-card__company"></div>
+                                <div class="credit-card__number">
+                                    Номер карты 
+                                    <input type="text" class="credit-number-input card__input" maxlength="19" placeholder="0000 0000 0000 0000" title="16-ти значный номер карты" required>
+                                </div>
+                                <div class="credit-card__bottom">
+                                    <div class="credit-card__expiration">
+                                        Действителен до
+                                        <input type="text" class="expiration-input card__input" placeholder="00/00" maxlength="5" title="месяц/год(последние 2 цифры)" required>
+                                    </div>
+                                    <div class="credit-card__cvv">
+                                        CVV код
+                                        <input type="text" class="cvv-input card__input" placeholder="000" maxlength="3" title="на обратной стороне карточки 3-х значный код" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form__button">
+                            <input type="submit" class="button button_submit">
+                        </div>
+                    </form>
+                </div>
+            </div>`;
     }
 
     getPageTemplate(): HTMLElement {
