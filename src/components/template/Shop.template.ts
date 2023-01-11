@@ -1,7 +1,7 @@
 import ITemplate from '../model/ITemplate';
 import { STORENAME } from '../utilities/Constants';
 
-export default class ShopTemplate implements ITemplate {
+export default class ShopPageTemplate implements ITemplate {
     template;
     readonly title = 'Shop | ' + STORENAME;
     readonly description = 'This is a shopping page';

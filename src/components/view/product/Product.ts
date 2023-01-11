@@ -4,17 +4,21 @@ import { getCartItemsArrFromLS, setCartItemsArrToLS } from '../../utilities/Util
 import Cart from '../cart/Cart';
 import Header from '../Header';
 
-export default class Coffee {
-    private contentElement: E;
-
-    constructor() {
-        this.contentElement = document.querySelector('.main') as E;
-    }
-
-    draw = (htmlElement: E) => {
-        if (this.contentElement) {
-            this.contentElement.innerHTML = '';
-            this.contentElement.insertAdjacentElement('afterbegin', htmlElement);
+export default class Product {
+    draw = (htmlElement: E, product?: IProduct) => {
+        const contentContainer = document.querySelector('.main') as E;
+        contentContainer.innerHTML = '';
+        if (product) {
+            this.addBreadcrumb(htmlElement, product);
+            this.addImages(htmlElement, product);
+            // this.changeInfo(product, this.getSortsName(product));
+            // this.changePhotoOnClick();
+            // this.inCartChecker(product.id);
+            // this.addRemoveFromCartUsingButton(product);
+            // this.buyNow(product, product.id);
+            contentContainer.append(htmlElement);
+        } else {
+            contentContainer.insertAdjacentText('afterbegin', 'Товар не найден');
         }
     };
 
@@ -53,17 +57,27 @@ export default class Coffee {
         });
     };
 
-    changeBreadcrumb = (link: string) => {
-        const breadCrumb = document.querySelector('.shop-item__breadcrumb') as E;
-        breadCrumb.innerText = link;
+    addBreadcrumb = (htmlElement: E, product: IProduct) => {
+        (htmlElement.querySelector(
+            '.shop-item__breadcrumb'
+        ) as E).innerHTML = `Кофе / ${product.sorts[0]} / ${product.roastLevel} / ${product.brand} /&nbsp;<strong>${product.name}</strong>`;
     };
 
-    changePhotos = (link: string[]) => {
-        (document.querySelector('.image-main') as HTMLImageElement).src = link[0];
-        const photosThumb = document.querySelectorAll<HTMLImageElement>('.image-thumb');
-        photosThumb[0].src = link[0];
-        photosThumb[1].src = link[1];
+    addImages = (htmlElement: E, product: IProduct) => {
+        // const thumbnailTemplate = htmlElement.querySelector('#shop-item-thumbnail__template') as HTMLTemplateElement;
+        // const thumbnailsContainer = htmlElement.querySelector('.shop-item__thumbnails') as E;
+        (htmlElement.querySelector('.image-main') as HTMLImageElement).src = product.images[0];
+
+        // product.images.forEach((image) => {
+        //     const thumbnailTemplateElement = <E>thumbnailTemplate.content.cloneNode(true);
+        //     const thumbnailElement = thumbnailTemplateElement.querySelector('.shop-item__thumbnail') as E;
+        //     thumbnailsContainer.append(thumbnailElement);
+        // });
+        // const photosThumb = document.querySelectorAll<HTMLImageElement>('.image-thumb');
+        // photosThumb[0].src = link[0];
+        // photosThumb[1].src = link[1];
     };
+
     changeInfo = (data: IProduct, sorts: string) => {
         (document.querySelector('.shop-item__name-brand') as HTMLElement).innerText = data.brand + ' ' + data.name;
         (document.querySelector('.shop-item__description') as HTMLElement).innerText = data.description;

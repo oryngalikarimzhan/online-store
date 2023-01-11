@@ -15,24 +15,25 @@ import AppView from '../view/AppView';
 
 export default class AppController {
     private readonly view: AppView;
-    private readonly filtersMap = new Map([
-        ['sorts', getProductsBySorts],
-        ['roast', getProductsByRoastLevels],
-        ['brands', getProductsByBrands],
-        ['prices', getProductsByPrices],
-        ['stock', getProductsByStockAmount],
-        ['order', getProductsOrderedBy],
-        ['search', getProductsBySearchText],
-    ]);
+
     constructor() {
         this.view = new AppView();
     }
 
     getShopPage = (params: RequestParams) => {
+        const filtersMap = new Map([
+            ['sorts', getProductsBySorts],
+            ['roast', getProductsByRoastLevels],
+            ['brands', getProductsByBrands],
+            ['prices', getProductsByPrices],
+            ['stock', getProductsByStockAmount],
+            ['order', getProductsOrderedBy],
+            ['search', getProductsBySearchText],
+        ]);
         let filteredProducts: IProduct[] = getAllProducts();
         if (params.queries) {
             for (const queryName of Object.keys(params.queries)) {
-                const method = this.filtersMap.get(queryName);
+                const method = filtersMap.get(queryName);
 
                 if (method) {
                     filteredProducts = method(filteredProducts, params.queries[queryName]);
@@ -47,32 +48,22 @@ export default class AppController {
         }
     };
 
-    getCoffeePage = (params: RequestParams) => {
-        let id: string;
+    getProductPage = (params: RequestParams) => {
         if (params.queries) {
-            id = Object.keys(params.queries)[0];
-            if (typeof +id === 'number' && id !== undefined) {
-                const product = getProductById(+id);
-                if (product) {
-                    this.view.renderCoffeePage(product);
-                } else {
-                    this.getErrorPage();
-                }
-            } else {
-                this.getErrorPage();
-            }
+            const [id] = Object.keys(params.queries);
+            this.view.renderProductPage(getProductById(+id));
         }
-    };
-
-    getErrorPage = () => {
-        this.view.renderErrorPage();
-    };
-
-    getHomePage = () => {
-        this.view.renderHomePage();
     };
 
     getCartPage = () => {
         this.view.renderCartPage();
+    };
+
+    getNotFoundPage = () => {
+        this.view.renderNotFoundPage();
+    };
+
+    getHomePage = () => {
+        this.view.renderHomePage();
     };
 }

@@ -5,8 +5,8 @@ class AppRouter {
     readonly controller: AppController;
     readonly routes = new Map([
         ['shop', 'getShopPage'],
-        ['home', 'getHomePage'],
-        ['coffee', 'getCoffeePage'],
+        ['/', 'getHomePage'],
+        ['product', 'getProductPage'],
         ['cart', 'getCartPage'],
     ]);
 
@@ -31,14 +31,14 @@ class AppRouter {
         if (controllerMethod) {
             this.controller[controllerMethod as keyof AppController](requestParams);
         } else {
-            this.controller['getErrorPage' as keyof AppController](requestParams);
+            this.controller['getNotFoundPage' as keyof AppController](requestParams);
         }
     };
 
     static parsePath = () => {
         const hash = window.location.hash.replace('#/', '');
-        if (hash.length == 0 || hash === '/') {
-            return { endpoint: 'home' };
+        if (hash.length == 0) {
+            return { endpoint: '/' };
         }
         const [endpoint, params] = hash.split('/');
         return { endpoint, queries: AppRouter.getQueries(params) };

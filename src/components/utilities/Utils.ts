@@ -20,7 +20,6 @@ function addParameterToQuery(queryKey: string, queryValue: string | string[], ha
         }
         hash = params[0] + '/?' + decodeURIComponent(searchParams.toString());
     } else {
-        console.log('aaaaaaaa', queryValue);
         hash = `${hash[hash.length - 1] === '/' ? hash.slice(0, -1) : hash}/?${queryKey}=${
             typeof queryValue === 'string' ? queryValue.replace(/ /g, '+') : queryValue
         }`;

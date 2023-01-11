@@ -1,7 +1,7 @@
 import { STORENAME } from '../utilities/Constants';
 import ITemplate from '../model/ITemplate';
 
-export default class ShopItemPageTemplate implements ITemplate {
+export default class ProductPageTemplate implements ITemplate {
     template;
     readonly title = STORENAME;
     readonly description = 'This is a shop item page';
@@ -10,21 +10,18 @@ export default class ShopItemPageTemplate implements ITemplate {
         this.template = document.createElement('article');
         this.template.className = 'shop-item';
         this.template.innerHTML = `
-            <section class="shop-item__breadcrumb">
-                Кофе / Арабика / Средняя обжарка / Lavazza /&nbsp;<strong>Super Crema</strong>
-            </section>
+            <section class="shop-item__breadcrumb"></section>
             <section class="shop-item__content">
                 <div class="shop-item__images">
                     <div class="shop-item__image">
-                        <img class="image-main" src="https://i.postimg.cc/kGmC3tc1/lavazza-1.jpg" alt="">
+                        <img class="image-main" src="#">
                     </div>
                     <div class="shop-item__thumbnails">
-                        <div class="shop-item__thumbnail">
-                            <img class="image-thumb" src="https://i.postimg.cc/kGmC3tc1/lavazza-1.jpg" alt="">
-                        </div>
-                        <div class="shop-item__thumbnail">
-                            <img class="image-thumb" src="https://i.postimg.cc/L53pH6QH/lavazza-2.jpg" alt="">
-                        </div>
+                        <template id="shop-item-thumbnail__template">
+                            <div class="shop-item__thumbnail">
+                                <img class="image-thumb" src="#">
+                            </div>
+                        </template>
                     </div>
                 </div>
                 <div class="shop-item__info">

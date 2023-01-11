@@ -1,7 +1,7 @@
 import ITemplate from '../model/ITemplate';
 import { STORENAME } from '../utilities/Constants';
 
-export default class Error404PageTemplate implements ITemplate {
+export default class NotFoundPageTemplate implements ITemplate {
     template;
     readonly title = '404 | ' + STORENAME;
     readonly description = 'Page not found';

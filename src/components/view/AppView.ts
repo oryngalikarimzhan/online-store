@@ -4,66 +4,50 @@ import { QueryMap } from '../model/Types';
 
 import Header from './Header';
 import Shop from './shop/Shop';
-import Coffee from './details/Details';
-import Error from './error/Error';
+import Product from './product/Product';
+import NotFound from './not-found/NotFound';
 import Cart from './cart/Cart';
 import Home from './home/Home';
 
-import ShopTemplate from '../template/Shop.template';
-import CoffeeItemTemplate from '../template/ShopItem.template';
-import Error404PageTemplate from '../template/NotFound.template';
+import ShopPageTemplate from '../template/Shop.template';
+import ProductPageTemplate from '../template/Product.template';
+import NotFoundPageTemplate from '../template/NotFound.template';
 import CartPageTemplate from '../template/Cart.template';
-import HomeTemplate from '../template/Home.template';
+import HomePageTemplate from '../template/Home.template';
 
 export default class AppView {
-    private readonly shop: Shop;
     private readonly header: Header;
-    private readonly coffee: Coffee;
-    private readonly error: Error;
-    private readonly cart: Cart;
     private readonly home: Home;
+    private readonly notFound: NotFound;
+    private readonly shop: Shop;
+    private readonly product: Product;
+    private readonly cart: Cart;
 
     constructor() {
         this.header = new Header();
-        this.shop = new Shop();
         this.home = new Home();
-        this.coffee = new Coffee();
-        this.error = new Error();
+        this.notFound = new NotFound();
+        this.shop = new Shop();
+        this.product = new Product();
         this.cart = new Cart();
+
         this.header.draw();
     }
 
     renderShopPage = (filteredProducts: IProduct[], products: IProduct[], queries: QueryMap) => {
-        const template = new ShopTemplate();
-        const htmlElement = template.getPageTemplate();
+        const template = new ShopPageTemplate();
         const oldHtmlElement = this.shop.getContentElement();
         if (oldHtmlElement !== null) {
             this.shop.draw(oldHtmlElement, filteredProducts, products, queries);
         } else {
-            this.shop.draw(htmlElement, filteredProducts, products, queries);
+            this.shop.draw(template.getPageTemplate(), filteredProducts, products, queries);
             this.addPageHeaders(template);
         }
     };
-    renderHomePage = () => {
-        const template = new HomeTemplate();
-        const htmlElement = template.getPageTemplate();
-        this.home.draw(htmlElement);
-        this.addPageHeaders(template);
-    };
 
-    renderCoffeePage = (num: IProduct) => {
-        const template = new CoffeeItemTemplate();
-        const htmlElement = template.getPageTemplate();
-        this.coffee.draw(htmlElement);
-        // const num = data[id - 1];
-        const breadCrumbText = `Кофе / ${num.sorts} / ${num.roastLevel} / ${num.brand} / ${num.name}`;
-        this.coffee.changeBreadcrumb(breadCrumbText);
-        this.coffee.changePhotos(num.images);
-        this.coffee.changeInfo(num, this.coffee.getSortsName(num));
-        this.coffee.changePhotoOnClick();
-        this.coffee.inCartChecker(num.id);
-        this.coffee.addRemoveFromCartUsingButton(num);
-        this.coffee.buyNow(num, num.id);
+    renderProductPage = (product: IProduct | undefined) => {
+        const template = new ProductPageTemplate();
+        this.product.draw(template.getPageTemplate(), product);
         this.addPageHeaders(template);
     };
 
@@ -76,10 +60,15 @@ export default class AppView {
         this.addPageHeaders(template);
     };
 
-    renderErrorPage = () => {
-        const template = new Error404PageTemplate();
-        const htmlElement = template.getPageTemplate();
-        this.error.draw(htmlElement);
+    renderHomePage = () => {
+        const template = new HomePageTemplate();
+        this.home.draw(template.getPageTemplate());
+        this.addPageHeaders(template);
+    };
+
+    renderNotFoundPage = () => {
+        const template = new NotFoundPageTemplate();
+        this.notFound.draw(template.getPageTemplate());
         this.addPageHeaders(template);
     };
 

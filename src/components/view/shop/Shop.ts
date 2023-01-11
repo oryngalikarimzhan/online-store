@@ -365,7 +365,7 @@ export default class Shop {
         cardElement.addEventListener('click', (e) => {
             const target = e.target as E;
             if (target.closest('.product-card') && !target.closest('.product__price-button')) {
-                window.location.hash = `#/coffee/${cardElement.dataset.id}`;
+                window.location.hash = `#/product/${cardElement.dataset.id}`;
             }
         });
 
