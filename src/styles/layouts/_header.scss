@@ -67,7 +67,7 @@
     width: 40px;
     height: 40px;
     border-radius: 10px;
-    background: url(./assets/empty-cart.svg) center no-repeat;
+    background: url(./assets/icons/empty-cart.svg) center no-repeat;
     background-size: contain;
     position: relative;
 
@@ -101,7 +101,7 @@
   }
 
   .cart__logo_full {
-    background: url(./assets/full-cart.svg) center no-repeat;
+    background: url(./assets/icons/full-cart.svg) center no-repeat;
     background-size: contain;
 
     .cart__total-amount {

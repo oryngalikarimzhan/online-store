@@ -1,4 +1,4 @@
-import { RequestParams } from '../model/Types';
+import { RequestParams } from '../data/Types';
 import {
     getProductsBySorts,
     getProductsByRoastLevels,
@@ -9,8 +9,9 @@ import {
     getProductsBySearchText,
     getAllProducts,
     getProductById,
-} from '../service/ProductsService';
-import IProduct from '../model/IProduct';
+    getProductsToViewByPageAndLimit,
+} from '../model/ProductsService';
+import IProduct from '../data/IProduct';
 import AppView from '../view/AppView';
 
 export default class AppController {
@@ -40,9 +41,9 @@ export default class AppController {
                 }
             }
 
-            console.group('Filtered products');
-            console.log(filteredProducts);
-            console.groupEnd();
+            // console.group('Filtered products');
+            // console.log(filteredProducts);
+            // console.groupEnd();
 
             this.view.renderShopPage(filteredProducts, getAllProducts(), params.queries);
         }
@@ -55,8 +56,22 @@ export default class AppController {
         }
     };
 
-    getCartPage = () => {
-        this.view.renderCartPage();
+    getCartPage = (params: RequestParams) => {
+        const queriesMap = new Map([
+            ['limit', 3],
+            ['page', 1],
+        ]);
+        let limit = queriesMap.get('limit') as number;
+        let page = queriesMap.get('page') as number;
+        if (params.queries) {
+            if ('limit' in params.queries) {
+                limit = +params.queries['limit'];
+            }
+            if ('page' in params.queries) {
+                page = +params.queries['page'];
+            }
+        }
+        this.view.renderCartPage(getProductsToViewByPageAndLimit(page, limit), page, limit);
     };
 
     getNotFoundPage = () => {

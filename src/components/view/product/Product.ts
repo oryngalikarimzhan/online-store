@@ -1,7 +1,6 @@
-import IProduct from '../../model/IProduct';
-import { E, CartItem } from '../../model/Types';
-import { getCartItemsArrFromLS, setCartItemsArrToLS } from '../../utilities/Utils';
-import Cart from '../cart/Cart';
+import IProduct from '../../data/IProduct';
+import { E, CartItem } from '../../data/Types';
+import { buyNowEvent, getCartItemsArrFromLS, setCartItemsArrToLS } from '../../model/utilities/Utils';
 import Header from '../Header';
 
 export default class Product {
@@ -11,139 +10,107 @@ export default class Product {
         if (product) {
             this.addBreadcrumb(htmlElement, product);
             this.addImages(htmlElement, product);
-            // this.changeInfo(product, this.getSortsName(product));
-            // this.changePhotoOnClick();
-            // this.inCartChecker(product.id);
-            // this.addRemoveFromCartUsingButton(product);
-            // this.buyNow(product, product.id);
-            contentContainer.append(htmlElement);
+            this.addInfo(htmlElement, product);
+            this.checkProduct(htmlElement, product);
+            this.addProductCartButtonClickHandler(htmlElement, product);
+            this.addIncreaseReduceButtonsClickHandler(htmlElement, product);
+            this.addBuyNowButtonClickHandler(htmlElement, product);
         } else {
-            contentContainer.insertAdjacentText('afterbegin', 'Товар не найден');
+            htmlElement.innerText = 'Товар не найден';
         }
+        contentContainer.append(htmlElement);
     };
 
-    buyNow = (data: IProduct, value: number) => {
-        const checkoutBtn = document.querySelector('.buy-now__button') as E;
-        checkoutBtn.addEventListener('click', () => {
-            const cart = getCartItemsArrFromLS();
-            if (cart !== null) {
-                const shopItem: CartItem = cart.find((s: CartItem) => s.id === value);
-                if (shopItem) {
-                    window.location.hash = '#/cart';
-                    window.setTimeout(() => {
-                        Header.updateHeaderCart();
-                        Cart.openCheckout();
-                    }, 100);
-                } else {
-                    const newCartItem: CartItem = {
-                        id: data.id,
-                        amount: 1,
-                        totalPrice: data.price,
-                    };
-
-                    if (cart !== null) {
-                        cart.push(newCartItem);
-                        setCartItemsArrToLS(cart);
-                    } else {
-                        setCartItemsArrToLS([newCartItem]);
-                    }
-                    window.location.hash = '#/cart';
-                    window.setTimeout(() => {
-                        Header.updateHeaderCart();
-                        Cart.openCheckout();
-                    }, 100);
-                }
-            }
-        });
-    };
-
-    addBreadcrumb = (htmlElement: E, product: IProduct) => {
+    private addBreadcrumb = (htmlElement: E, product: IProduct) => {
         (htmlElement.querySelector(
-            '.shop-item__breadcrumb'
+            '.product-item__breadcrumb'
         ) as E).innerHTML = `Кофе / ${product.sorts[0]} / ${product.roastLevel} / ${product.brand} /&nbsp;<strong>${product.name}</strong>`;
     };
 
-    addImages = (htmlElement: E, product: IProduct) => {
-        // const thumbnailTemplate = htmlElement.querySelector('#shop-item-thumbnail__template') as HTMLTemplateElement;
-        // const thumbnailsContainer = htmlElement.querySelector('.shop-item__thumbnails') as E;
+    private addImages = (htmlElement: E, product: IProduct) => {
+        const thumbnailTemplate = htmlElement.querySelector('#product-item-thumbnail__template') as HTMLTemplateElement;
+        const thumbnailsContainer = htmlElement.querySelector('.product-item__thumbnails') as E;
         (htmlElement.querySelector('.image-main') as HTMLImageElement).src = product.images[0];
 
-        // product.images.forEach((image) => {
-        //     const thumbnailTemplateElement = <E>thumbnailTemplate.content.cloneNode(true);
-        //     const thumbnailElement = thumbnailTemplateElement.querySelector('.shop-item__thumbnail') as E;
-        //     thumbnailsContainer.append(thumbnailElement);
-        // });
-        // const photosThumb = document.querySelectorAll<HTMLImageElement>('.image-thumb');
-        // photosThumb[0].src = link[0];
-        // photosThumb[1].src = link[1];
-    };
+        product.images.forEach((image) => {
+            const thumbnailTemplateElement = <E>thumbnailTemplate.content.cloneNode(true);
+            const thumbnailElement = thumbnailTemplateElement.querySelector('.product-item__thumbnail') as E;
+            (thumbnailElement.querySelector('.image-thumb') as HTMLImageElement).src = image;
+            thumbnailsContainer.append(thumbnailElement);
+        });
 
-    changeInfo = (data: IProduct, sorts: string) => {
-        (document.querySelector('.shop-item__name-brand') as HTMLElement).innerText = data.brand + ' ' + data.name;
-        (document.querySelector('.shop-item__description') as HTMLElement).innerText = data.description;
-        (document.querySelector('.shop-item__brand') as HTMLElement).innerText = 'Бренд: ' + data.brand;
-        (document.querySelector('.shop-item__roast') as HTMLElement).innerText = 'Обжарка: ' + data.roastLevel;
-        (document.querySelector('.shop-item__sorts') as HTMLElement).innerText = 'Сорт: ' + sorts;
-        (document.querySelector('.shop-item__weight') as HTMLElement).innerText = 'Вес: ' + data.weight;
-        (document.querySelector('.shop-item__country') as HTMLElement).innerText = 'Страна: ' + data.country;
-        (document.querySelector('.item-left__amount') as HTMLElement).innerText = String(data.stock);
-        (document.querySelector('.total__price') as HTMLElement).innerText = String(data.price) + '$';
+        this.addThumbsClickHandler(htmlElement);
     };
-    changePhotoOnClick = () => {
-        const photosThumb = document.querySelectorAll<HTMLImageElement>('.image-thumb');
-        const mainPhoto = document.querySelector('.image-main') as HTMLImageElement;
-        photosThumb.forEach((photo) => {
-            photo.addEventListener('click', (e) => {
-                const target = e.target as HTMLImageElement;
-                mainPhoto.src = target.src;
-            });
+    private addThumbsClickHandler = (htmlElement: E) => {
+        const mainImage = document.querySelector('.image-main') as HTMLImageElement;
+        (htmlElement.querySelector('.product-item__thumbnails') as E).addEventListener('click', (e) => {
+            const target = e.target as E;
+            const closest = target.closest('.image-thumb') as HTMLImageElement;
+            mainImage.src = closest.src;
         });
     };
 
-    getSortsName = (data: IProduct) => {
-        const arr: Array<string> = [];
-        data.sorts.forEach((sort) => {
-            arr.push(sort);
-        });
-        return arr.join(', ');
+    private addInfo = (htmlElement: E, product: IProduct) => {
+        (htmlElement.querySelector('.product-item__name-brand') as E).innerText = product.brand + ' ' + product.name;
+        (htmlElement.querySelector('.product-item__description') as E).innerText = product.description;
+        (htmlElement.querySelector('.product-item__brand span') as E).innerText = product.brand;
+        (htmlElement.querySelector('.product-item__roast span') as E).innerText = product.roastLevel;
+        (htmlElement.querySelector('.product-item__sorts span') as E).innerText = product.sorts.join(', ');
+        (htmlElement.querySelector('.product-item__weight span') as E).innerText = product.weight;
+        (htmlElement.querySelector('.product-item__country span') as E).innerText = product.country;
+        (htmlElement.querySelector('.item-left__amount') as E).innerText = `${product.stock}`;
+        (htmlElement.querySelector('.total__price') as E).innerText = `${product.price}$`;
     };
 
-    inCartChecker = (value: number) => {
-        const addCartButton = document.querySelector('.button_cart') as E;
+    private checkProduct = (htmlElement: E, product: IProduct) => {
+        const productCartButton = htmlElement.querySelector('.button_cart') as E;
         const cart = getCartItemsArrFromLS();
-        if (cart !== null) {
-            const shopItem: CartItem = cart.find((s: CartItem) => s.id === value);
-            if (shopItem) {
-                addCartButton.classList.add('button_price_checked');
-                (addCartButton as E).innerHTML = 'В корзине';
-            }
+        let shopItem: CartItem | null;
+        if (cart.length > 0) {
+            shopItem = cart.find((s: CartItem) => s.id === product.id);
+        } else {
+            shopItem = null;
+        }
+        const itemAmount = htmlElement.querySelector('.stock__amount-item') as E;
+        const priceInButton = productCartButton.querySelector('.button_cart__total-price span') as E;
+        if (shopItem) {
+            productCartButton.classList.add('button_cart_checked');
+            (productCartButton.querySelector('.button_cart__text') as E).innerHTML = 'Сумма в корзине';
+            itemAmount.innerHTML = `${shopItem.amount}`;
+            const totalPrice = (shopItem.amount * shopItem.productPrice).toFixed(2);
+            priceInButton.innerHTML = `${totalPrice}`;
+        } else {
+            itemAmount.innerHTML = `1`;
+            priceInButton.innerHTML = `${product.price}`;
         }
     };
 
-    addRemoveFromCartUsingButton = (data: IProduct) => {
-        const addCartButton = document.querySelector('.button_cart') as E;
-        const cart = getCartItemsArrFromLS();
-        addCartButton.addEventListener('click', () => {
-            if (addCartButton.classList.contains('button_price_checked')) {
-                addCartButton.classList.remove('button_price_checked');
-                (addCartButton as E).innerHTML = 'В корзину';
+    private addProductCartButtonClickHandler = (htmlElement: E, product: IProduct) => {
+        const productCartButton = htmlElement.querySelector('.button_cart') as E;
 
-                if (cart !== null) {
-                    const index = cart.findIndex((s: CartItem) => s.id === data.id);
+        productCartButton.addEventListener('click', () => {
+            const cart = getCartItemsArrFromLS();
+
+            if (productCartButton.classList.contains('button_cart_checked')) {
+                productCartButton.classList.remove('button_cart_checked');
+                (productCartButton.querySelector('.button_cart__text') as E).innerHTML = 'В корзину';
+
+                if (cart.length > 0) {
+                    const index = cart.findIndex((s: CartItem) => s.id === product.id);
                     cart.splice(index, 1);
                     setCartItemsArrToLS(cart);
                 }
             } else {
-                addCartButton.classList.add('button_price_checked');
-                (addCartButton as E).innerHTML = 'В корзине';
-
+                productCartButton.classList.add('button_cart_checked');
+                (productCartButton.querySelector('.button_cart__text') as E).innerHTML = 'Cумма в корзине';
+                const itemAmount = htmlElement.querySelector('.stock__amount-item') as E;
                 const newCartItem: CartItem = {
-                    id: data.id,
-                    amount: 1,
-                    totalPrice: data.price,
+                    id: product.id,
+                    amount: +itemAmount.innerHTML,
+                    productPrice: product.price,
                 };
 
-                if (cart !== null) {
+                if (cart.length > 0) {
                     cart.push(newCartItem);
                     setCartItemsArrToLS(cart);
                 } else {
@@ -151,6 +118,77 @@ export default class Product {
                 }
             }
             Header.updateHeaderCart();
+        });
+    };
+
+    private addIncreaseReduceButtonsClickHandler = (htmlElement: E, product: IProduct) => {
+        const productCartButton = htmlElement.querySelector('.button_cart') as E;
+        const itemAmount = htmlElement.querySelector('.stock__amount-item') as E;
+        const priceInButton = productCartButton.querySelector('.button_cart__total-price span') as E;
+
+        (htmlElement.querySelector('.reduce-item__image') as E).addEventListener('click', () => {
+            if (+itemAmount.innerHTML > 1) {
+                if (productCartButton.classList.contains('button_cart_checked')) {
+                    const cart = getCartItemsArrFromLS();
+                    if (cart.length > 0) {
+                        const cartItem = cart.find((s: CartItem) => s.id === product.id);
+                        cartItem.amount = cartItem.amount - 1;
+                        itemAmount.innerHTML = `${cartItem.amount}`;
+                        const totalPrice = (cartItem.amount * cartItem.productPrice).toFixed(2);
+                        priceInButton.innerHTML = `${totalPrice}`;
+                        setCartItemsArrToLS(cart);
+                        Header.updateHeaderCart();
+                    }
+                } else {
+                    itemAmount.innerHTML = `${+itemAmount.innerHTML - 1}`;
+                    const totalPrice = (+priceInButton.innerHTML - product.price).toFixed(2);
+                    priceInButton.innerHTML = `${totalPrice}`;
+                }
+            }
+        });
+
+        (htmlElement.querySelector('.increase-item__image') as E).addEventListener('click', () => {
+            if (+itemAmount.innerHTML < product.stock) {
+                if (productCartButton.classList.contains('button_cart_checked')) {
+                    const cart = getCartItemsArrFromLS();
+                    if (cart.length > 0) {
+                        const cartItem = cart.find((s: CartItem) => s.id === product.id);
+                        cartItem.amount = cartItem.amount + 1;
+                        itemAmount.innerHTML = `${cartItem.amount}`;
+                        const totalPrice = (cartItem.amount * cartItem.productPrice).toFixed(2);
+                        priceInButton.innerHTML = `${totalPrice}`;
+                        setCartItemsArrToLS(cart);
+                        Header.updateHeaderCart();
+                    }
+                } else {
+                    itemAmount.innerHTML = `${+itemAmount.innerHTML + 1}`;
+                    const totalPrice = (+priceInButton.innerHTML + product.price).toFixed(2);
+                    priceInButton.innerHTML = `${totalPrice}`;
+                }
+            }
+        });
+    };
+
+    private addBuyNowButtonClickHandler = (htmlElement: E, product: IProduct) => {
+        const checkoutBtn = htmlElement.querySelector('.buy-now__button') as E;
+        const itemAmount = htmlElement.querySelector('.stock__amount-item') as E;
+
+        checkoutBtn.addEventListener('click', () => {
+            const cart = getCartItemsArrFromLS();
+            if (cart.length > 0) {
+                const cartItem = cart.find((s: CartItem) => s.id === product.id);
+                if (cartItem) {
+                    cartItem.amount = +itemAmount.innerHTML;
+                } else {
+                    cart.push({ id: product.id, amount: +itemAmount.innerHTML, productPrice: product.price });
+                }
+                setCartItemsArrToLS(cart);
+            } else {
+                setCartItemsArrToLS([{ id: product.id, amount: +itemAmount.innerHTML, productPrice: product.price }]);
+            }
+            Header.updateHeaderCart();
+            buyNowEvent();
+            window.location.hash = '#/cart';
         });
     };
 }

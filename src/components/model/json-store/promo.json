@@ -1,0 +1,14 @@
+{
+    "promocodes": [
+        {
+            "key": "rs",
+            "name": "Rolling Scopes School",
+            "percent": 10
+        },
+        {
+            "key": "epm",
+            "name": "EPAM Systems",
+            "percent": 5
+        }
+    ]
+}

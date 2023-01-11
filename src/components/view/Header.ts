@@ -1,5 +1,6 @@
-import { CartItem, E } from '../model/Types';
-import { getCartItemsArrFromLS, getShopLinkFromSessionStorage } from '../utilities/Utils';
+import { CartItem, E } from '../data/Types';
+import { CARTLINK, SHOPLINK } from '../model/utilities/Constants';
+import { getCartItemsArrFromLS, getLinkFromSessionStorage } from '../model/utilities/Utils';
 
 export default class Header {
     draw = () => {
@@ -12,7 +13,8 @@ export default class Header {
         mediaPoint.addEventListener('change', () => {
             header.classList.remove('header_burger-on');
         });
-        (document.querySelector('#shop-link') as HTMLLinkElement).href = getShopLinkFromSessionStorage();
+        (document.querySelector('#shop-link') as HTMLLinkElement).href = getLinkFromSessionStorage(SHOPLINK, '#/shop');
+        (document.querySelector('#cart-link') as HTMLLinkElement).href = getLinkFromSessionStorage(CARTLINK, '#/cart');
         Header.updateHeaderCart();
     };
 
@@ -21,7 +23,7 @@ export default class Header {
         if (cart.length > 0) {
             const totalAmount = cart.reduce((acc: number, cartItem: CartItem) => acc + cartItem.amount, 0);
             const totalPrice = cart.reduce(
-                (acc: number, cartItem: CartItem) => acc + cartItem.totalPrice * cartItem.amount,
+                (acc: number, cartItem: CartItem) => acc + cartItem.productPrice * cartItem.amount,
                 0
             );
             (document.querySelector('.cart__total-amount') as E).innerHTML = `${totalAmount}`;

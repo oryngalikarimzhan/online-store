@@ -32,7 +32,7 @@
     content: "";
     border: 2px solid $color-primary;
     outline: 2px solid $color-main;
-    background: url(./assets/check.svg) center no-repeat, linear-gradient($color-light, $color-light);
+    background: url(./assets/icons/check.svg) center no-repeat, linear-gradient($color-light, $color-light);
     background-size: cover;
   }
 }

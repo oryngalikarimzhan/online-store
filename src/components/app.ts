@@ -1,13 +1,10 @@
-import AppRouter from '../router/AppRouter';
-// import AppView from '../view/AppView';
+import AppRouter from './router/AppRouter';
 
 class App {
     private readonly router: AppRouter;
-    // private readonly view: AppView;
 
     constructor() {
         this.router = new AppRouter();
-        // this.view = new AppView();
     }
 
     start(): void {

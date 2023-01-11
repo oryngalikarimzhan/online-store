@@ -1,153 +1,415 @@
-import IProduct from '../../model/IProduct';
-import { CartItem, E, PromoItem, I } from '../../model/Types';
+import IProduct from '../../data/IProduct';
+import { CartItem, DiscountItem, E, I } from '../../data/Types';
+import { CARTLINK } from '../../model/utilities/Constants';
 import {
+    addParameterToQuery,
+    buyNowEvent,
+    deleteParameterFromQuery,
     getCartItemsArrFromLS,
-    getTotalDiscount,
-    setAppliedPromos,
+    getDiscount,
+    getDiscountsFromLS,
+    getLinkFromSessionStorage,
+    getParameterFromQuery,
     setCartItemsArrToLS,
-    setTotalDiscount,
-    getAppliedPromos,
-} from '../../utilities/Utils';
-import promo from '../../promo/promo.json';
+    setDiscountsToLS,
+} from '../../model/utilities/Utils';
 import Header from '../Header';
-import { getProductById } from '../../service/ProductsService';
 
 export default class Cart {
-    private contentElement: E;
-    constructor() {
-        this.contentElement = document.querySelector('.main') as E;
-    }
+    private contentElement: E | null = null;
 
-    draw = (htmlElement: E) => {
-        if (this.contentElement) {
-            this.contentElement.innerHTML = '';
-            this.contentElement.insertAdjacentElement('afterbegin', htmlElement);
+    private page = 0;
+    private limit = 0;
+    private cartLength = 0;
+
+    getContentElement = () => {
+        if (
+            this.contentElement &&
+            ((document.querySelector('.main') as E).firstElementChild as E).className !== this.contentElement.className
+        ) {
+            this.contentElement = null;
+        }
+        return this.contentElement;
+    };
+
+    draw = (htmlElement: E, productsToView: IProduct[], page: number, limit: number) => {
+        (document.querySelector('#cart-link') as HTMLLinkElement).href = getLinkFromSessionStorage(CARTLINK, '#/cart');
+        const cart = getCartItemsArrFromLS();
+        if (cart.length === 0) {
+            (document.querySelector('.main') as E).innerHTML = '';
+            const emptyCart = (htmlElement.querySelector('#empty-cart') as HTMLTemplateElement).content.cloneNode(
+                true
+            ) as E;
+            htmlElement.innerHTML = '';
+            htmlElement.append(emptyCart);
+            (document.querySelector('.main') as E).append(htmlElement);
+        } else {
+            this.page = page;
+            this.limit = limit;
+            this.cartLength = cart.length;
+
+            if (!this.contentElement) {
+                this.contentElement = htmlElement;
+                this.buildNewContent(productsToView, cart);
+            } else {
+                this.updateOldContent(productsToView, cart);
+            }
+            this.checkBuyNowEvent();
         }
     };
 
-    createCartList = (productInCart: IProduct, order: number) => {
-        const cart = getCartItemsArrFromLS();
-        const index = cart.findIndex((s: CartItem) => Number(s.id) === productInCart.id);
-        const productInCartCardTemplate = document.querySelector('#cart-item-template') as HTMLTemplateElement;
-        const cartCard = productInCartCardTemplate.content.cloneNode(true) as E;
-        const cartElem = cartCard.querySelector('.cart-item__info') as E;
+    private buildNewContent = (productsToView: IProduct[], cart: CartItem[]) => {
+        this.showCartItemsList(productsToView, cart);
+        this.checkPagination(false);
+        this.countSummary();
+        this.checkPromoDiscount();
+        this.renderPopup();
 
-        cartElem.dataset.id = String(productInCart.id);
-        (cartCard.querySelector('.cart-item__image img') as HTMLImageElement).src = productInCart.images[0];
-        (cartCard.querySelector('.cart-item__description') as HTMLDivElement).innerText = productInCart.description;
-        (cartCard.querySelector('.order-num') as HTMLDivElement).innerText = String(order);
-        (cartCard.querySelector('.item-left__amount') as HTMLDivElement).innerText = String(productInCart.stock);
-        (cartCard.querySelector('.stock__amount-item') as HTMLImageElement).innerText = cart[index].amount;
-        (cartCard.querySelector(
-            '.cart-item__name-brand'
-        ) as HTMLDivElement).innerText = `${productInCart.brand} ${productInCart.name}`;
+        (document.querySelector('.main') as E).innerHTML = '';
+        (document.querySelector('.main') as E).append(this.contentElement as E);
+    };
 
-        const totalPriceTemp = cartCard.querySelector('.total__price span') as E;
-        totalPriceTemp.innerText = String(`${(productInCart.price * cart[index].amount).toFixed(2)}`);
+    private updateOldContent = (productsToView: IProduct[], cart: CartItem[]) => {
+        this.updateCartItemsList(productsToView, cart);
+        this.checkPagination(true);
+    };
 
-        const reduceBtn = cartCard.querySelector('.reduce-item__image') as E;
-        const currentPage = document.querySelector('.current-page') as HTMLDivElement;
-        const limit = document.querySelector('.limit') as HTMLInputElement;
-        const currAmount = cartCard.querySelector('.stock__amount-item') as E;
+    private updateCartItemsList = (productsToView: IProduct[], cart: CartItem[]) => {
+        const cartItemsListContainer = (this.contentElement as E).querySelector('.cart-items__container') as E;
+        cartItemsListContainer.innerHTML = '';
 
-        reduceBtn.addEventListener('click', () => {
+        const cartItemCardTemplate = (this.contentElement as E).querySelector(
+            '#cart-item-template'
+        ) as HTMLTemplateElement;
+
+        for (const product of productsToView) {
+            cartItemsListContainer.append(this.buildCartItemCard(cartItemCardTemplate, product, cart));
+        }
+    };
+
+    private showCartItemsList(productsToView: IProduct[], cart: CartItem[]) {
+        const cartItemCardTemplate = this.getTemplateElement('#cart-item-template');
+        const cartItemsListContainer = (this.contentElement as E).querySelector('.cart-items__container') as E;
+
+        for (const product of productsToView) {
+            cartItemsListContainer.append(this.buildCartItemCard(cartItemCardTemplate, product, cart));
+        }
+    }
+
+    private buildCartItemCard = (cartItemCardTemplate: HTMLTemplateElement, product: IProduct, cart: CartItem[]) => {
+        const cartItemCard = <E>cartItemCardTemplate.content.cloneNode(true);
+
+        const index = cart.findIndex((cartItem: CartItem) => cartItem.id === product.id);
+
+        (cartItemCard.querySelector('.cart-item__order') as E).innerHTML = `${index + 1}`;
+        (cartItemCard.querySelector('.cart-item__image img') as HTMLImageElement).src = product.images[0];
+        (cartItemCard.querySelector('.cart-item__name-brand') as E).innerHTML = `${product.brand} ${product.name}`;
+        (cartItemCard.querySelector('.cart-item__price span') as E).innerHTML = `${product.price}`;
+        (cartItemCard.querySelector('.cart-item__stock span') as E).innerHTML = `${product.stock}`;
+
+        const cartItemAmount = cartItemCard.querySelector('.stock__amount-item') as E;
+        const cartItemTotalPrice = cartItemCard.querySelector('.item-total-price__num span') as E;
+        const controlButton = cartItemCard.querySelector('.control__button') as E;
+
+        cartItemAmount.innerHTML = `${cart[index].amount}`;
+        cartItemTotalPrice.innerHTML = `${(cart[index].amount * cart[index].productPrice).toFixed(2)}`;
+
+        const cartElement = cartItemCard.querySelector('.cart-item') as E;
+        cartElement.dataset.id = `${product.id}`;
+
+        this.addRedirectOnClickHandler(cartElement);
+        this.addControlButtonClickHandler(controlButton, cartItemAmount, cartItemTotalPrice, product);
+        return cartItemCard;
+    };
+
+    private addRedirectOnClickHandler = (cartElement: E) => {
+        cartElement.addEventListener('click', (e) => {
+            const target = e.target as E;
+            if (target.closest('.cart-item__image img') || target.closest('.cart-item__name-brand')) {
+                window.location.hash = `#/product/${cartElement.dataset.id}`;
+            }
+        });
+    };
+
+    private addControlButtonClickHandler = (
+        controlButton: E,
+        cartItemAmount: E,
+        cartItemTotalPrice: E,
+        product: IProduct
+    ) => {
+        controlButton.addEventListener('click', (e) => {
+            const target = e.target as E;
+            const closest = target.closest('.reduce-increase') as E;
+
             const cart = getCartItemsArrFromLS();
-            if (cart !== null) {
-                const id = productInCart.id;
-                const index = cart.findIndex((s: CartItem) => Number(s.id) === +id);
-                if (cart[index].amount !== 1) {
-                    cart[index].amount -= 1;
+            const index = cart.findIndex((cartItem: CartItem) => cartItem.id === product.id);
+
+            if (closest && closest.classList.contains('reduce-item__image')) {
+                if (cart[index].amount > 1) {
+                    cart[index].amount = cart[index].amount - 1;
+                    cartItemAmount.innerHTML = `${cart[index].amount}`;
+                    const totalPrice = (cart[index].amount * cart[index].productPrice).toFixed(2);
+                    cartItemTotalPrice.innerHTML = `${totalPrice}`;
                     setCartItemsArrToLS(cart);
-                    currAmount.innerHTML = `${cart[index].amount}`;
                     Header.updateHeaderCart();
-                    this.updateQtySum(getTotalDiscount());
-                    totalPriceTemp.innerText = `${(cart[index].amount * productInCart.price).toFixed(2)}`;
                 } else {
                     cart.splice(index, 1);
                     setCartItemsArrToLS(cart);
-                    this.emptyCart();
                     Header.updateHeaderCart();
-                    const numOfPages = Math.ceil(cart.length / +limit.value);
-                    if (currentPage.textContent) {
-                        if (+currentPage.textContent >= numOfPages) {
-                            this.updateCart(numOfPages, Number(limit.value));
-                            currentPage.innerText = String(numOfPages);
+
+                    if (this.cartLength === 1) {
+                        window.location.hash = '#/cart';
+                    } else {
+                        this.cartLength--;
+
+                        if (this.checkPagePossibility()) {
+                            const pageParameter = getParameterFromQuery('page');
+                            const newPageParameter = pageParameter
+                                ? pageParameter.length === 1
+                                    ? `${this.page} `
+                                    : `${this.page}`
+                                : this.page;
+                            window.location.hash = addParameterToQuery(
+                                'page',
+                                `${newPageParameter}`,
+                                deleteParameterFromQuery('page', `${pageParameter}`)
+                            );
                         } else {
-                            this.updateCart(Number(currentPage.textContent), Number(limit.value));
+                            window.location.hash = addParameterToQuery(
+                                'page',
+                                `${this.page - 1}`,
+                                deleteParameterFromQuery('page', `${this.page}`)
+                            );
                         }
                     }
-                    this.updateQtySum(getTotalDiscount());
+                }
+            } else if (closest && closest.classList.contains('increase-item__image')) {
+                if (cart[index].amount < product.stock) {
+                    cart[index].amount = cart[index].amount + 1;
+                    cartItemAmount.innerHTML = `${cart[index].amount}`;
+                    const totalPrice = (cart[index].amount * cart[index].productPrice).toFixed(2);
+                    cartItemTotalPrice.innerHTML = `${totalPrice}`;
+                    setCartItemsArrToLS(cart);
+                    Header.updateHeaderCart();
+                }
+            }
+            this.countSummary();
+        });
+    };
+
+    private checkPagination = (hasEvents: boolean) => {
+        const paginationButtons = (this.contentElement as E).querySelector('.pagination-buttons') as E;
+        const paginationButtonValueElement = paginationButtons.querySelector('.pagination__value') as E;
+        const pageLimiterInput = (this.contentElement as E).querySelector('.limit-input') as I;
+
+        paginationButtonValueElement.innerHTML = `${this.page}`;
+        pageLimiterInput.value = `${this.limit}`;
+
+        if (!hasEvents) {
+            this.addPageLimiterInputHandler(pageLimiterInput, paginationButtonValueElement);
+            this.addPaginationButtonsClickHandler(paginationButtons, paginationButtonValueElement);
+        }
+    };
+
+    private addPageLimiterInputHandler = (pageLimiterInput: I, paginationButtonValueElement: E) => {
+        pageLimiterInput.addEventListener('input', () => {
+            if (+pageLimiterInput.value <= 0) {
+                pageLimiterInput.value = `${1}`;
+            }
+            this.limit = +pageLimiterInput.value;
+
+            let hash = addParameterToQuery(
+                'limit',
+                `${this.limit}`,
+                deleteParameterFromQuery('limit', getParameterFromQuery('limit') as string)
+            );
+
+            if (!this.checkPagePossibility()) {
+                paginationButtonValueElement.innerHTML = `${this.countMaxPossiblePages()}`;
+
+                const pageParameter = getParameterFromQuery('page');
+                if (pageParameter) {
+                    hash = deleteParameterFromQuery('page', pageParameter, hash);
+                    hash = addParameterToQuery('page', `${Math.ceil(this.cartLength / +pageLimiterInput.value)}`, hash);
+                }
+            }
+            window.location.hash = hash;
+        });
+    };
+
+    private addPaginationButtonsClickHandler = (paginationButtons: E, paginationButtonValueElement: E) => {
+        paginationButtons.addEventListener('click', (e) => {
+            const target = e.target as E;
+            const closest = target.closest('.prev-next') as E;
+
+            if (closest && closest.classList.contains('button_next')) {
+                if (this.checkPagePossibility(this.page + 1)) {
+                    this.page = this.page + 1;
+                    paginationButtonValueElement.innerHTML = `${this.page}`;
+
+                    window.location.hash = addParameterToQuery(
+                        'page',
+                        paginationButtonValueElement.innerHTML,
+                        deleteParameterFromQuery('page', getParameterFromQuery('page') as string)
+                    );
+                }
+            } else if (closest && closest.classList.contains('button_prev')) {
+                if (this.page > 1) {
+                    this.page = this.page - 1;
+                    paginationButtonValueElement.innerHTML = `${this.page}`;
+
+                    window.location.hash = addParameterToQuery(
+                        'page',
+                        paginationButtonValueElement.innerHTML,
+                        deleteParameterFromQuery('page', getParameterFromQuery('page') as string)
+                    );
                 }
             }
         });
+    };
 
-        const increaseBtn = cartCard.querySelector('.add-item__image') as E;
-        increaseBtn.addEventListener('click', () => {
-            const cart = getCartItemsArrFromLS();
-            const id = productInCart.id;
-            const index = cart.findIndex((s: CartItem) => Number(s.id) === id);
+    private checkPagePossibility = (page = this.page) => {
+        return this.countMaxPossiblePages() >= page;
+    };
 
-            if (cart[index].amount < productInCart.stock) {
-                cart[index].amount += 1;
-                setCartItemsArrToLS(cart);
-                currAmount.innerHTML = `${cart[index].amount}`;
-                Header.updateHeaderCart();
-                totalPriceTemp.innerText = `${(cart[index].amount * productInCart.price).toFixed(2)}`;
+    private countMaxPossiblePages = () => {
+        return Math.ceil(this.cartLength / this.limit);
+    };
+
+    private getTemplateElement(idSelector: string) {
+        return (this.contentElement as E).querySelector(idSelector) as HTMLTemplateElement;
+    }
+
+    private countSummary = () => {
+        const cart = getCartItemsArrFromLS();
+        const discounts = getDiscountsFromLS();
+
+        ((this.contentElement as E).querySelector('.total-amount__value span') as E).innerHTML = `${cart.reduce(
+            (acc: number, cartItem: CartItem) => acc + cartItem.amount,
+            0
+        )}`;
+
+        const totalPrice = cart
+            .reduce((acc: number, cartItem: CartItem) => acc + cartItem.amount * cartItem.productPrice, 0)
+            .toFixed(2);
+
+        ((this.contentElement as E).querySelector('.total-price__value span') as E).innerHTML = `${totalPrice}`;
+
+        let discountPrice = 0;
+        if (discounts.length > 0) {
+            discountPrice = +(
+                (totalPrice * discounts.reduce((acc: number, discount: DiscountItem) => acc + discount.percent, 0)) /
+                100
+            ).toFixed(2);
+        }
+        ((this.contentElement as E).querySelector('.total-discount__value span') as E).innerHTML = `${discountPrice}`;
+        ((this.contentElement as E).querySelector('.total-summary-price__value span') as E).innerHTML = `${(
+            totalPrice - discountPrice
+        ).toFixed(2)}`;
+    };
+
+    private checkPromoDiscount = () => {
+        const discounts = getDiscountsFromLS();
+
+        discounts.forEach((discount: DiscountItem) => {
+            this.addDiscountCardToContainer(discount);
+        });
+
+        this.addPromoInputHandler();
+    };
+
+    private buildDiscountPromoCards = (
+        discount: DiscountItem,
+        discountPromoTemplate: HTMLTemplateElement,
+        dataSelector: string
+    ) => {
+        const discountCard = discountPromoTemplate.content.cloneNode(true) as E;
+        (discountCard.querySelector(dataSelector) as E).dataset.id = `${discount.key}`;
+        (discountCard.querySelector('.promo__text') as E).innerHTML = `${discount.name} - ${discount.percent}%`;
+        return discountCard;
+    };
+
+    private addDiscountCardToContainer = (discountPromo: DiscountItem) => {
+        const discountPromoTemplate = this.getTemplateElement('#discount-template');
+        const discountsContainer = (this.contentElement as E).querySelector('.total-discount__promos') as E;
+        const discountCard = this.buildDiscountPromoCards(
+            discountPromo,
+            discountPromoTemplate,
+            '.discount__promo'
+        ) as E;
+
+        (discountCard.querySelector('.promo__button') as E).addEventListener('click', () => {
+            (discountsContainer.querySelector(`[data-id=${discountPromo.key}]`) as E).remove();
+            const discounts = getDiscountsFromLS();
+            discounts.splice(
+                discounts.findIndex((d: DiscountItem) => d.key === discountPromo.key),
+                1
+            );
+            setDiscountsToLS(discounts);
+            this.countSummary();
+        });
+
+        discountsContainer.append(discountCard);
+    };
+
+    private addPromoInputHandler = () => {
+        const promoInput = (this.contentElement as E).querySelector('.promocode') as I;
+        const promoContainer = (this.contentElement as E).querySelector('.promo__container') as E;
+
+        promoInput.addEventListener('input', () => {
+            const inputValue = promoInput.value;
+            const promoItem = getDiscount(inputValue) as DiscountItem | undefined;
+            const discounts = getDiscountsFromLS();
+
+            if (promoItem && discounts.filter((promo: DiscountItem) => promo.key === promoItem.key).length === 0) {
+                const promoTemplate = this.getTemplateElement('#promo-template');
+                const promoCard = this.buildDiscountPromoCards(promoItem, promoTemplate, '.promo');
+
+                (promoCard.querySelector('.promo__button') as E).addEventListener('click', () => {
+                    this.addDiscountCardToContainer(promoItem);
+                    promoContainer.innerHTML = '';
+                    promoInput.value = '';
+                    discounts.push(promoItem);
+                    setDiscountsToLS(discounts);
+                    this.countSummary();
+                });
+
+                promoContainer.append(promoCard);
+            } else {
+                promoContainer.innerHTML = '';
             }
         });
 
-        cartElem.addEventListener('click', (e) => {
+        promoInput.addEventListener('blur', () => {
+            promoInput.value = '';
+        });
+    };
+
+    private renderPopup = () => {
+        const checkoutButton = (this.contentElement as E).querySelector('.cart-summary__button_checkout') as E;
+        const overlay = (this.contentElement as E).querySelector('.modal__overlay') as E;
+        checkoutButton.addEventListener('click', () => {
+            overlay.classList.toggle('modal__overlay_hidden');
+        });
+
+        overlay.addEventListener('click', (e) => {
             const target = e.target as E;
-            if (target.closest('.cart-item__image') || target.closest('.cart-item__name-brand')) {
-                window.location.hash = `#/coffee/${cartElem.dataset.id}`;
+            if (target && target.classList.contains('modal__overlay')) {
+                overlay.classList.toggle('modal__overlay_hidden');
             }
         });
 
-        return cartCard;
-    };
-
-    init = () => {
-        this.updateCart(1, 3);
-        this.updateQtySum();
-        this.emptyCart();
-        this.promoCheck(promo);
-        this.initPromoDraw(promo);
-        this.renderPopup();
-        this.checkoutOperations();
-    };
-
-    static openCheckout = () => {
-        const popupContainer = document.querySelector('.modal__overlay') as E;
-        popupContainer.classList.remove('modal__overlay--hidden');
-    };
-
-    checkoutOperations = () => {
-        const checkoutBtn = document.querySelector('.cart-summary__checkout-button') as E;
-        const popupContainer = document.querySelector('.modal__overlay') as E;
-        checkoutBtn.addEventListener('click', () => {
-            popupContainer.classList.remove('modal__overlay--hidden');
-        });
-
-        popupContainer.addEventListener('click', (e) => {
-            const target = e.target as E;
-            if (!target.closest('.modal__wrapper')) {
-                popupContainer.classList.add('modal__overlay--hidden');
-            }
-        });
-    };
-
-    renderPopup = () => {
-        const modalWrapper = document.querySelector('.modal__wrapper') as E;
-        const purchaseForm = document.querySelector('.purchase-form') as E;
-        const nameInputContainer = document.querySelector('.purchase__name') as E;
-        const phoneInputContainer = document.querySelector('.purchase__phone') as E;
-        const addressInputContainer = document.querySelector('.purchase__address') as E;
-        const emailInputContainer = document.querySelector('.purchase__email') as E;
-        const creditCardNumberContainer = document.querySelector('.credit-card__number') as E;
-        const creditCardExpirationContainer = document.querySelector('.credit-card__expiration') as E;
-        const creditCardCvvContainer = document.querySelector('.credit-card__cvv') as E;
-        const creditCardCompanyContainer = document.querySelector('.credit-card__company') as E;
-        const formSubmitButton = document.querySelector('.form__button .button_submit') as E;
+        const modalWrapper = (this.contentElement as E).querySelector('.modal__wrapper') as E;
+        const purchaseForm = (this.contentElement as E).querySelector('.purchase-form') as E;
+        const nameInputContainer = (this.contentElement as E).querySelector('.purchase__name') as E;
+        const phoneInputContainer = (this.contentElement as E).querySelector('.purchase__phone') as E;
+        const addressInputContainer = (this.contentElement as E).querySelector('.purchase__address') as E;
+        const emailInputContainer = (this.contentElement as E).querySelector('.purchase__email') as E;
+        const creditCardNumberContainer = (this.contentElement as E).querySelector('.credit-card__number') as E;
+        const creditCardExpirationContainer = (this.contentElement as E).querySelector('.credit-card__expiration') as E;
+        const creditCardCvvContainer = (this.contentElement as E).querySelector('.credit-card__cvv') as E;
+        const creditCardCompanyContainer = (this.contentElement as E).querySelector('.credit-card__company') as E;
+        const formSubmitButton = (this.contentElement as E).querySelector('.form__button .button_submit') as E;
 
         const nameInput = nameInputContainer.querySelector('.form__input') as I;
         const nameFlag = nameInputContainer.querySelector('.form__input-flag') as E;
@@ -335,229 +597,19 @@ export default class Cart {
                 e.preventDefault();
                 window.setTimeout(() => {
                     setCartItemsArrToLS([]);
+                    setDiscountsToLS([]);
                     Header.updateHeaderCart();
-                    setAppliedPromos([]);
-                    setTotalDiscount(0);
                     window.location.hash = '#/shop';
-                }, 5000);
+                }, 3000);
             }
         });
     };
 
-    updateCartByPages = () => {
-        let page = 1;
-
-        const cart = getCartItemsArrFromLS();
-        const limit = document.querySelector('.limit') as HTMLInputElement;
-        let limitPerPage: number;
-        let numOfPages: number;
-
-        const nextBtn = document.querySelector('.next-page') as HTMLDivElement;
-        const prevBtn = document.querySelector('.prev-page') as HTMLDivElement;
-        const currentPage = document.querySelector('.current-page') as HTMLDivElement;
-
-        nextBtn.addEventListener('click', () => {
-            limitPerPage = Number(limit.value);
-            numOfPages = Math.ceil(cart.length / limitPerPage);
-            if (page < numOfPages) {
-                page += 1;
-                currentPage.innerText = String(page);
-                this.updateCart(page, limitPerPage);
-            }
-        });
-
-        prevBtn.addEventListener('click', () => {
-            limitPerPage = Number(limit.value);
-            numOfPages = Math.ceil(cart.length / limitPerPage);
-            if (page > 1) {
-                page -= 1;
-                currentPage.innerText = String(page);
-                this.updateCart(page, limitPerPage);
-            }
-        });
-
-        limit.addEventListener('input', () => {
-            limitPerPage = Number(limit.value);
-            numOfPages = Math.ceil(cart.length / limitPerPage);
-            if (page > numOfPages) {
-                page = numOfPages;
-                this.updateCart(numOfPages, limitPerPage);
-                currentPage.innerText = String(page);
-            } else {
-                this.updateCart(page, limitPerPage);
-            }
-        });
-    };
-
-    updateCart = (page: number, limitPerPage: number) => {
-        const cart = getCartItemsArrFromLS();
-        const container = document.querySelector('.cart-item__container') as E;
-        container.innerHTML = '';
-        for (let i = limitPerPage * (page - 1); i < limitPerPage * page; i += 1) {
-            if (i < cart.length) {
-                const element = getProductById(cart[i].id);
-                if (container && element) {
-                    container.append(this.createCartList(element, i + 1));
-                }
-            }
+    private checkBuyNowEvent = () => {
+        if (buyNowEvent(true) !== null) {
+            ((this.contentElement as E).querySelector('.modal__overlay') as E).classList.toggle(
+                'modal__overlay_hidden'
+            );
         }
-    };
-
-    private updateQtySum = (discountVal = 0) => {
-        let qty = 0;
-        let sum = 0;
-
-        const qtyElem = document.querySelector('.cart-summary__term p') as E;
-        const sumElem = document.querySelector('.cart-summary__definition p') as E;
-        const totalElem = document.querySelector('.cart-summary__amount') as E;
-        const discountElem = document.querySelector('.discount-amount') as E;
-        const oldPriceElem = document.querySelector('.cart-summary__old') as E;
-        const cart = getCartItemsArrFromLS();
-
-        cart.forEach((product: CartItem) => {
-            qty += product.amount;
-            sum += product.totalPrice * product.amount;
-        });
-
-        const total = sum * ((100 - discountVal) / 100);
-        const discount = (sum * discountVal) / 100;
-
-        qtyElem.innerText = `Товары (${qty}шт) на сумму`;
-        sumElem.innerText = `${sum.toFixed(2)}$`;
-        totalElem.innerText = `${total.toFixed(2)}$`;
-        discountElem.innerText = `- ${discount.toFixed(2)}$`;
-        oldPriceElem.innerText = `${sum.toFixed(2)}$`;
-    };
-
-    private updateQtySumPromoAdd = (promo: PromoItem) => {
-        let totalDiscount = 0;
-        const discountElems = document.querySelectorAll<E>('.discount-line-container');
-        discountElems.forEach((elem) => {
-            const discountAmount = Number(promo[String(elem.dataset.code)].slice(-3, -1));
-            totalDiscount += discountAmount;
-        });
-        setTotalDiscount(totalDiscount);
-    };
-
-    private emptyCart = () => {
-        const cart = getCartItemsArrFromLS();
-        if (cart.length === 0) {
-            const container = document.querySelector('.cart-item') as E;
-            container.innerHTML = '<div class="cart-empty">Cart is Empty</div>';
-        }
-    };
-
-    private promoCheck = (promo: PromoItem) => {
-        const promoInput = document.querySelector('.promocode') as HTMLInputElement;
-        const promoContainer = document.querySelector('.promo-outside-container') as E;
-
-        promoInput.addEventListener('input', (e) => {
-            if (e.target) {
-                const inputValue = (e.target as HTMLInputElement).value;
-                const keys = Object.keys(promo);
-                if (keys.includes(inputValue)) {
-                    promoContainer.append(this.addPromoLine(promo, promo[inputValue.toLowerCase()]));
-                } else {
-                    promoContainer.innerHTML = '';
-                }
-            }
-        });
-    };
-
-    private initPromoDraw = (promoData: PromoItem) => {
-        const appliedPromos = getAppliedPromos();
-        const discountContainer = document.querySelector('.discount-container') as E;
-        appliedPromos.forEach((appliedPromo: string) => {
-            if (appliedPromos.length > 0) {
-                this.addDiscountVisibility();
-                const newContainer = this.createDiscountLine(promoData, appliedPromo);
-                const promoCode = Object.keys(promoData).find((key) => promoData[key] === appliedPromo);
-                (newContainer.querySelector('.discount-line-container') as E).id = `${promoCode}`;
-                (newContainer.querySelector('.discount-line-container') as E).dataset.code = `${promoCode}`;
-                discountContainer.append(newContainer);
-                this.updateQtySumPromoAdd(promoData);
-                this.updateQtySum(getTotalDiscount());
-            }
-        });
-    };
-
-    private addPromoLine = (promoData: PromoItem, promo: string) => {
-        const promoTemplate = document.querySelector('#promo-template') as HTMLTemplateElement;
-        const promoLine = promoTemplate.content.cloneNode(true) as E;
-        const promoText = promoLine.querySelector('.promo-text') as E;
-        const discountContainer = document.querySelector('.discount-container') as E;
-        promoText.innerText = promo;
-        const addPromoBtn = promoLine.querySelector('.promo-apply-btn') as E;
-        const promoCode = Object.keys(promoData).find((key) => promoData[key] === promo);
-        addPromoBtn.addEventListener('click', () => {
-            const promoAlreadyApplied = document.getElementById(`${promoCode}`);
-            if (!promoAlreadyApplied) {
-                this.addDiscountVisibility();
-                const newContainer = this.createDiscountLine(promoData, promo);
-                (newContainer.querySelector('.discount-line-container') as E).id = `${promoCode}`;
-                (newContainer.querySelector('.discount-line-container') as E).dataset.code = `${promoCode}`;
-                if (getAppliedPromos().length < 1) {
-                    const promoArr: string[] = [];
-                    promoArr.push(promo);
-                    setAppliedPromos(promoArr);
-                } else {
-                    const alreadyApplied: string[] = getAppliedPromos();
-                    alreadyApplied.push(promo);
-                    setAppliedPromos(alreadyApplied);
-                }
-                discountContainer.append(newContainer);
-                this.updateQtySumPromoAdd(promoData);
-                this.updateQtySum(getTotalDiscount());
-            }
-        });
-        return promoLine;
-    };
-
-    private createDiscountLine = (promoData: PromoItem, promo: string) => {
-        const discountTemplate = document.querySelector('#discount-template') as HTMLTemplateElement;
-        const discountLine = discountTemplate.content.cloneNode(true) as E;
-        const discountText = discountLine.querySelector('.discount-text') as E;
-        const removeDiscountBtn = discountLine.querySelector('.discount-remove-btn') as E;
-
-        removeDiscountBtn.addEventListener('click', () => {
-            removeDiscountBtn.closest('.discount-line-container')?.remove();
-            const discountContainer = document.querySelectorAll<E>('.discount-line-container');
-            this.updateQtySumPromoAdd(promoData);
-            this.updateQtySum(getTotalDiscount());
-            console.log(discountContainer.length);
-            if (discountContainer.length === 0) {
-                this.removeDiscountVisibility();
-            }
-            if (getAppliedPromos().length > 1) {
-                let alreadyApplied: string[] = getAppliedPromos();
-                const index = alreadyApplied.findIndex((el) => el === promo);
-                alreadyApplied = alreadyApplied.slice(index, 1);
-                setAppliedPromos(alreadyApplied);
-            } else {
-                setAppliedPromos([]);
-            }
-        });
-        discountText.innerText = promo;
-        return discountLine;
-    };
-
-    private addDiscountVisibility = () => {
-        const discountTitles = document.querySelectorAll('.discount-title');
-        discountTitles.forEach((title) => {
-            if (!title.classList.contains('discount-title__visible')) {
-                title.classList.add('discount-title__visible');
-            }
-        });
-        const oldPriceElem = document.querySelector('.cart-summary__old') as E;
-        oldPriceElem.classList.add('cart-summary__old--visible');
-    };
-
-    private removeDiscountVisibility = () => {
-        const discountTitles = document.querySelectorAll('.discount-title');
-        discountTitles.forEach((title) => {
-            title.classList.remove('discount-title__visible');
-        });
-        const oldPriceElem = document.querySelector('.cart-summary__old') as E;
-        oldPriceElem.classList.remove('cart-summary__old--visible');
     };
 }

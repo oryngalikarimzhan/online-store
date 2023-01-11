@@ -1,5 +1,5 @@
-import ITemplate from '../model/ITemplate';
-import { STORENAME } from '../utilities/Constants';
+import ITemplate from '../data/ITemplate';
+import { STORENAME } from '../model/utilities/Constants';
 
 export default class CartPageTemplate implements ITemplate {
     template;
@@ -8,151 +8,153 @@ export default class CartPageTemplate implements ITemplate {
 
     constructor() {
         this.template = document.createElement('article');
-        this.template.className = 'cart-item';
+        this.template.className = 'cart';
         this.template.innerHTML = `
-        <section class="cart-item__content">
-                    <div class="cart-item__header">
-                        <div class="cart-item__title">
-                            Корзина
+            <section class="cart-items">
+                <template id="empty-cart">
+                    <div class="cart-empty">Корзина пуста</div>
+                </template>
+                <div class="cart-items__heading">
+                    <div class="cart__title">
+                        Корзина
+                    </div>
+                    <div class="cart-items__pagination-control">
+                        <div class="pagination-control__limit">
+                            На странице: 
+                            <input type="number" class="limit-input" min="1">
                         </div>
-                        <div class="cart-item__page-control">
-                            <div class="cart-item__limit">
-                                Items per page: 
-                                <input type="number" class="limit" min="1" max="5" value="3">
-                            </div>
-                            <div class="cart-item__pages">
-                                Page: 
-                                <div class="button_stock">
-                                    <div class="stock__reduce-item">
-                                        <div class="prev-page"></div>
-                                    </div>
-                                    <div class="current-page">
-                                        1
-                                    </div>
-                                    <div class="stock__add-item">
-                                        <div class="next-page"></div>
-                                    </div>
+                        <div class="pagination-control__buttons">
+                            Страница: 
+                            <div class="pagination-buttons">
+                                <div class="pagination-button">
+                                    <div class="prev-next button_prev"></div>
+                                </div>
+                                <div class="pagination__value">
+                                    1
+                                </div>
+                                <div class="pagination-button">
+                                    <div class="prev-next button_next"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="cart-item__container"></div>
-
-                    <template id="cart-item-template">
-                        <div class="cart-outer-container">
+                </div>
+                <div class="cart-items__container"></div>
+                <template id="cart-item-template">
+                    <div class="cart-item__wrapper">
+                        <div class="cart-item">
+                            <div class="cart-item__order">1</div>
+                            <div class="cart-item__image">
+                                <img src="">
+                            </div>
                             <div class="cart-item__info">
-                                <div class="cart-item__images">
-                                    <div class="order-num"></div>
-                                    <div class="cart-item__image">
-                                        <img src="#" alt="">
+                                <div class="cart-item__name-brand"></div>
+                                <div class="cart-item__description">
+                                    <div class="cart-item__price">
+                                        Цена:&nbsp;<span></span>$
                                     </div>
-                                </div>
-                                <div class="info__wrapper">
-                                    <div class="cart-item__name-brand">Lavazza Super Crema</div>
-                                    <div class="cart-item__description">Мягкий и сливочный эспрессо средней обжарки с нотками лесного ореха и коричневого сахара. 60% арабика и 40% робуста</div>
-                                </div>
-                                <div class="control__wrapper">
-                                    <div class="stock__button">
-                                        <div class="stock__item-left">
-                                            <div class="item-left__text">
-                                                Stock:
-                                            </div>
-                                            <div class="item-left__amount">
-                                                20
-                                            </div>
-                                        </div>
-                                        <div class="button_stock">
-                                            <div class="stock__reduce-item">
-                                                <div class="reduce-item__image"></div>
-                                            </div>
-                                            <div class="stock__amount-item">
-                                                1
-                                            </div>
-                                            <div class="stock__add-item">
-                                                <div class="add-item__image"></div>
-                                            </div>
-                                        </div>
-                                        <div class="price-total">
-                                            <div class="total__price">
-                                                Цена: 
-                                                <span>20</span>$ 
-                                            </div>
-                                        </div>
+                                    <div class="cart-item__stock">
+                                        В наличии:&nbsp;<span></span>шт.
                                     </div>
                                 </div>
                             </div>
-                            <div class="cart-item__devider"></div>
-                        </div>
-                    </template>
-                </section>
-                <section class="cart-item__summary">
-                    <div class="promo">
-                        <div class="promo-title">Промокод</div>
-                        <input type="search" placeholder="Введите промокод" class="promocode">
-                        <div class="promo-outside-container"></div>
-                        <div class="promo-examples">Promo for test: 'RS', 'EPM'</div>
-                    </div>
-                    <div class="cart-summary">
-                        <div class="cart-summary__wrapper">
-                            <div class="cart-summary__title">
-                                <p class="cart-summary__total-price-title">Сумма к оплате</p>
+                            <div class="cart-item__control">
+                            
+                                <div class="control__button">
+                                    <div class="button_stock">
+                                        <div class="stock__reduce-item">
+                                            <div class="reduce-increase reduce-item__image"></div>
+                                        </div>
+                                        <div class="stock__amount-item">2</div>
+                                        <div class="stock__add-item">
+                                            <div class="reduce-increase increase-item__image"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="control__item-total-price">
+                                    <div class="item-total-price__text">
+                                        Сумма:
+                                    </div>
+                                    <div class="item-total-price__num">
+                                        <span></span>$ 
+                                    </div>
+                                </div>
                             </div>
-                            <ul class="cart-summary__list">
-                                <span class="">
-                                    <li class="cart-summary__item">
-                                        <div class="cart-summary__term">
-                                            <p class="">3 товара на сумму</p>
-                                        </div>
-                                        <div class="cart-summary__definition">
-                                            <p class="">1&nbsp;080&nbsp;470&nbsp;₸</p>
-                                        </div>
-                                    </li>
-                                </span>
-                                <span class="">
-                                    <li class="cart-summary__item">
-                                        <div class="cart-summary__term">
-                                            <p class="discount-title">Экономия</p>
-                                            <div class="discount-container"></div>
-                                        </div>
-                                        <div class="discount-title">
-                                            <div class="discount-amount">20&nbsp;000&nbsp;₸</div>
-                                        </div>
-                                    </li>
-                                </span>
-                                <span class="">
-                                    <li class="cart-summary__item cart-summary__item--bordered">
-                                        <div class="cart-summary__term">
-                                            <p class="">К оплате</p>
-                                        </div>
-                                        <div class="cart-summary__definition">
-                                            <p class="cart-summary__old">1&nbsp;080&nbsp;470&nbsp;₸</p>
-                                            <p class="cart-summary__amount">1&nbsp;080&nbsp;470&nbsp;₸</p>
-                                        </div>
-                                    </li>
-                                </span>
-                            </ul>
-                            <button class="cart-summary__checkout-button">
-                                <p class="">Оформить заказ</p>
-                            </button>
-                        <span class="">
-                            <p class="rules">Оформляя заказ, вы подтверждаете свое согласие с нашими условиями покупки в интернет-магазине</p>
-                        </span>
-                    </div>
-                    </div>
-                    <template id="promo-template">
-                        <div class="promo-line-container">
-                            <div class="promo-text">Rolling Scopes School - 10%</div>
-                            <div class="promo-apply-btn">Add</div>
                         </div>
-                    </template>
-                    <template id="discount-template">
-                    <div class="discount-line-container">
-                        <div class="discount-text">Rolling Scopes School - 10%</div>
-                        <div class="discount-remove-btn">Remove</div>
+                        <div class="cart-item__devider"></div>
                     </div>
                 </template>
-                </section>
-                <div class="modal__overlay modal__overlay--hidden">
+            </section>
+            <section class="cart__summary">
+                <div class="promos">
+                    <div class="promos__title">Промокод</div>
+                    <input type="search" class="promocode" placeholder="Введите промокод" title="Тестовые промокоды: 'RS', 'EPM'">
+                    <div class="promo__container">
+                    </div>
+                    <template id="promo-template">
+                        <div class="promo">
+                            <div class="promo__text">Rolling Scopes School - 10%</div>
+                            <div class="promo__button">Применить</div>
+                        </div>
+                    </template>
+                </div>
+                <div class="cart-summary">
+                    <div class="cart-summary__title">
+                        Итого
+                    </div>
+                    <div class="cart-summary__total-amount">
+                        <div class="total-amount__text">
+                            Количество товаров:
+                        </div>
+                        <div class="total-amount__value">
+                            <span></span>шт.
+                        </div>
+                    </div>
+                    <div class="cart-summary__total-price">
+                        <div class="total-price__text">
+                            На сумму:
+                        </div>
+                        <div class="total-price__value">
+                            <span></span>$
+                        </div>
+                    </div>
+                    <div class="cart-summary__total-discount">
+                        <div class="total-discount__heading">
+                            <div class="total-discount__text">
+                                Промокоды:
+                            </div>
+                            <div class="total-discount__value">
+                                -<span>0</span>$
+                            </div>
+                        </div>
+                        <div class="total-discount__promos">
+                            <template id="discount-template">
+                                <div class="discount__promo">
+                                    <div class="promo__text">Rolling Scopes School - 10%</div>
+                                    <div class="promo__button">Не применять</div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <div class="cart-summary__total-summary-price">
+                        <div class="total-summary-price__text">
+                            К оплате:
+                        </div>
+                        <div class="total-summary-price__value">
+                            <span></span>$
+                        </div>
+                    </div>
+                    <button class="cart-summary__button_checkout">
+                        Оформить заказ
+                    </button>
+                    <span class="checkout__terms">
+                        * Оформляя заказ, вы подтверждаете свое согласие с нашими условиями покупки в интернет-магазине
+                    </span>
+                </div>
+            </section>
+            <div class="modal__overlay modal__overlay_hidden">
                 <div class="modal__wrapper">
                     <form class="purchase-form">
                         <div class="form__input-field purchase__name" warner="">

@@ -19,14 +19,14 @@
     .select-box__sort-img {
       width: 30px;
       height: 30px;
-      background: url(./assets/sort.svg) center;
+      background: url(./assets/icons/sort.svg) center;
       background-size: cover;
     }
 
     .select-box__open-close {
       width: 30px;
       height: 30px;
-      background: url(./assets/open.svg) center;
+      background: url(./assets/icons/open.svg) center;
       background-size: cover;
     }
   }
@@ -64,7 +64,7 @@
 .select-box_active {
   .select-box__label {
     .select-box__open-close {
-      background: url(./assets/close.svg) center;
+      background: url(./assets/icons/close.svg) center;
       background-size: cover;
     }
   }

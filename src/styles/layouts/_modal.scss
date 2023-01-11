@@ -14,7 +14,7 @@
   justify-content: center;
 }
 
-.modal__overlay--hidden {
+.modal__overlay_hidden {
   display: none;
 }
 
@@ -82,12 +82,12 @@
     }
 
     .form__input-flag_valid {
-      background: url(./assets/valid.svg) no-repeat center, linear-gradient($color-positive, $color-positive);
+      background: url(./assets/icons/valid.svg) no-repeat center, linear-gradient($color-positive, $color-positive);
       background-size: 28px 28px;
     }
 
     .form__input-flag_invalid {
-      background: url(./assets/wrong.svg) no-repeat center, linear-gradient($color-negative, $color-negative);
+      background: url(./assets/icons/wrong.svg) no-repeat center, linear-gradient($color-negative, $color-negative);
       background-size: 28px 28px;
     }
 
@@ -140,27 +140,27 @@
       }
 
       .credit-card__company_visa {
-        background: url(./assets/visa.svg) no-repeat center;
+        background: url(./assets/icons/visa.svg) no-repeat center;
         background-size: contain;
       }
 
       .credit-card__company_mastercard {
-        background: url(./assets/mastercard.svg) no-repeat center;
+        background: url(./assets/icons/mastercard.svg) no-repeat center;
         background-size: contain;
       }
 
       .credit-card__company_unionpay {
-        background: url(./assets/union-pay.svg) no-repeat center;
+        background: url(./assets/icons/union-pay.svg) no-repeat center;
         background-size: contain;
       }
     
       .credit-card__company_jcb {
-        background: url(./assets/jcb.svg) no-repeat center;
+        background: url(./assets/icons/jcb.svg) no-repeat center;
         background-size: contain;
       }
 
       .credit-card__company_credit {
-        background: url(./assets/credit.svg) no-repeat center;
+        background: url(./assets/icons/credit.svg) no-repeat center;
         background-size: 65px 50px;
       }
 

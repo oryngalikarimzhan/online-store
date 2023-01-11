@@ -1,5 +1,6 @@
-import { CartItem } from '../model/Types';
-import { CARTSTORAGE, SHOPLINK } from './Constants';
+import { CartItem, DiscountItem } from '../../data/Types';
+import { BUYNOW, CARTSTORAGE, DISCOUNTSTORAGE } from './Constants';
+import promo from '../json-store/promo.json';
 
 function parseStr(composedStr: string) {
     return composedStr
@@ -27,8 +28,7 @@ function addParameterToQuery(queryKey: string, queryValue: string | string[], ha
     return hash;
 }
 
-function deleteParameterFromQuery(queryKey: string, queryValue: string) {
-    let hash = window.location.hash;
+function deleteParameterFromQuery(queryKey: string, queryValue: string, hash = window.location.hash) {
     const params = hash.split('/?');
     const searchParams = new URLSearchParams(params[1]);
     const prevValue = searchParams.get(queryKey);
@@ -50,6 +50,13 @@ function deleteParameterFromQuery(queryKey: string, queryValue: string) {
     return hash;
 }
 
+function getParameterFromQuery(queryKey: string) {
+    const hash = window.location.hash;
+    const params = hash.split('/?');
+    const searchParams = new URLSearchParams(params[1]);
+    return searchParams.get(queryKey);
+}
+
 function getCartItemsArrFromLS() {
     return JSON.parse(window.localStorage.getItem(CARTSTORAGE) || '[]');
 }
@@ -58,34 +65,39 @@ function setCartItemsArrToLS(cart: CartItem[]) {
     window.localStorage.setItem(CARTSTORAGE, JSON.stringify(cart));
 }
 
-function getTotalDiscount() {
-    return Number(JSON.parse(window.localStorage.getItem('discount') || '[]'));
-}
-
-function setTotalDiscount(discountVal: number) {
-    window.localStorage.setItem('discount', JSON.stringify(discountVal));
-}
-
-function getAppliedPromos() {
-    return JSON.parse(window.localStorage.getItem('promosApplied') || '[]');
-}
-
-function setAppliedPromos(promocode: string[]) {
-    window.localStorage.setItem('promosApplied', JSON.stringify(promocode));
-}
-
-function getShopLinkFromSessionStorage() {
-    const href = window.sessionStorage.getItem(SHOPLINK);
+function getLinkFromSessionStorage(linkName: string, defaultHash: string) {
+    const href = window.sessionStorage.getItem(linkName);
     const currentHash = window.location.hash;
-    const shopHash = '#/shop';
+    const shopHash = defaultHash;
     if (href === null && !currentHash.includes(shopHash)) {
-        window.sessionStorage.setItem(SHOPLINK, shopHash);
+        window.sessionStorage.setItem(linkName, shopHash);
         return shopHash;
     } else if (href !== null && !currentHash.includes(shopHash)) {
         return href;
     }
-    window.sessionStorage.setItem(SHOPLINK, currentHash);
+    window.sessionStorage.setItem(linkName, currentHash);
     return currentHash;
+}
+
+function getDiscountsFromLS() {
+    return JSON.parse(window.localStorage.getItem(DISCOUNTSTORAGE) || '[]');
+}
+
+function setDiscountsToLS(discounts: DiscountItem[]) {
+    window.localStorage.setItem(DISCOUNTSTORAGE, JSON.stringify(discounts));
+}
+
+function getDiscount(inputValue: string) {
+    return promo.promocodes.find((promo) => promo.key === inputValue.toLowerCase());
+}
+
+function buyNowEvent(isTriggered = false) {
+    if (isTriggered) {
+        const buyNow = window.sessionStorage.getItem(BUYNOW);
+        window.sessionStorage.removeItem(BUYNOW);
+        return buyNow;
+    }
+    return window.sessionStorage.setItem(BUYNOW, BUYNOW);
 }
 
 export {
@@ -94,9 +106,10 @@ export {
     deleteParameterFromQuery,
     getCartItemsArrFromLS,
     setCartItemsArrToLS,
-    getTotalDiscount,
-    setTotalDiscount,
-    setAppliedPromos,
-    getAppliedPromos,
-    getShopLinkFromSessionStorage,
+    getDiscountsFromLS,
+    setDiscountsToLS,
+    getDiscount,
+    getLinkFromSessionStorage,
+    getParameterFromQuery,
+    buyNowEvent,
 };

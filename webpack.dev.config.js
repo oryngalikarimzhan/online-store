@@ -8,6 +8,7 @@ module.exports = {
         static: {
             directory: path.resolve(__dirname, 'dist'),
         },
+        hot: true,
     },
     module: {
         rules: [
@@ -38,7 +39,7 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'style.[contenthash].css'
+            filename: 'style.css'
         })
     ]
 };

@@ -71,10 +71,10 @@
     }
 
     .filters__reset {
-      background: url(./assets/filter.svg) center no-repeat;
+      background: url(./assets/icons/filter.svg) center no-repeat;
       background-size: 22px 22px;
       &:hover {
-        background: url(./assets/reset.svg) center no-repeat;
+        background: url(./assets/icons/reset.svg) center no-repeat;
         background-size: 22px 22px;
         &::after {
           content: attr(content);
@@ -83,7 +83,7 @@
     }
 
     .filters__save {
-      background: url(./assets/save.svg) center no-repeat;
+      background: url(./assets/icons/save.svg) center no-repeat;
       background-size: 22px 22px;
       &:hover::after {
         left: -35px;
@@ -92,7 +92,7 @@
     }
 
     .filters__restore {
-      background: url(./assets/restore.svg) center no-repeat;
+      background: url(./assets/icons/restore.svg) center no-repeat;
       background-size: 22px 22px;
       &:hover::after {
         left: -45px;
@@ -205,15 +205,15 @@
       }
 
       #light .roast-img {
-        background: url(./assets/roast-level-light.svg) center no-repeat, linear-gradient($color-light, $color-light);
+        background: url(./assets/icons/roast-level-light.svg) center no-repeat, linear-gradient($color-light, $color-light);
         background-size: 30px 35px;
       }
       #medium .roast-img {
-        background: url(./assets/roast-level-medium.svg) center no-repeat, linear-gradient($color-light, $color-light);
+        background: url(./assets/icons/roast-level-medium.svg) center no-repeat, linear-gradient($color-light, $color-light);
         background-size: 30px 35px;
       }
       #dark .roast-img {
-        background: url(./assets/roast-level-dark.svg) center no-repeat, linear-gradient($color-light, $color-light);
+        background: url(./assets/icons/roast-level-dark.svg) center no-repeat, linear-gradient($color-light, $color-light);
         background-size: 30px 35px;
       }
 
@@ -310,7 +310,7 @@
           width: 24px;
           height: 24px;
           cursor: pointer;
-          background: url(./assets/search.svg) center;
+          background: url(./assets/icons/search.svg) center;
           background-size: contain;
         }
       }
@@ -331,20 +331,20 @@
       }
 
       #blocks {
-        background: url(./assets/blocks.svg) center no-repeat;
+        background: url(./assets/icons/blocks.svg) center no-repeat;
         background-size: 18px 18px;
       }
       #list {
-        background: url(./assets/list.svg) center no-repeat;
+        background: url(./assets/icons/list.svg) center no-repeat;
         background-size: 22px 22px;
       }
 
       .view__option_checked#blocks {
-        background: url(./assets/blocks-light.svg) center no-repeat, linear-gradient(to right, $color-main, $color-main);
+        background: url(./assets/icons/blocks-light.svg) center no-repeat, linear-gradient(to right, $color-main, $color-main);
         background-size: 18px 18px;
       }
       .view__option_checked#list {
-        background: url(./assets/list-light.svg) center no-repeat, linear-gradient(to right, $color-main, $color-main);
+        background: url(./assets/icons/list-light.svg) center no-repeat, linear-gradient(to right, $color-main, $color-main);
         background-size: 22px 22px;
       }
     }

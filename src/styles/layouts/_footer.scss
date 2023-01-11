@@ -14,7 +14,7 @@
       display: block;
       width: 150px;
       height: 70px;
-      background: url(./assets/rs-school-js.svg) center no-repeat;
+      background: url(./assets/icons/rs-school-js.svg) center no-repeat;
       background-size: contain;
     }
     .creators-info {
@@ -28,8 +28,11 @@
         align-items: center;
         column-gap: 5px;
         span {
-          position: relative;
-          top: 2px;
+          display: block;
+          width: 25px;
+          height: 25px;
+          background: url(./assets/icons/git.svg) no-repeat center;
+          background-size: 25px 25px;
         }
       }
     }

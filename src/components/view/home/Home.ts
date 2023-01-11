@@ -1,4 +1,4 @@
-import { E } from '../../model/Types';
+import { E } from '../../data/Types';
 
 export default class Home {
     draw = (htmlElement: E) => {

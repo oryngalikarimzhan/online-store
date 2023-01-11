@@ -1,5 +1,5 @@
-import ITemplate from '../model/ITemplate';
-import { STORENAME } from '../utilities/Constants';
+import ITemplate from '../data/ITemplate';
+import { STORENAME } from '../model/utilities/Constants';
 
 export default class HomePageTemplate implements ITemplate {
     template;

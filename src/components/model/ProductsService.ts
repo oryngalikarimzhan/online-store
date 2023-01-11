@@ -1,5 +1,7 @@
-import IProduct from '../model/IProduct';
-import data from '../store/data.json';
+import IProduct from '../data/IProduct';
+import { CartItem } from '../data/Types';
+import data from './json-store/data.json';
+import { getCartItemsArrFromLS } from './utilities/Utils';
 
 export const getAllProducts = () => {
     return data.products.map((el) => el);
@@ -22,7 +24,7 @@ export const getProductsByBrands = (products: IProduct[], queryValue: string[]) 
 };
 
 export const getProductsByPrices = (products: IProduct[], queryValue: string[]) => {
-    const [min, max] = queryValue.map((n) => +n);
+    const [min, max] = queryValue.map(Number);
     if (!Number.isNaN(min) && !Number.isNaN(max)) {
         return products.filter((product) => min <= product.price && max >= product.price);
     }
@@ -30,7 +32,7 @@ export const getProductsByPrices = (products: IProduct[], queryValue: string[]) 
 };
 
 export const getProductsByStockAmount = (products: IProduct[], queryValue: string[]) => {
-    const [min, max] = queryValue.map((n) => +n);
+    const [min, max] = queryValue.map(Number);
     if (!Number.isNaN(min) && !Number.isNaN(max)) {
         return products.filter((product) => min <= product.stock && max >= product.stock);
     }
@@ -57,4 +59,21 @@ export const getProductsOrderedBy = (products: IProduct[], queryValue: string[])
         return products.sort((a, b) => (a[<K>queryValue[0]] < b[<K>queryValue[0]] ? 1 : -1));
     }
     return products;
+};
+
+export const getProductsToViewByPageAndLimit = (page: number, limit: number): IProduct[] => {
+    if (Number.isNaN(page) || Number.isNaN(limit)) return [];
+
+    const cart = getCartItemsArrFromLS();
+    if (cart.length === 0) return [];
+
+    const products = cart.map((cartItem: CartItem) => getProductById(cartItem.id));
+
+    let productsToView;
+    if (products.length >= page * limit) {
+        productsToView = products.slice((page - 1) * limit, page * limit);
+    } else {
+        productsToView = products.slice((page - 1) * limit);
+    }
+    return productsToView;
 };

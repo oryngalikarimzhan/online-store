@@ -1,5 +1,5 @@
 import AppController from '../controller/AppController';
-import { QueryMap, RequestParams } from '../model/Types';
+import { QueryMap, RequestParams } from '../data/Types';
 
 class AppRouter {
     readonly controller: AppController;
@@ -21,11 +21,11 @@ class AppRouter {
 
     private route = () => {
         const requestParams: RequestParams = AppRouter.parsePath();
-        console.group('REQUEST');
-        console.log('hash =', window.location.hash);
-        console.log('endpoint =', requestParams.endpoint);
-        console.log('queries =', requestParams.queries);
-        console.groupEnd();
+        // console.group('REQUEST');
+        // console.log('hash =', window.location.hash);
+        // console.log('endpoint =', requestParams.endpoint);
+        // console.log('queries =', requestParams.queries);
+        // console.groupEnd();
 
         const controllerMethod = this.routes.get(requestParams.endpoint);
         if (controllerMethod) {

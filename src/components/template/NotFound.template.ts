@@ -1,5 +1,5 @@
-import ITemplate from '../model/ITemplate';
-import { STORENAME } from '../utilities/Constants';
+import ITemplate from '../data/ITemplate';
+import { STORENAME } from '../model/utilities/Constants';
 
 export default class NotFoundPageTemplate implements ITemplate {
     template;
@@ -27,7 +27,7 @@ export default class NotFoundPageTemplate implements ITemplate {
                     </h4>
                 </div>
             <div class="error-404__button">
-                <button onclick="location.href='#shop'" class="button button_regular">
+                <button onclick="location.href='#/shop'" class="button button_regular">
                     К покупке
                 </button>
             </div>`;

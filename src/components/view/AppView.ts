@@ -1,6 +1,6 @@
-import IProduct from '../model/IProduct';
-import ITemplate from '../model/ITemplate';
-import { QueryMap } from '../model/Types';
+import IProduct from '../data/IProduct';
+import ITemplate from '../data/ITemplate';
+import { QueryMap } from '../data/Types';
 
 import Header from './Header';
 import Shop from './shop/Shop';
@@ -51,13 +51,15 @@ export default class AppView {
         this.addPageHeaders(template);
     };
 
-    renderCartPage = () => {
+    renderCartPage = (productsToView: IProduct[], page: number, limit: number) => {
         const template = new CartPageTemplate();
-        const htmlElement = template.getPageTemplate();
-        this.cart.draw(htmlElement);
-        this.cart.init();
-        this.cart.updateCartByPages();
-        this.addPageHeaders(template);
+        const oldHtmlElement = this.cart.getContentElement();
+        if (oldHtmlElement !== null) {
+            this.cart.draw(oldHtmlElement, productsToView, page, limit);
+        } else {
+            this.cart.draw(template.getPageTemplate(), productsToView, page, limit);
+            this.addPageHeaders(template);
+        }
     };
 
     renderHomePage = () => {
