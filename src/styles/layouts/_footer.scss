@@ -1,0 +1,50 @@
+.footer {
+  height: 70px;
+  margin-top: auto;
+  background: $color-primary;
+  overflow: hidden;
+
+  .project-info {
+    height: 100%;
+    @include flex(center, center);
+    flex-wrap: wrap;
+    column-gap: 10vw;
+
+    .course-img {
+      display: block;
+      width: 150px;
+      height: 70px;
+      background: url(./assets/icons/rs-school-js.svg) center no-repeat;
+      background-size: contain;
+    }
+    .creators-info {
+      display: inline-flex;
+      align-items: center;
+      column-gap: 20px;
+
+      a {
+        color: $color-light;
+        display: inline-flex;
+        align-items: center;
+        column-gap: 5px;
+        span {
+          display: block;
+          width: 25px;
+          height: 25px;
+          background: url(./assets/icons/git.svg) no-repeat center;
+          background-size: 25px 25px;
+        }
+      }
+    }
+  }
+
+  @include media-tablet {
+    .project-info {
+      .course-img {
+        background-size: cover;
+        width: 100px;
+        height: 40px;
+      }
+    }
+  }
+}

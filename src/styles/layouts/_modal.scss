@@ -1,0 +1,228 @@
+.modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 3;
+  background: rgba($color-dark, 0.7);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal__overlay_hidden {
+  display: none;
+}
+
+.modal__wrapper {
+  width: 500px;
+  height: 600px;
+  min-width: 300px;
+  max-height: 95vh;
+
+  background: $color-primary;
+  @extend %border;
+
+  padding: 30px;
+  margin: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  @include media-tablet {
+    padding: 10px;
+  }
+}
+
+.purchase-form {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  row-gap: 30px;
+
+  .form__input-field {
+    width: 90%;
+    height: 40px;
+    padding: 5px 10px;
+
+    position: relative;
+
+    background: $color-light;
+    @extend %border;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 5px;
+
+    .form__input {
+      flex: 1;
+      font-size: 2rem;
+      background: $color-light;
+      color: $color-primary;
+    }
+
+    .form__input-flag {
+      background: $color-main;
+
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+    }
+
+    .form__input-flag_valid {
+      background: url(./assets/icons/valid.svg) no-repeat center, linear-gradient($color-positive, $color-positive);
+      background-size: 28px 28px;
+    }
+
+    .form__input-flag_invalid {
+      background: url(./assets/icons/wrong.svg) no-repeat center, linear-gradient($color-negative, $color-negative);
+      background-size: 28px 28px;
+    }
+
+    &::before {
+      content: attr(warner);
+      color: $color-negative;
+
+      position: absolute;
+      left: 10px;
+      top: 40px;
+    }
+
+    @include media-tablet {
+      width: 100%;
+    }
+  }
+
+  .form__credit-card {
+    margin-top: 20px;
+
+    .credit-card {
+      width: 280px;
+      height: 170px;
+      background: $color-dark;
+      border-radius: 10px;
+
+      padding: 10px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .card__input {
+        margin-top: 5px;
+        text-align: center;
+        background: $color-light;
+        border-radius: 5px;
+        color: $color-primary;
+      }
+
+      .credit-card__company {
+        height: 40px;
+        width: 100px;
+
+        align-self: flex-end;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .credit-card__company_visa {
+        background: url(./assets/icons/visa.svg) no-repeat center;
+        background-size: contain;
+      }
+
+      .credit-card__company_mastercard {
+        background: url(./assets/icons/mastercard.svg) no-repeat center;
+        background-size: contain;
+      }
+
+      .credit-card__company_unionpay {
+        background: url(./assets/icons/union-pay.svg) no-repeat center;
+        background-size: contain;
+      }
+    
+      .credit-card__company_jcb {
+        background: url(./assets/icons/jcb.svg) no-repeat center;
+        background-size: contain;
+      }
+
+      .credit-card__company_credit {
+        background: url(./assets/icons/credit.svg) no-repeat center;
+        background-size: 65px 50px;
+      }
+
+      .credit-card__number {
+        display: flex;
+        flex-direction: column;
+
+        .credit-number-input {
+          letter-spacing: 1px;
+          font-size: 2rem;
+          font-weight: bold;
+        }
+      }
+
+      .credit-card__bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .credit-card__expiration {
+          display: flex;
+          flex-direction: column;
+
+          .expiration-input {
+            width: 70px;
+          }
+        }
+
+        .credit-card__cvv {
+          display: flex;
+          flex-direction: column;
+
+          .cvv-input {
+            width: 50px;
+          }
+        }
+      }
+    }
+  }
+
+  .form__button {
+    margin-top: auto;
+
+    .button_submit {
+      width: 150px;
+      height: 40px;
+      border-radius: 10px;
+      background: $color-main;
+      color: $color-light;
+    }
+  }
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+
+  @include media-mobile {
+    row-gap: 25px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+      width: 0;
+    }
+  }
+}

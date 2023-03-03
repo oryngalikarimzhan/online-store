@@ -1,0 +1,39 @@
+.navigation {
+  display: flex;
+  align-items: center;
+  column-gap: 2.5rem;
+
+  @include media-tablet {
+    height: 0;
+    @include flex(center, center, column);
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    transition: visibility 0s linear 0s, opacity 0.2s linear 0.2s, height 0.3s linear;
+  }
+}
+
+.link {
+  transition: color 0.3s linear;
+  white-space: nowrap;
+  color: $color-main;
+
+  &:hover {
+    color: $color-light;
+  }
+}
+
+.link_current {
+  white-space: nowrap;
+  color: $color-light;
+}
+
+@include media-tablet {
+  .header_burger-on {
+    .navigation {
+      height: 60px;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}

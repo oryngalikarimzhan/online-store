@@ -1,0 +1,186 @@
+.button {
+  cursor: pointer;
+  user-select: none;
+}
+
+
+
+
+
+
+.button_regular {
+  width: 200px;
+  height: 60px;
+  background: $color-primary;
+  color: $color-light;
+  border-radius: 30px;
+  transition: background 0.3s linear, color 0.2s linear;
+  
+  &:hover {
+    background: $color-light;
+    color: $color-main;
+  }
+}
+
+
+
+
+
+
+
+
+
+.button_price {
+  width: 100%;
+  height: 50px;
+  background: $color-main;
+  color: $color-light;
+  border-radius: 10px;
+
+  font-size: 16px;
+  padding: 5px;
+  @include flex(center, space-between);
+  transition: background 0.2s ease-out, color 0.2s ease-out;
+
+  .button_price__text {
+    flex: 1;
+    text-align: center;
+    color: $color-light;
+  }
+
+  .button_price__info {
+    background: $color-light;
+    color: $color-main;
+    font-size: 16px;
+    height: 100%;
+    width: 30%;
+    border-radius: 10px;
+    @include flex();
+  }
+
+  &:hover {
+    background: $color-light;
+    color: $color-main;
+
+    .button_price__text {
+      color: $color-main;
+    }
+    .button_price__info {
+      background: $color-main;
+      color: $color-light;
+    }
+  }
+}
+
+.button_price_checked {
+  background: $color-main;
+
+  .button_price__text {
+    color: $color-light;
+  }
+
+  .button_price__info {
+    background: $color-primary;
+    color: $color-light;
+  }
+
+  &:hover {
+    .button_price__info {
+      background: $color-primary;
+    }
+  };
+}
+
+
+
+
+
+
+
+
+.button_small {
+  background: $color-light;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  outline: 0px solid $color-main;
+  border: 2px solid $color-main;
+  cursor: pointer;
+  user-select: none;
+  &:hover {
+    border: 2px solid $color-primary;
+    outline: 2px solid $color-main;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+.button_stock {
+  @extend %border;
+  width: 45%;
+  height: 100%;
+  background: $color-light;
+  
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  user-select: none;
+
+  .stock__reduce-item {
+    width: 35%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .reduce-item__image {
+      cursor: pointer;
+      background: url(./assets/icons/reduce.svg) center no-repeat, linear-gradient(rgba($color-main, 0.2), rgba($color-main, 0.2));
+      background-size: 16px 16px;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+
+      &:hover {
+        background: url(./assets/icons/reduce.svg) center no-repeat, linear-gradient(rgba($color-dark, 0.2), rgba($color-dark, 0.2));
+        background-size: 16px 16px;
+      }
+    }
+  }
+
+  .stock__amount-item {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 400;
+  }
+
+  .stock__add-item {
+    cursor: pointer;
+    width: 35%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .increase-item__image {
+      background: url(./assets/icons/add.svg) center no-repeat, linear-gradient(rgba($color-main, 0.2), rgba($color-main, 0.2));
+      background-size: 16px 16px;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+
+      &:hover {
+        background: url(./assets/icons/add.svg) center no-repeat, linear-gradient(rgba($color-dark, 0.2), rgba($color-dark, 0.2));
+        background-size: 16px 16px;
+      }
+    }
+  }
+}

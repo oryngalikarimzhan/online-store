@@ -1,0 +1,75 @@
+.select-box {
+  @include flex(center, center, column);
+  position: relative;
+  
+  .select-box__label {
+    display: flex;
+    align-items: center;
+    font-size: 1.6rem;
+    color: $color-main;
+    width: 100%;
+    background: $color-primary;
+    padding: 5px;
+    column-gap: 10px;
+    z-index: 2;
+    cursor: pointer;
+    user-select: none;
+    @extend %border;
+
+    .select-box__sort-img {
+      width: 30px;
+      height: 30px;
+      background: url(./assets/icons/sort.svg) center;
+      background-size: cover;
+    }
+
+    .select-box__open-close {
+      width: 30px;
+      height: 30px;
+      background: url(./assets/icons/open.svg) center;
+      background-size: cover;
+    }
+  }
+
+  .select-box__options {
+    z-index: 0;
+    width: 100%;
+    padding: 30px 5px 5px;
+    background: $color-primary;
+    position: absolute;
+    font-size: 1.6rem;
+    top: 20px;
+    left: 0;
+    @extend %border;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform .2s linear;
+
+    .option {
+      padding-left: 5px;
+      color: $color-main;
+      cursor: pointer;
+      user-select: none;
+      &:hover {
+        color: $color-light;
+      }
+    }
+
+    .option__checked {
+      background: rgba($color-dark, 0.4);
+    }
+  }
+}
+
+.select-box_active {
+  .select-box__label {
+    .select-box__open-close {
+      background: url(./assets/icons/close.svg) center;
+      background-size: cover;
+    }
+  }
+
+  .select-box__options {
+    transform: scaleY(1);
+  }
+}

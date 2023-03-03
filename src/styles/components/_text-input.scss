@@ -1,0 +1,19 @@
+.text-input {
+  @include flex(center, space-between);
+  padding: 5px;
+  @extend %border;
+  font-size: 1.6rem;
+  color: $color-main;
+  input {
+    background: $color-light;
+    border-radius: 5px;
+    font-size: 1.6rem;
+    color: $color-main;
+    width: 55%;
+  }
+
+  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+  }
+}

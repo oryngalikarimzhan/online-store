@@ -1,0 +1,221 @@
+.home {
+  background: white;
+}
+.home-page__promo {
+  height: calc(100vh - 70px);
+  background: url("https://i.postimg.cc/90Gnkq4s/main-bg.jpg") center top no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+
+  @include media-tablet {
+    height: calc(100vh - 50px);
+    background-size: cover;
+  }
+
+  .promo__wrapper {
+    margin-top: 25vh;
+    @include flex(center, flex-start, column);
+
+    h2 {
+      width: 100%;
+      color: $color-light;
+      white-space: nowrap;
+      animation: typing 2s steps(22), blink .5s step-end infinite alternate;
+      overflow: hidden;
+      border-right: 3px solid;
+    }
+
+    .promo__button {
+      margin-top: 5vh;
+    }
+
+    @keyframes typing {
+      from {
+        width: 0
+      }
+    }
+    
+    @keyframes blink {
+      50% {
+        border-color: transparent
+      }
+    }
+  }
+}
+
+.home-page__info {
+  background: $color-primary;
+  height: 70vh;
+  @include flex(center, center, column);
+
+
+  .info__wrapper {
+    width: 70vw;
+    color: $color-light;
+    text-align: center;
+  }
+
+  .shop__button {
+    margin-top: 5vh;
+    .button {
+      background: $color-main;
+
+      &:hover {
+        background: $color-light;
+      }
+    }
+  }
+}
+
+.home-page__content-1 {
+  min-height: 80vh;
+  background: url("https://i.postimg.cc/DfsH0RC5/top-bg-image.jpg") center top no-repeat;
+  background-size: 100vw auto;
+  @include flex(flex-start, center, column);
+
+  .shop__button {
+    margin: 80vh 0 0 5vw;
+  }
+
+  h2 {
+    color: $color-primary;
+    margin: 30px 0 20vh 5vw;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  @include media-tablet {
+    justify-content: flex-end;
+    align-items: center;
+    .shop__button {
+      margin: 35vh 0 0 0;
+    }
+    h2 {
+      margin: 30px 0 10vh;
+    }
+  }
+
+}
+
+.home-page__content-2 {
+  min-height: 80vh;
+  background: url("https://i.postimg.cc/LXg7zWm9/middle-bg-image.jpg") center top no-repeat;
+  background-size: 100vw auto;
+  @include flex(center, center, column);
+  
+  .shop__button {
+    margin-top: 40vh;
+  }
+
+  h4 {
+    margin: 80vh 0 0;
+    padding-bottom: 10vh;
+    color: $color-primary;
+    width: 80vw;
+    text-align: center;
+    text-shadow: 0 0 3px white;
+    margin-bottom: 100px;
+  }
+
+  @include media-tablet {
+    min-height: 70vh;
+    justify-content: flex-start;
+    .shop__button {
+      display: none;
+    }
+    h4 {
+      margin-top: 55vh;
+    }
+  }
+
+}
+
+.coffee-sorts__wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  .coffee-sort {
+    position: relative;
+    flex: 0 0 50%;
+
+    .coffee-sort__title {
+      text-align: center;
+    }
+
+    .coffee-sort__img {
+      width: 100%;
+    }
+    .coffee-sort__content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -30%);
+      text-align: center;
+      color: $color-light;
+      visibility: hidden;
+      backdrop-filter: blur(20px);
+      opacity: 0;
+      transition: opacity .5s linear, visibility .5s linear, backdrop-filter .5s linear;
+    }
+    &:hover {
+      .coffee-sort__content {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  }
+
+}
+
+.home-page__coffee-roast {
+  background: url("https://i.postimg.cc/MGFNfw23/bottom-bg-image.jpg") center bottom no-repeat;
+  background-size: 100vw auto;
+  display: flex;
+  justify-content: center;
+
+  .coffee-roast__wrapper {
+    @include flex(center, flex-start, column);
+
+    .coffee-roast__image {
+      width: 100%;
+      transform: scale(-1, -1);
+    }
+
+    .coffee-roast__title {
+      width: 80vw;
+      text-align: center;
+    }
+
+    .coffee-roast__roast-levels {
+      margin-top: 2vh;
+      width: 80vw;
+      display: flex;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+
+      .roast-level {
+        @include flex(center, flex-start, column);
+        font-size: calc(1.5rem + 10 * (100vw / 1200));
+        padding: 0 10px;
+
+        h4 {
+          margin-top: 10px;
+          font-weight: 700;
+        }
+
+        ul {
+          margin-top: 2vh;
+          color: $color-dark;
+        }
+      }
+    }
+    
+    .coffee-roast__button {
+      margin: 5vh 0 30vh;
+    }
+  }
+}
+
+

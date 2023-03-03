@@ -1,0 +1,67 @@
+.dual-slider {
+  @include flex(center, space-evenly, column);
+  row-gap: 15px;
+
+  .dual-slider__input-fields {
+    @include flex(center, space-evenly);
+    width: 100%;
+    .input-field {
+      width: 30%;
+
+      input {
+        text-align: center;
+        color: $color-dark;
+        transition: background 0.2s ease-out;
+      }
+  
+      &:hover {
+        input {
+          background: rgba($color-dark, 0.1);
+        }
+      }
+    }
+  }
+
+  .dual-slider__ranges {
+    margin-top: 5px;
+    height: 10px;
+    width: 100%;
+    position: relative;
+
+    input {
+      -webkit-appearance: none; 
+      appearance: none;
+      height: 5px;
+      width: 100%;
+      position: absolute;
+      background-color: rgba($color-dark, 0.1);
+      pointer-events: none;
+      border-radius: 5px;
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        pointer-events: all;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        background: $color-light;
+        border: 2px solid $color-main;
+        cursor: pointer;
+
+        &:hover {
+          outline: 2px solid $color-main;
+          border: 2px solid $color-primary;
+        }
+      }
+    }
+
+    .range_from {
+      top: 2.5px;
+      height: 0;
+      z-index: 1;
+    }
+  }
+}
+
+
+
