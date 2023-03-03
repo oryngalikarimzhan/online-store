@@ -5,21 +5,18 @@ module.exports = {
             {
                 test: /\.(c|sa|sc)ss$/i,
                 use: [
-                    'style-loader', 
+                    'style-loader',
                     'css-loader',
                     {
                         loader: "postcss-loader",
                         options: {
-                        postcssOptions: {
-                            plugins: [
-                            [
-                                "postcss-preset-env",
-                                {
-                                // Options
-                                },
-                            ],
-                            ],
-                        },
+                            postcssOptions: {
+                                plugins: [
+                                    [
+                                        "postcss-preset-env",
+                                    ],
+                                ],
+                            },
                         },
                     },
                     'sass-loader'
@@ -27,4 +24,4 @@ module.exports = {
             }
         ]
     }
-}
+};

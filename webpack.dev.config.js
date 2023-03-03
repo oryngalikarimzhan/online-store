@@ -8,28 +8,24 @@ module.exports = {
         static: {
             directory: path.resolve(__dirname, 'dist'),
         },
-        hot: true,
     },
     module: {
         rules: [
             {
                 test: /\.(c|sa|sc)ss$/i,
                 use: [
-                    MiniCssExtractPlugin.loader, 
+                    MiniCssExtractPlugin.loader,
                     'css-loader',
                     {
                         loader: "postcss-loader",
                         options: {
-                        postcssOptions: {
-                            plugins: [
-                            [
-                                "postcss-preset-env",
-                                {
-                                // Options
-                                },
-                            ],
-                            ],
-                        },
+                            postcssOptions: {
+                                plugins: [
+                                    [
+                                        "postcss-preset-env"
+                                    ],
+                                ],
+                            },
                         },
                     },
                     'sass-loader'

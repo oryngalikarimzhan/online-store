@@ -158,7 +158,8 @@ export default class Cart {
                     Header.updateHeaderCart();
 
                     if (this.cartLength === 1) {
-                        window.location.hash = '#/cart';
+                        if (window.location.hash === '#/cart') window.location.hash = '#/cart/';
+                        else window.location.hash = '#/cart';
                     } else {
                         this.cartLength--;
 

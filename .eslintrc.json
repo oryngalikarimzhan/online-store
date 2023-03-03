@@ -1,10 +1,6 @@
 {
     "root": true,
-    "plugins": [
-        "@typescript-eslint",
-        "prettier", 
-        "import"
-    ],
+    "plugins": ["@typescript-eslint", "prettier"],
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/eslint-recommended",
@@ -16,13 +12,14 @@
     "parserOptions": {
         "ecmaVersion": 2020,
         "sourceType": "module",
-        "project": "**/tsconfig.json"
+        "project": "*/tsconfig.json"
     },
     "env": {
         "es6": true,
         "browser": true,
         "node": true
     },
+    "ignorePatterns": ["**.js"],
     "rules": {
         "no-debugger": "off",
         "no-console": 0,

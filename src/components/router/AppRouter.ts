@@ -21,11 +21,6 @@ class AppRouter {
 
     private route = () => {
         const requestParams: RequestParams = AppRouter.parsePath();
-        // console.group('REQUEST');
-        // console.log('hash =', window.location.hash);
-        // console.log('endpoint =', requestParams.endpoint);
-        // console.log('queries =', requestParams.queries);
-        // console.groupEnd();
 
         const controllerMethod = this.routes.get(requestParams.endpoint);
         if (controllerMethod) {
@@ -44,7 +39,6 @@ class AppRouter {
         return { endpoint, queries: AppRouter.getQueries(params) };
     };
 
-    // FOR TEST ?roast=medium,dark&sorts=robusta,arabica&prices=20,30&order=name,asc&stock=40,50&brands=lavazza,stumptown+coffee+roasters,illy
     static getQueries = (params: string): QueryMap => {
         const queries: QueryMap = {};
         const searchParams = new URLSearchParams(params);
